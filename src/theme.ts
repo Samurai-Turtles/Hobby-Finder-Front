@@ -4,12 +4,12 @@ const customConfig = defineConfig({
   theme: {
     tokens: {
       colors: {
-        orange: { value: "#FF9D00" },
-        red: { value: "#FF4949" },
-        black: { value: "#000000" },
-        white: { value: "#FFFFFF" },
-        lightGrey: { value: "#EFEFEF" },
-        darkGrey: { value: "#848484" },
+        customOrange: { value: "#FF9D00" },
+        customRed: { value: "#FF4949" },
+        customBlack: { value: "#000000" },
+        customWhite: { value: "#FFFFFF" },
+        customLightGrey: { value: "#EFEFEF" },
+        customDarkGrey: { value: "#848484" },
       },
     },
   },
