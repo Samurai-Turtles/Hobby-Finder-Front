@@ -1,14 +1,15 @@
 import { Button, Flex, Input } from "@chakra-ui/react";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 
-interface InputSearchProps {
+interface SearchBarProps {
   placeHolder: string;
 }
 
-function InputSearch({ placeHolder }: InputSearchProps) {
+function SearchBar({ placeHolder }: SearchBarProps) {
   return (
     <Flex gap="2">
       <Input
+        id="searchBar"
         placeholder={placeHolder}
         variant="subtle"
         outline="none"
@@ -22,4 +23,4 @@ function InputSearch({ placeHolder }: InputSearchProps) {
   );
 }
 
-export default InputSearch;
+export default SearchBar;
