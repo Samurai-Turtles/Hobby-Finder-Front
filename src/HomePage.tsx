@@ -1,46 +1,23 @@
 import { Container, Flex, Heading } from "@chakra-ui/react";
 import SearchBar from "./components/SearchBar";
 import CustomTag from "./components/CustomTag/CustomTag";
+import { useEffect, useState } from "react";
+import { Evento } from "./utils/mockDatas";
+import { getMockEventos } from "./utils/mockDatas";
 import EventCard from "./components/EventCard";
-import { useState } from "react";
 import { formatarData } from "./utils/formatData";
 
-type Evento = {
-  id: string;
-  nome: string;
-  dataInicio: string;
-  dataFim: string;
-  descricao: string;
-  privacidade: string;
-  CapacidadeMaxima: number;
-  QuantosUsuarios: number;
-};
-
 function HomePage() {
-  const [eventos, setEventos] = useState<Evento[]>([
-    {
-      id: "6f3a0d2b-e904-46c0-b64a-16e0bd897a26",
-      nome: "Racha do seu zé",
-      dataInicio: "2022-10-31T09:00:00.594Z",
-      dataFim: "2022-10-31T09:00:00.594Z",
-      descricao:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.",
-      privacidade: "PUBLICO",
-      CapacidadeMaxima: 150,
-      QuantosUsuarios: 0,
-    },
-    {
-      id: "6f3a0d2b-e904-46c0-b64a-16e0bd897a27",
-      nome: "Racha do seu zé",
-      dataInicio: "2022-10-31T09:00:00.594Z",
-      dataFim: "2022-10-31T09:00:00.594Z",
-      descricao:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum nulla consequuntur quam blanditiis, neque sint architecto sapiente fugiat assumenda! Quas quam totam odit dolore nulla minima, sunt reprehenderit culpa! Velit.",
-      privacidade: "PRIVADO",
-      CapacidadeMaxima: 150,
-      QuantosUsuarios: 0,
-    },
-  ]);
+  const [eventos, setEventos] = useState<Evento[]>([]);
+
+  useEffect(() => {
+    const carregarEventos = async () => {
+      const data = await getMockEventos();
+      setEventos(data);
+    };
+
+    carregarEventos();
+  }, []);
 
   return (
     <Container maxWidth="90vw" py={5}>
