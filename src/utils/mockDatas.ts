@@ -151,7 +151,7 @@ const getMockEventos = async (): Promise<Evento[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(mockEventos);
-    }, 1000); // Simula um atraso de 1 segundo
+    }, 0);
   });
 };
 

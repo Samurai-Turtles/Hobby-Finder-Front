@@ -7,22 +7,44 @@ import { getMockEventos } from "./utils/mockDatas";
 import EventCard from "./components/EventCard";
 import { formatarData } from "./utils/formatData";
 
+interface EventCardInterface {
+  evento: Evento;
+  display: "none" | "flex";
+}
+
 function HomePage() {
-  const [eventos, setEventos] = useState<Evento[]>([]);
+  const [eventos, setEventos] = useState<EventCardInterface[]>([]);
+  const [termoBusca, setTermoBusca] = useState("");
 
   useEffect(() => {
     const carregarEventos = async () => {
       const data = await getMockEventos();
-      setEventos(data);
+      const events: EventCardInterface[] = data.map((e) => ({
+        evento: e,
+        display: "flex",
+      }));
+      setEventos(events);
     };
 
     carregarEventos();
   }, []);
 
+  // Atualiza o display dos eventos conforme o termo de busca
+  useEffect(() => {
+    setEventos((prevEventos) =>
+      prevEventos.map((e) => ({
+        ...e,
+        display: e.evento.nome.toLowerCase().includes(termoBusca.toLowerCase())
+          ? "flex"
+          : "none",
+      })),
+    );
+  }, [termoBusca]);
+
   return (
     <Container maxWidth="90vw" py={5}>
       <Flex direction="column" gap={5}>
-        <SearchBar placeHolder="Buscar evento" />
+        <SearchBar placeHolder="Buscar evento" setTermoBusca={setTermoBusca} />
         <Flex gap={2} wrap="wrap">
           <CustomTag texto="#tag1" visual="solid" />
           <CustomTag texto="#tag1" visual="solid" />
@@ -35,18 +57,19 @@ function HomePage() {
           <CustomTag texto="#tag1" visual="outline" />
         </Flex>
         <Heading textStyle="2xl">Próximos Eventos</Heading>
-        {eventos.map((e: Evento) => {
+        {eventos.map((e: EventCardInterface, index: number) => {
           return (
             <EventCard
-              key={e.id}
+              key={index}
               imgSrc="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-              nomeEvento={e.nome}
-              descricao={e.descricao}
+              nomeEvento={e.evento.nome}
+              descricao={e.evento.descricao}
               localizacao="LOCAL"
               distancia={100}
-              dataInicial={formatarData(e.dataInicio)}
-              dataFinal={formatarData(e.dataFim)}
-              privacidade={e.privacidade}
+              dataInicial={formatarData(e.evento.dataInicio)}
+              dataFinal={formatarData(e.evento.dataFim)}
+              privacidade={e.evento.privacidade}
+              display={e.display}
             />
           );
         })}
