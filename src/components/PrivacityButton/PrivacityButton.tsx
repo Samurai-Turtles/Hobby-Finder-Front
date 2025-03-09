@@ -3,6 +3,7 @@
 import { Box, Flex, Text, useRecipe } from "@chakra-ui/react";
 import { privacityButtonRecipe } from "./PrivacityButton.recipe";
 import { LockSimple, LockSimpleOpen } from "@phosphor-icons/react";
+import { capitalizeFirstLetter } from "@/utils/formatData";
 
 interface PrivacityButtonProps {
   privacidade: string;
@@ -31,7 +32,9 @@ function PrivacityButton({ privacidade }: PrivacityButtonProps) {
           <LockSimple size={16} />
         </Box>
       )}
-      <Text px={1}>{privacidade}</Text>
+      <Text px={1} fontWeight="bold">
+        {capitalizeFirstLetter(privacidade)}
+      </Text>
     </Flex>
   );
 }
