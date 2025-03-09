@@ -21,8 +21,8 @@ function EventCard({
   dataFinal,
 }: EventCardProps) {
   return (
-    <Card.Root minW="sm" overflow="hidden">
-      <Image src={imgSrc} alt="Imagem do evento" maxH="10rem" />
+    <Card.Root minW="3xs" md={{ flexDirection: "row" }} border="none">
+      <Image src={imgSrc} alt="Imagem do evento" maxH="10rem" rounded="xl" />
       <Card.Body gap="1" p={2}>
         <Card.Title>{nomeEvento}</Card.Title>
         <Card.Description>{descricao}</Card.Description>

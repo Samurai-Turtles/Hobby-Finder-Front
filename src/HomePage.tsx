@@ -1,4 +1,4 @@
-import { Container, Flex } from "@chakra-ui/react";
+import { Container, Flex, Heading } from "@chakra-ui/react";
 import InputSearch from "./components/InputSearch";
 import CustomTag from "./components/CustomTag/CustomTag";
 import EventCard from "./components/EventCard";
@@ -19,6 +19,7 @@ function HomePage() {
           <CustomTag texto="#tag1" visual="solid" />
           <CustomTag texto="#tag1" visual="outline" />
         </Flex>
+        <Heading textStyle="2xl">Próximos Eventos</Heading>
         <EventCard
           imgSrc="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
           nomeEvento="Nome"
