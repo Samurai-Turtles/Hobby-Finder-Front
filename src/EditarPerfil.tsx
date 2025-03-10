@@ -6,19 +6,22 @@ import {
   Fieldset,
   Flex,
   Float,
-  Input,
   Textarea,
 } from "@chakra-ui/react";
 import { Camera, Plus } from "@phosphor-icons/react";
 import CustomButton from "./components/CustomButton";
 import CustomInput from "./components/CustomInput";
+import CardExcluirConta from "./components/cards/CardExcluirConta";
+import { useState } from "react";
 
 function EditarPerfil() {
-  const inputs = [
-    { name: "nickname", placeHolder: "Nickname" },
-    { name: "fullName", placeHolder: "Nome Completo" },
-    { name: "email", placeHolder: "Email" },
-  ];
+  const [cardDisplay, setCardDisplay] = useState("none");
+
+  const showHideCard = () => {
+    setCardDisplay((cardDisplay) =>
+      cardDisplay === "none" ? "block" : "none",
+    );
+  };
 
   return (
     <Container maxWidth="90vw" py={5}>
@@ -82,18 +85,20 @@ function EditarPerfil() {
             md={{ flexDirection: "row", justifyContent: "center" }}
           >
             <CustomButton
+              type="button"
+              value="Excluir Conta"
+              variant="customRed"
+              onClick={showHideCard}
+            />
+            <CustomButton
               type="submit"
               value="Salvar Alterações"
               variant="customOrange"
             />
-            <CustomButton
-              type="button"
-              value="Excluir Conta"
-              variant="customRed"
-            />
           </Flex>
         </Fieldset.Root>
       </Flex>
+      <CardExcluirConta display={cardDisplay} onClick={showHideCard} />
     </Container>
   );
 }

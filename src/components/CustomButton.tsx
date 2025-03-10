@@ -4,16 +4,18 @@ interface CustomButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   value: string;
   variant: string;
+  onClick?: (e: any) => void;
 }
 
-function CustomButton({ type, value, variant }: CustomButtonProps) {
+function CustomButton({ type, value, variant, onClick }: CustomButtonProps) {
   return (
     <Button
       type={type}
       fontSize="1rem"
       fontWeight="bold"
       bg={variant}
-      md={{ w: "320px" }}
+      md={{ minW: "300px" }}
+      onClick={onClick}
     >
       {value}
     </Button>
