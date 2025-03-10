@@ -8,7 +8,13 @@ interface CustomButtonProps {
 
 function CustomButton({ type, value, variant }: CustomButtonProps) {
   return (
-    <Button type={type} fontSize="1rem" fontWeight="bold" bg={variant}>
+    <Button
+      type={type}
+      fontSize="1rem"
+      fontWeight="bold"
+      bg={variant}
+      md={{ w: "320px" }}
+    >
       {value}
     </Button>
   );

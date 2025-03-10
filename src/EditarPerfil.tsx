@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Camera, Plus } from "@phosphor-icons/react";
 import CustomButton from "./components/CustomButton";
+import CustomInput from "./components/CustomInput";
 
 function EditarPerfil() {
   const inputs = [
@@ -44,21 +45,25 @@ function EditarPerfil() {
             </Box>
           </button>
         </Flex>
-        <Fieldset.Root size="lg" maxW="md">
-          <Fieldset.Content>
-            {inputs.map((e) => {
-              return (
-                <Field.Root>
-                  <Input
-                    name={e.name}
-                    placeholder={e.placeHolder}
-                    fontSize="1rem"
-                    variant="subtle"
-                    outline="none"
-                  />
-                </Field.Root>
-              );
-            })}
+        <Fieldset.Root size="lg">
+          <Fieldset.Content gap={3}>
+            <Field.Root>
+              <CustomInput name="nickname" placeHolder="Nickname" />
+            </Field.Root>
+
+            <Flex direction="column" gap={3} md={{ flexDirection: "row" }}>
+              <Field.Root>
+                <CustomInput name="fullName" placeHolder="Nome Completo" />
+              </Field.Root>
+              <Field.Root>
+                <CustomInput
+                  type="email"
+                  name="email"
+                  placeHolder="Email"
+                  autoComplete="on"
+                />
+              </Field.Root>
+            </Flex>
 
             <Field.Root>
               <Textarea
@@ -71,7 +76,11 @@ function EditarPerfil() {
             </Field.Root>
           </Fieldset.Content>
 
-          <Flex direction="column" gap={2}>
+          <Flex
+            direction="column"
+            gap={2}
+            md={{ flexDirection: "row", justifyContent: "center" }}
+          >
             <CustomButton
               type="submit"
               value="Salvar Alterações"
