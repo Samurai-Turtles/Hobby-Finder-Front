@@ -2,7 +2,7 @@ import { Container, Flex, Heading } from "@chakra-ui/react";
 import SearchBar from "./components/SearchBar";
 import CustomTag from "./components/CustomTag/CustomTag";
 import { useEffect, useState } from "react";
-import { Evento } from "./utils/mockDatas";
+import { Evento, getMockTags } from "./utils/mockDatas";
 import { getMockEventos } from "./utils/mockDatas";
 import EventCard from "./components/EventCard";
 import { formatarData } from "./utils/formatData";
@@ -12,11 +12,26 @@ interface EventCardInterface {
   display: "none" | "flex";
 }
 
+interface CustomTagInterface {
+  nome: string;
+  visual: "solid" | "outline";
+}
+
 function HomePage() {
   const [eventos, setEventos] = useState<EventCardInterface[]>([]);
   const [termoBusca, setTermoBusca] = useState("");
+  const [tags, setTags] = useState<CustomTagInterface[]>([]);
 
   useEffect(() => {
+    const carregarTags = async () => {
+      const data = await getMockTags();
+      const tagList: CustomTagInterface[] = data.map((e) => ({
+        nome: e.toString(),
+        visual: "outline",
+      }));
+      setTags(tagList);
+    };
+
     const carregarEventos = async () => {
       const data = await getMockEventos();
       const events: EventCardInterface[] = data.map((e) => ({
@@ -26,6 +41,7 @@ function HomePage() {
       setEventos(events);
     };
 
+    carregarTags();
     carregarEventos();
   }, []);
 
@@ -46,15 +62,11 @@ function HomePage() {
       <Flex direction="column" gap={5}>
         <SearchBar placeHolder="Buscar evento" setTermoBusca={setTermoBusca} />
         <Flex gap={2} wrap="wrap">
-          <CustomTag texto="#tag1" visual="solid" />
-          <CustomTag texto="#tag1" visual="solid" />
-          <CustomTag texto="#tag1" visual="solid" />
-          <CustomTag texto="#tag1" visual="solid" />
-          <CustomTag texto="#tag1" visual="solid" />
-          <CustomTag texto="#tag1" visual="solid" />
-          <CustomTag texto="#tag1" visual="solid" />
-          <CustomTag texto="#tag1" visual="solid" />
-          <CustomTag texto="#tag1" visual="outline" />
+          {tags.map((e, index) => {
+            return (
+              <CustomTag key={index} texto={`#${e.nome}`} visual={e.visual} />
+            );
+          })}
         </Flex>
         <Heading textStyle="2xl">Próximos Eventos</Heading>
         {eventos.map((e: EventCardInterface, index: number) => {

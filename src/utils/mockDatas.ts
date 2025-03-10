@@ -155,5 +155,15 @@ const getMockEventos = async (): Promise<Evento[]> => {
   });
 };
 
-export { getMockEventos };
+const mockTags = ["ANIME", "SHOW", "APRESENTAÇÃO", "CONCERTO", "ENCONTRO"];
+
+const getMockTags = async (): Promise<String[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(mockTags);
+    }, 0);
+  });
+};
+
+export { getMockEventos, getMockTags };
 export type { Evento };

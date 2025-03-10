@@ -2,6 +2,7 @@
 
 import { Button, useRecipe } from "@chakra-ui/react";
 import { customTagRecipe } from "./CustomTag.recipe";
+import { useState } from "react";
 
 interface CustomTagProps {
   texto: string;
@@ -10,10 +11,19 @@ interface CustomTagProps {
 
 function CustomTag({ texto, visual }: CustomTagProps) {
   const recipe = useRecipe({ recipe: customTagRecipe });
-  const styles = recipe({ visual });
+  const styleSolid = recipe({ visual: "solid" });
+  const styleOutline = recipe({ visual: "outline" });
+  const [currentStyle, setCurrentStyle] = useState<
+    typeof styleSolid | typeof styleOutline
+  >(visual === "solid" ? styleSolid : styleOutline);
+  const toggleVisual = () => {
+    setCurrentStyle((prevStyle) =>
+      prevStyle === styleSolid ? styleOutline : styleSolid,
+    );
+  };
 
   return (
-    <Button size="xs" rounded="full" css={styles}>
+    <Button onClick={toggleVisual} size="xs" rounded="full" css={currentStyle}>
       {texto}
     </Button>
   );
