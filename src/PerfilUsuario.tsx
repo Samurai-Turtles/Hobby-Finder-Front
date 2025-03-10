@@ -1,0 +1,77 @@
+import {
+  Avatar,
+  Container,
+  createListCollection,
+  Flex,
+  SelectContent,
+  SelectItem,
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
+  Text,
+} from "@chakra-ui/react";
+import { CaretDown } from "@phosphor-icons/react";
+
+function PerfilUsuario() {
+  const eventsFilter = createListCollection({
+    items: [
+      { label: "Criados por mim", value: "Criados por mim" },
+      { label: "Sou organizador", value: "Sou organizador" },
+      { label: "Sou participante", value: "SOu participante" },
+    ],
+  });
+
+  return (
+    <Container maxWidth="90vw" py={5}>
+      <Text>ADICIONAR NAVBAR E BOTÕES DE ROTA E EDITAR</Text>
+      <Flex direction="column" alignItems="center" gap={2}>
+        <Avatar.Root minW="8rem" minH="8rem">
+          <Avatar.Fallback name="Username" />
+          <Avatar.Image src="#" />
+        </Avatar.Root>
+        <Text fontSize="xl" fontWeight="bold">
+          Username
+        </Text>
+        <Text>@Nickname</Text>
+        <Text>"bio"</Text>
+        <Text>LEMBRAR DE POR AS TAGS</Text>
+        <Flex minW="100%" alignItems="center" gap={2}>
+          <Text fontSize="lg" fontWeight="bold">
+            Meus Eventos
+          </Text>
+          <SelectRoot
+            position="relative"
+            variant="subtle"
+            collection={eventsFilter}
+            width="150px"
+            minH="100%"
+            alignItems="center"
+          >
+            <SelectTrigger
+              fontSize="0.8rem"
+              rounded="full"
+              bg="customOrange"
+              color="customWhite"
+              minH="100%"
+              py="0.8rem"
+              px="0.5rem"
+            >
+              <SelectValueText placeholder="Criados por mim" />
+              <CaretDown size="1rem" />
+            </SelectTrigger>
+            <SelectContent position="absolute" top="2rem">
+              {eventsFilter.items.map((movie) => (
+                <SelectItem width="140px" item={movie} key={movie.value}>
+                  {movie.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </SelectRoot>
+        </Flex>
+        <Text>ADICIONAR COMPONENTES DE EVENTOS</Text>
+      </Flex>
+    </Container>
+  );
+}
+
+export default PerfilUsuario;
