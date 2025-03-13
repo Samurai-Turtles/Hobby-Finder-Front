@@ -1,4 +1,4 @@
-import { Container, Flex, Heading } from "@chakra-ui/react";
+import { Container, Flex, Heading, IconButton } from "@chakra-ui/react";
 import SearchBar from "./components/SearchBar";
 import CustomTag from "./components/CustomTag/CustomTag";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { Evento, getMockTags } from "./utils/mockDatas";
 import { getMockEventos } from "./utils/mockDatas";
 import EventCard from "./components/EventCard";
 import { formatarData } from "./utils/formatData";
+import { Plus } from "@phosphor-icons/react";
 
 interface EventCardInterface {
   evento: Evento;
@@ -59,6 +60,19 @@ function HomePage() {
 
   return (
     <Container maxWidth="90vw" py={5}>
+      <IconButton
+        padding={0}
+        rounded="lg"
+        bg="customOrange"
+        position="fixed"
+        top="90vh"
+        right="7vw"
+        transform="scale(1.2)"
+        zIndex="1"
+      >
+        <Plus size={32} />
+      </IconButton>
+
       <Flex direction="column" gap={5}>
         <SearchBar placeHolder="Buscar evento" setTermoBusca={setTermoBusca} />
         <Flex gap={2} wrap="wrap">

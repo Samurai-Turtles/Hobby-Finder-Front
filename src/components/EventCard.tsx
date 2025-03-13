@@ -48,7 +48,7 @@ function EventCard({
         md={{ flexDirection: "row", alignItems: "top" }}
         gap={2}
       >
-        <Card.Body gap="1" px={2} py={0}>
+        <Card.Body gap={1} px={2} py={0} my={2}>
           <Card.Title>{nomeEvento}</Card.Title>
           <Card.Description>{descricao}</Card.Description>
           <Flex align="center" gap={1}>
