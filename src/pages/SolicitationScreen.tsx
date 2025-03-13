@@ -1,5 +1,5 @@
 import Solicitation from "@/components/Solicitation";
-import { Button, Container, Flex, SimpleGrid, VStack } from "@chakra-ui/react";
+import { Button, Container, SimpleGrid } from "@chakra-ui/react";
 import { CaretLeft } from "@phosphor-icons/react";
 
 function SolicitationScreen() {
