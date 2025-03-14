@@ -1,14 +1,16 @@
 import { Flex } from "@chakra-ui/react";
 import ParticipantItem from "./ParticipantItem";
+import { Participant } from "@/Participants";
 
 interface ParticipantsListProps {
-  participantsList: {
-    srcImg: string;
-    nome: string;
-  }[];
+  participantsList: Participant[];
+  onClickBtn: (newInfo: Participant) => void;
 }
 
-function ParticipantsList({ participantsList }: ParticipantsListProps) {
+function ParticipantsList({
+  participantsList,
+  onClickBtn,
+}: ParticipantsListProps) {
   return (
     <Flex
       height="fit-content"
@@ -27,13 +29,11 @@ function ParticipantsList({ participantsList }: ParticipantsListProps) {
         },
       }}
     >
-      {participantsList.map(
-        (p: { srcImg: string; nome: string }, index: number) => {
-          return (
-            <ParticipantItem key={index} srcImg={p.srcImg} nome={p.nome} />
-          );
-        },
-      )}
+      {participantsList.map((p: Participant, index: number) => {
+        return (
+          <ParticipantItem key={index} participant={p} onClick={onClickBtn} />
+        );
+      })}
     </Flex>
   );
 }

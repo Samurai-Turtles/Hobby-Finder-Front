@@ -1,11 +1,12 @@
 import { Avatar, AvatarGroup, Box } from "@chakra-ui/react";
+import { Participant } from "@/Participants";
 
 interface ParticipantItemProps {
-  srcImg: string;
-  nome: string;
+  participant: Participant;
+  onClick: (newInfo: Participant) => void;
 }
 
-function ParticipantItem({ srcImg, nome }: ParticipantItemProps) {
+function ParticipantItem({ participant, onClick }: ParticipantItemProps) {
   return (
     <Box
       width="full"
@@ -14,14 +15,15 @@ function ParticipantItem({ srcImg, nome }: ParticipantItemProps) {
       gap={2}
       cursor="pointer"
       md={{ p: 1 }}
+      onClick={() => onClick(participant)}
     >
       <AvatarGroup>
         <Avatar.Root size="xl">
-          <Avatar.Fallback name={nome} />
-          <Avatar.Image src={srcImg} />
+          <Avatar.Fallback name={participant.nickname} />
+          <Avatar.Image src={participant.srcImgProfile} />
         </Avatar.Root>
       </AvatarGroup>
-      {nome}
+      {participant.nickname}
     </Box>
   );
 }
