@@ -7,8 +7,8 @@ import Header from "./components/Header";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider>
-      <Container maxWidth="90vw" py={5}>
-        <Header />
+      <Header />
+      <Container maxWidth="90vw">
         <Box>
           <h1>Hello Word!</h1>
         </Box>
