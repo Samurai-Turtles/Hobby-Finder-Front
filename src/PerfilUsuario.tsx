@@ -10,7 +10,8 @@ import {
   SelectValueText,
   Text,
 } from "@chakra-ui/react";
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDown, CaretLeft, PencilLine } from "@phosphor-icons/react";
+import FlowButton from "./components/Buttons/FlowButton";
 
 function PerfilUsuario() {
   const eventsFilter = createListCollection({
@@ -23,7 +24,16 @@ function PerfilUsuario() {
 
   return (
     <Container maxWidth="90vw" py={5}>
-      <Text>ADICIONAR NAVBAR E BOTÕES DE ROTA E EDITAR</Text>
+      <Flex alignItems="center" justifyContent="space-between">
+        <FlowButton>
+          <CaretLeft size={32} />
+          <Text>Voltar</Text>
+        </FlowButton>
+        <FlowButton>
+          <PencilLine size={32} />
+          <Text ml={1}>Editar</Text>
+        </FlowButton>
+      </Flex>
       <Flex direction="column" alignItems="center" gap={2}>
         <Avatar.Root minW="8rem" minH="8rem">
           <Avatar.Fallback name="Username" />
