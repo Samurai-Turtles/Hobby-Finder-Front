@@ -35,7 +35,12 @@ function PerfilUsuario() {
         <Text>@Nickname</Text>
         <Text>"bio"</Text>
         <Text>LEMBRAR DE POR AS TAGS</Text>
-        <Flex minW="100%" alignItems="center" gap={2}>
+        <Flex
+          minW="100%"
+          alignItems="center"
+          justifyContent="space-between"
+          gap={2}
+        >
           <Text fontSize="lg" fontWeight="bold">
             Meus Eventos
           </Text>
@@ -53,7 +58,7 @@ function PerfilUsuario() {
               bg="customOrange"
               color="customWhite"
               minH="100%"
-              py="0.8rem"
+              py={1}
               px="0.5rem"
             >
               <SelectValueText placeholder="Criados por mim" />
