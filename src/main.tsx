@@ -1,14 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "./components/ui/provider";
-import { Box } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
+import Header from "./components/Header";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider>
-      <Box bg="orange">
-        <h1>I'm a teapot!</h1>
-      </Box>
+      <Header />
+      <Container maxWidth="90vw">
+        <Box>
+          <h1>Hello Word!</h1>
+        </Box>
+      </Container>
     </Provider>
   </StrictMode>,
 );
