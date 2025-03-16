@@ -12,6 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { CaretDown, PencilLine } from "@phosphor-icons/react";
 import FlowButton from "../components/buttons/FlowButton/FlowButton";
+import CustomTag from "@/components/buttons/CustomTag/CustomTag";
+import EventCard from "../components/cards/CardEvento";
+import { formatarData } from "@/utils/formatData";
 
 function PerfilUsuario() {
   const eventsFilter = createListCollection({
@@ -41,7 +44,12 @@ function PerfilUsuario() {
         </Text>
         <Text>@Nickname</Text>
         <Text>"bio"</Text>
-        <Text>LEMBRAR DE POR AS TAGS</Text>
+        <Flex gap={2} justifyContent="center" wrap="wrap">
+          <CustomTag texto="tag" visual="solid" />
+          <CustomTag texto="tag" visual="solid" />
+          <CustomTag texto="tag" visual="solid" />
+          <CustomTag texto="tag" visual="solid" />
+        </Flex>
         <Flex
           minW="100%"
           alignItems="center"
@@ -80,7 +88,19 @@ function PerfilUsuario() {
             </SelectContent>
           </SelectRoot>
         </Flex>
-        <Text>ADICIONAR COMPONENTES DE EVENTOS</Text>
+        <Flex direction="column" gap={5}>
+          <EventCard
+            imgSrc="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+            nomeEvento="Nome evento"
+            descricao="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo."
+            localizacao="LOCAL"
+            distancia={100}
+            dataInicial={formatarData("2022-10-31T09:00:00.594Z")}
+            dataFinal={formatarData("2022-10-31T09:00:00.594Z")}
+            privacidade="PUBLICO"
+            display="flex"
+          />
+        </Flex>
       </Flex>
     </Container>
   );

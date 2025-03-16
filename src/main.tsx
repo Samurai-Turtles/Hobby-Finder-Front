@@ -19,7 +19,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider>
       <Header />
-      <NotificationScreen />
+      <EditarPerfil />
     </Provider>
   </StrictMode>,
 );

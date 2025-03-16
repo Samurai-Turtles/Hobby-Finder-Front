@@ -14,6 +14,7 @@ import CustomInput from "../components/inputs/CustomInput";
 import CardExcluirConta from "../components/cards/CardExcluirConta";
 import { useState } from "react";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import CustomTag from "@/components/buttons/CustomTag/CustomTag";
 
 function EditarPerfil() {
   const [cardDisplay, setCardDisplay] = useState("none");
@@ -42,7 +43,10 @@ function EditarPerfil() {
           </Float>
         </Box>
         <Flex alignItems="center" gap={2}>
-          COLOCAR OS COMPONENTES DAS TAGS AQUI
+          <CustomTag texto="tag" visual="solid" />
+          <CustomTag texto="tag" visual="solid" />
+          <CustomTag texto="tag" visual="solid" />
+          <CustomTag texto="tag" visual="solid" />
           <button style={{ cursor: "pointer" }}>
             <Box border="1px solid" color="customOrange" p={1} rounded="full">
               <Plus size={15} />
