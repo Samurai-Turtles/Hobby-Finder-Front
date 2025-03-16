@@ -1,5 +1,5 @@
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
-import Solicitation from "@/components/Solicitation";
+import Solicitation from "@/components/events/Solicitation";
 import { Container, SimpleGrid } from "@chakra-ui/react";
 
 function SolicitationScreen() {

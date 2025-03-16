@@ -1,5 +1,5 @@
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
-import EventRating from "@/components/EventRating";
+import EventRating from "@/components/events/EventRating";
 import { Container, VStack } from "@chakra-ui/react";
 
 function EventeRatingScreen() {

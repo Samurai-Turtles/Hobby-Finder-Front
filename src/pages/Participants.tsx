@@ -1,5 +1,5 @@
 import { Container, Grid } from "@chakra-ui/react";
-import ParticipantsList from "../components/ParticipantsList";
+import ParticipantsList from "../components/events/ParticipantsList";
 import ParticipantProfileCard from "../components/cards/ParticipantProfileCard";
 import { useState } from "react";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";

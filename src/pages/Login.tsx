@@ -9,7 +9,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import Form from "../components/form/Form";
+import Form from "../components/Form/Form";
 import logo from "../assets/images/capivara.webp";
 
 function Login() {

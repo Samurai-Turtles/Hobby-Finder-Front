@@ -1,5 +1,5 @@
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
-import Notification from "@/components/Notification";
+import Notification from "@/components/events/Notification";
 import { Container, VStack } from "@chakra-ui/react";
 
 function NotificationScreen() {

@@ -1,5 +1,5 @@
 import { Container, Flex, Heading, IconButton } from "@chakra-ui/react";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/SearchBar/SearchBar";
 import CustomTag from "../components/buttons/CustomTag/CustomTag";
 import { useEffect, useState } from "react";
 import { Evento, getMockTags } from "../utils/mockDatas";
