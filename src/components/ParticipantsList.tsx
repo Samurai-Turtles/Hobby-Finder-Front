@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import ParticipantItem from "./ParticipantItem";
-import { Participant } from "@/Participants";
+import { Participant } from "@/pages/Participants";
 
 interface ParticipantsListProps {
   participantsList: Participant[];

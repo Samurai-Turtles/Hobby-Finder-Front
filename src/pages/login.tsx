@@ -9,9 +9,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import Form from "../../form/Form";
-import logo from "../commom/capivara.webp";
-import "../commom/backgroundColor.scss";
+import Form from "../components/form/Form";
+import logo from "../assets/images/capivara.webp";
 
 function Login() {
   return (

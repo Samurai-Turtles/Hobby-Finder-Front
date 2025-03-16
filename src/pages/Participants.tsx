@@ -1,6 +1,6 @@
 import { Container, Grid, Text } from "@chakra-ui/react";
-import ParticipantsList from "./components/ParticipantsList";
-import ParticipantCard from "./components/Cards/ParticipantCard";
+import ParticipantsList from "../components/ParticipantsList";
+import ParticipantCard from "../components/cards/CardParticipante";
 import { useState } from "react";
 
 export type Participant = {

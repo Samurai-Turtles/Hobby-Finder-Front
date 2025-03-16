@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { CaretDown, CaretLeft, PencilLine } from "@phosphor-icons/react";
-import FlowButton from "./components/Buttons/FlowButton";
+import FlowButton from "../components/buttons/FlowButton/FlowButton";
 
 function PerfilUsuario() {
   const eventsFilter = createListCollection({

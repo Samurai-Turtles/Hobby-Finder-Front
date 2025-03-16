@@ -1,5 +1,5 @@
 import { Avatar, AvatarGroup, Box } from "@chakra-ui/react";
-import { Participant } from "@/Participants";
+import { Participant } from "@/pages/Participants";
 
 interface ParticipantItemProps {
   participant: Participant;

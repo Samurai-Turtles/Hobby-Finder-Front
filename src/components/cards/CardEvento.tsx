@@ -1,8 +1,8 @@
 import { Card, Flex, Image, Text } from "@chakra-ui/react";
 import { CalendarDots, MapPin } from "@phosphor-icons/react";
-import PrivacityButton from "./PrivacityButton/PrivacityButton";
+import PrivacityButton from "../buttons/PrivacityButton/PrivacityButton";
 
-interface EventCardProps {
+interface CardEventoProps {
   imgSrc: string;
   nomeEvento: string;
   descricao: string;
@@ -14,7 +14,7 @@ interface EventCardProps {
   display: "flex" | "none";
 }
 
-function EventCard({
+function CardEvento({
   imgSrc,
   nomeEvento,
   descricao,
@@ -24,7 +24,7 @@ function EventCard({
   dataFinal,
   privacidade,
   display,
-}: EventCardProps) {
+}: CardEventoProps) {
   return (
     <Card.Root
       style={{ display }}
@@ -72,4 +72,4 @@ function EventCard({
     </Card.Root>
   );
 }
-export default EventCard;
+export default CardEvento;

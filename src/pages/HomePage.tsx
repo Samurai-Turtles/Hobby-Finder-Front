@@ -1,11 +1,11 @@
 import { Container, Flex, Heading, IconButton } from "@chakra-ui/react";
-import SearchBar from "./components/SearchBar";
-import CustomTag from "./components/CustomTag/CustomTag";
+import SearchBar from "../components/SearchBar";
+import CustomTag from "../components/buttons/CustomTag/CustomTag";
 import { useEffect, useState } from "react";
-import { Evento, getMockTags } from "./utils/mockDatas";
-import { getMockEventos } from "./utils/mockDatas";
-import EventCard from "./components/EventCard";
-import { formatarData } from "./utils/formatData";
+import { Evento, getMockTags } from "../utils/mockDatas";
+import { getMockEventos } from "../utils/mockDatas";
+import EventCard from "../components/cards/CardEvento";
+import { formatarData } from "../utils/formatData";
 import { Plus } from "@phosphor-icons/react";
 
 interface EventCardInterface {

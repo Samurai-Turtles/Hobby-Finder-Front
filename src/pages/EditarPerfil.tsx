@@ -9,9 +9,9 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Camera, Plus } from "@phosphor-icons/react";
-import CustomButton from "./components/CustomButton";
-import CustomInput from "./components/CustomInput";
-import CardExcluirConta from "./components/cards/CardExcluirConta";
+import CustomButton from "../components/CustomButton";
+import CustomInput from "../components/inputs/CustomInput";
+import CardExcluirConta from "../components/cards/CardExcluirConta";
 import { useState } from "react";
 
 function EditarPerfil() {

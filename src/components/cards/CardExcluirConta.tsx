@@ -1,6 +1,6 @@
 import { Box, Card, Field, Flex, Stack } from "@chakra-ui/react";
 import CustomButton from "../CustomButton";
-import CustomInput from "../CustomInput";
+import CustomInput from "../inputs/CustomInput";
 
 interface CardExcluirContaProps {
   display: string;

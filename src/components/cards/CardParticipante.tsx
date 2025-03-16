@@ -8,19 +8,19 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Star } from "@phosphor-icons/react";
-import { Participant } from "@/Participants";
+import { Participant } from "@/pages/Participants";
 
-interface ParticipantCardProps {
+interface CardParticipanteProps {
   display: string;
   participant: Participant;
   closeClick: (e: any) => void;
 }
 
-function ParticipantCard({
+function CardParticipante({
   display,
   participant,
   closeClick,
-}: ParticipantCardProps) {
+}: CardParticipanteProps) {
   return (
     <Box
       display={display}
@@ -63,4 +63,4 @@ function ParticipantCard({
   );
 }
 
-export default ParticipantCard;
+export default CardParticipante;

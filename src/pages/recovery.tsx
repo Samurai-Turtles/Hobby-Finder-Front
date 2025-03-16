@@ -7,9 +7,8 @@ import {
   Field,
   Input,
 } from "@chakra-ui/react";
-import logo from "../commom/capivara.webp";
-import "../commom/backgroundColor.scss";
-import Form from "../../form/Form";
+import logo from "../assets/images/capivara.webp";
+import Form from "../components/form/Form";
 
 function Recovery() {
   return (
