@@ -7,7 +7,7 @@ import {
   Float,
   Image,
 } from "@chakra-ui/react";
-import logo from "../assets/images/logo.svg";
+import logo from "../assets/images/logoHorizontal.webp";
 import { Bell } from "@phosphor-icons/react";
 
 function Header() {
@@ -24,7 +24,7 @@ function Header() {
         alignItems="center"
       >
         <button style={{ cursor: "pointer" }}>
-          <Image alt="Logo" src={logo} />
+          <Image alt="Logo" maxH="2.5rem" src={logo} />
         </button>
         <Flex alignItems="center" gap={2}>
           <button style={{ cursor: "pointer" }}>
