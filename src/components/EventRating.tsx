@@ -1,13 +1,5 @@
-import {
-  Flex,
-  VStack,
-  Text,
-  HStack,
-  Icon,
-  Avatar,
-  AvatarGroup,
-} from "@chakra-ui/react";
-import { Star } from "lucide-react";
+import { Flex, VStack, Text, HStack, Avatar } from "@chakra-ui/react";
+import { Star } from "@phosphor-icons/react";
 
 interface EventeRatingProps {
   username: string;
@@ -33,11 +25,11 @@ function EventRating({ username, rating, comment, imgSrc }: EventeRatingProps) {
         {/* Estrelas de avaliação */}
         <HStack>
           {[...Array(5)].map((_, i) => (
-            <Icon
+            <Star
               key={i}
-              as={Star}
-              color={i < rating ? "orange.400" : "gray.300"}
-              fill={i < rating ? "orange.400" : "transparent"}
+              weight={i < rating ? "fill" : "regular"}
+              color={i < rating ? "orange" : "gray"}
+              size={20} // Define um tamanho para o ícone
             />
           ))}
         </HStack>
