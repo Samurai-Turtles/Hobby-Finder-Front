@@ -13,7 +13,7 @@ import {
 import { CaretDown, PencilLine } from "@phosphor-icons/react";
 import FlowButton from "../components/buttons/FlowButton/FlowButton";
 import CustomTag from "@/components/buttons/CustomTag/CustomTag";
-import EventCard from "../components/cards/CardEvento";
+import EventCard from "../components/cards/EventCard";
 import { formatarData } from "@/utils/formatData";
 
 function PerfilUsuario() {

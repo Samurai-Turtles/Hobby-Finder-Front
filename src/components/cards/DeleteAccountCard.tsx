@@ -2,12 +2,12 @@ import { Box, Card, Field, Flex, Stack } from "@chakra-ui/react";
 import CustomButton from "../buttons/PrimaryCustomButton/PrimaryCustomButton";
 import CustomInput from "../inputs/CustomInput";
 
-interface CardExcluirContaProps {
+interface DeleteAccountCardProps {
   display: string;
   onClick?: (e: any) => void;
 }
 
-function CardExcluirConta({ display, onClick }: CardExcluirContaProps) {
+function DeleteAccountCard({ display, onClick }: DeleteAccountCardProps) {
   return (
     <Box
       display={display}
@@ -56,4 +56,4 @@ function CardExcluirConta({ display, onClick }: CardExcluirContaProps) {
   );
 }
 
-export default CardExcluirConta;
+export default DeleteAccountCard;

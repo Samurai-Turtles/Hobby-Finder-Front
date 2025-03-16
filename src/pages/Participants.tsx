@@ -1,6 +1,6 @@
 import { Container, Grid } from "@chakra-ui/react";
 import ParticipantsList from "../components/ParticipantsList";
-import ParticipantCard from "../components/cards/CardParticipante";
+import ParticipantProfileCard from "../components/cards/ParticipantProfileCard";
 import { useState } from "react";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 
@@ -63,7 +63,7 @@ function Participants() {
   return (
     <Container maxWidth="90vw" py={5}>
       <FlowButton />
-      <ParticipantCard
+      <ParticipantProfileCard
         display={cardDisplay}
         closeClick={showHideCard}
         participant={participantInfo}

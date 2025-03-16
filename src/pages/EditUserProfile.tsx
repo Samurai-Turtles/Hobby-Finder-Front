@@ -11,12 +11,12 @@ import {
 import { Camera, Plus } from "@phosphor-icons/react";
 import PrimaryCustomButton from "../components/buttons/PrimaryCustomButton/PrimaryCustomButton";
 import CustomInput from "../components/inputs/CustomInput";
-import CardExcluirConta from "../components/cards/CardExcluirConta";
+import DeleteAccountCard from "../components/cards/DeleteAccountCard";
 import { useState } from "react";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import CustomTag from "@/components/buttons/CustomTag/CustomTag";
 
-function EditarPerfil() {
+function EditUserProfile() {
   const [cardDisplay, setCardDisplay] = useState("none");
 
   const showHideCard = () => {
@@ -103,9 +103,9 @@ function EditarPerfil() {
           </Flex>
         </Fieldset.Root>
       </Flex>
-      <CardExcluirConta display={cardDisplay} onClick={showHideCard} />
+      <DeleteAccountCard display={cardDisplay} onClick={showHideCard} />
     </Container>
   );
 }
 
-export default EditarPerfil;
+export default EditUserProfile;

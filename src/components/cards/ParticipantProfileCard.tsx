@@ -3,17 +3,17 @@ import { Star } from "@phosphor-icons/react";
 import { Participant } from "@/pages/Participants";
 import PrimaryCustomButton from "../buttons/PrimaryCustomButton/PrimaryCustomButton";
 
-interface CardParticipanteProps {
+interface ParticipantProfileCardProps {
   display: string;
   participant: Participant;
   closeClick: (e: any) => void;
 }
 
-function CardParticipante({
+function ParticipantProfileCard({
   display,
   participant,
   closeClick,
-}: CardParticipanteProps) {
+}: ParticipantProfileCardProps) {
   return (
     <Box
       display={display}
@@ -68,4 +68,4 @@ function CardParticipante({
   );
 }
 
-export default CardParticipante;
+export default ParticipantProfileCard;
