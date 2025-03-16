@@ -10,7 +10,7 @@ import {
   SelectValueText,
   Text,
 } from "@chakra-ui/react";
-import { CaretDown, CaretLeft, PencilLine } from "@phosphor-icons/react";
+import { CaretDown, PencilLine } from "@phosphor-icons/react";
 import FlowButton from "../components/buttons/FlowButton/FlowButton";
 
 function PerfilUsuario() {
@@ -25,10 +25,7 @@ function PerfilUsuario() {
   return (
     <Container maxWidth="90vw" py={5}>
       <Flex alignItems="center" justifyContent="space-between">
-        <FlowButton>
-          <CaretLeft size={32} />
-          <Text>Voltar</Text>
-        </FlowButton>
+        <FlowButton />
         <FlowButton>
           <PencilLine size={32} />
           <Text ml={1}>Editar</Text>

@@ -1,8 +1,10 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Text } from "@chakra-ui/react";
+import { CaretLeft } from "@phosphor-icons/react";
 import { ReactNode } from "react";
 
 interface FlowButtonProps {
-  children: ReactNode;
+  children?: ReactNode;
+  onClick?: () => void;
 }
 
 function FlowButton({ children }: FlowButtonProps) {
@@ -14,8 +16,15 @@ function FlowButton({ children }: FlowButtonProps) {
       fontWeight="bold"
       fontSize="md"
       px={2}
+      // Definir posteriormente com react router
+      // onClick={}
     >
-      {children}
+      {children || (
+        <>
+          <CaretLeft size={32} />
+          <Text>Voltar</Text>
+        </>
+      )}
     </Button>
   );
 }

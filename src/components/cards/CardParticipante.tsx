@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CloseButton,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
+import { Avatar, Box, Card, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { Star } from "@phosphor-icons/react";
 import { Participant } from "@/pages/Participants";
 import PrimaryCustomButton from "../buttons/PrimaryCustomButton/PrimaryCustomButton";

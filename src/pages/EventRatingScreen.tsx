@@ -1,20 +1,11 @@
+import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import EventRating from "@/components/EventRating";
-import { Button, Container, VStack } from "@chakra-ui/react";
-import { CaretLeft } from "@phosphor-icons/react";
+import { Container, VStack } from "@chakra-ui/react";
 
 function EventeRatingScreen() {
   return (
     <Container maxWidth="90vw" paddingY="5">
-      <Button
-        bg="customOrange"
-        color="customWhite"
-        rounded="md"
-        gap="0"
-        paddingLeft="2"
-      >
-        <CaretLeft size={32} />
-        Voltar
-      </Button>
+      <FlowButton />
       <VStack alignItems="left" marginY="5" gap={5}>
         <EventRating
           username="Fulano_da_silva_peixoto"

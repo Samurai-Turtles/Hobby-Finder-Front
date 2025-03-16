@@ -1,7 +1,8 @@
-import { Container, Grid, Text } from "@chakra-ui/react";
+import { Container, Grid } from "@chakra-ui/react";
 import ParticipantsList from "../components/ParticipantsList";
 import ParticipantCard from "../components/cards/CardParticipante";
 import { useState } from "react";
+import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 
 export type Participant = {
   srcImgProfile: string;
@@ -61,7 +62,7 @@ function Participants() {
 
   return (
     <Container maxWidth="90vw" py={5}>
-      <Text>COLOCAR BOTÃO DE VOLTAR AQUI</Text>
+      <FlowButton />
       <ParticipantCard
         display={cardDisplay}
         closeClick={showHideCard}
@@ -70,6 +71,7 @@ function Participants() {
       <Grid
         templateColumns="1fr"
         gap={2}
+        mt={5}
         md={{ gridTemplateColumns: "repeat(2, 1fr)" }}
       >
         <ParticipantsList

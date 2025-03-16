@@ -14,9 +14,7 @@ function Solicitation({ msg, imgSrc }: SolicitationProps) {
         <Avatar.Image src={imgSrc} />
       </Avatar.Root>
       <Stack gap="2">
-        <Text color="customWhite" textStyle="sm">
-          {msg}
-        </Text>
+        <Text textStyle="sm">{msg}</Text>
 
         <Flex gap="2">
           <CustomButton visual="solid">Aceitar</CustomButton>

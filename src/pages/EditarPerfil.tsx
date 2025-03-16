@@ -13,6 +13,7 @@ import PrimaryCustomButton from "../components/buttons/PrimaryCustomButton/Prima
 import CustomInput from "../components/inputs/CustomInput";
 import CardExcluirConta from "../components/cards/CardExcluirConta";
 import { useState } from "react";
+import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 
 function EditarPerfil() {
   const [cardDisplay, setCardDisplay] = useState("none");
@@ -25,7 +26,7 @@ function EditarPerfil() {
 
   return (
     <Container maxWidth="90vw" py={5}>
-      COLOCAR COMPONENTE DE VOLTAR TELA AQUI
+      <FlowButton />
       <Flex direction="column" minW="100%" alignItems="center" gap={5}>
         <Box position="relative">
           <Avatar.Root minW="8rem" minH="8rem">
