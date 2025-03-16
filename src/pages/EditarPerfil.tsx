@@ -9,7 +9,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Camera, Plus } from "@phosphor-icons/react";
-import CustomButton from "../components/CustomButton";
+import PrimaryCustomButton from "../components/buttons/PrimaryCustomButton/PrimaryCustomButton";
 import CustomInput from "../components/inputs/CustomInput";
 import CardExcluirConta from "../components/cards/CardExcluirConta";
 import { useState } from "react";
@@ -84,16 +84,16 @@ function EditarPerfil() {
             gap={2}
             md={{ flexDirection: "row", justifyContent: "center" }}
           >
-            <CustomButton
+            <PrimaryCustomButton
               type="button"
               value="Excluir Conta"
-              variant="customRed"
+              variant="secondary"
               onClick={showHideCard}
             />
-            <CustomButton
+            <PrimaryCustomButton
               type="submit"
               value="Salvar Alterações"
-              variant="customOrange"
+              variant="primary"
             />
           </Flex>
         </Fieldset.Root>

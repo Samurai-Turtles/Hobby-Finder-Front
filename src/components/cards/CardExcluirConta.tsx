@@ -1,5 +1,5 @@
 import { Box, Card, Field, Flex, Stack } from "@chakra-ui/react";
-import CustomButton from "../CustomButton";
+import CustomButton from "../buttons/PrimaryCustomButton/PrimaryCustomButton";
 import CustomInput from "../inputs/CustomInput";
 
 interface CardExcluirContaProps {
@@ -41,12 +41,12 @@ function CardExcluirConta({ display, onClick }: CardExcluirContaProps) {
             <CustomButton
               type="button"
               value="Confirmar Exclusão"
-              variant="customOrange"
+              variant="primary"
             />
             <CustomButton
               type="button"
               value="Cancelar Exclusão"
-              variant="customRed"
+              variant="secondary"
               onClick={onClick}
             />
           </Card.Footer>

@@ -1,5 +1,5 @@
 import { Avatar, Flex, HStack, Stack, Text } from "@chakra-ui/react";
-import CustomButton from "./buttons/CustomButton/CustomButton";
+import CustomButton from "./buttons/SolicitationDecisionButton/SolicitationDecisionButton";
 
 interface SolicitationProps {
   msg: string;

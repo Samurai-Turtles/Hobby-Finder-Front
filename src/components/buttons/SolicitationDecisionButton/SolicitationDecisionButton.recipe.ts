@@ -1,6 +1,6 @@
 import { defineRecipe } from "@chakra-ui/react";
 
-export const customButtonRecipe = defineRecipe({
+export const solicitationDecisionButton = defineRecipe({
   variants: {
     visual: {
       solid: {

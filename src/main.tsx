@@ -18,8 +18,8 @@ import EventeRatingScreen from "./pages/EventRatingScreen";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider>
-      {/* <Header /> */}
-      <Signup />
+      <Header />
+      <Participants />
     </Provider>
   </StrictMode>,
 );

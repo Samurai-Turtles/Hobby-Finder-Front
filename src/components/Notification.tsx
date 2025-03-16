@@ -1,5 +1,5 @@
 import { Avatar, Stack, HStack, Text, Flex } from "@chakra-ui/react";
-import CustomButton from "./buttons/CustomButton/CustomButton";
+import CustomButton from "./buttons/SolicitationDecisionButton/SolicitationDecisionButton";
 
 interface NotificationProps {
   imgSrc?: string | undefined;

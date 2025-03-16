@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Star } from "@phosphor-icons/react";
 import { Participant } from "@/pages/Participants";
+import PrimaryCustomButton from "../buttons/PrimaryCustomButton/PrimaryCustomButton";
 
 interface CardParticipanteProps {
   display: string;
@@ -30,9 +31,9 @@ function CardParticipante({
       backgroundColor="rgba(0, 0, 0, 0.1)"
     >
       <Flex justifyContent="center" alignItems="center" minH="full">
-        <Card.Root maxW="320px">
+        <Card.Root maxW="350px">
           <CloseButton position="absolute" right={0} onClick={closeClick} />
-          <Card.Body gap="2">
+          <Card.Body paddingBottom="1.2rem" gap="2">
             <Avatar.Root alignSelf="center" size="2xl">
               <Avatar.Image src={participant.srcImgProfile} />
               <Avatar.Fallback name={participant.nickname} />
@@ -47,15 +48,27 @@ function CardParticipante({
             <Card.Description>{participant.bio}</Card.Description>
           </Card.Body>
           <Card.Footer flexDirection="column">
-            <Text>TROCAR ESSES BOTÕES PARA COMPONENTES APÓS INTEGRAÇÃO</Text>
-            <Button>
-              {participant.tipo.includes("PARTICIPANTE") ? (
-                <Text>Tornar Organizador</Text>
-              ) : (
-                <Text>Remover Como Organizador</Text>
-              )}
-            </Button>
-            <Button>Remover Participante</Button>
+            {participant.tipo.includes("PARTICIPANTE") ? (
+              <PrimaryCustomButton
+                type="button"
+                value="Tornar Organizador"
+                variant="primary"
+                onClick={() => {}}
+              />
+            ) : (
+              <PrimaryCustomButton
+                type="button"
+                value="Remover como Organizador"
+                variant="secondary"
+                onClick={() => {}}
+              />
+            )}
+            <PrimaryCustomButton
+              type="button"
+              value="Remover Participante"
+              variant="secondary"
+              onClick={() => {}}
+            />
           </Card.Footer>
         </Card.Root>
       </Flex>

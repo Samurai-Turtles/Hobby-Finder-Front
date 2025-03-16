@@ -1,19 +1,25 @@
 import { Button } from "@chakra-ui/react";
 
-interface CustomButtonProps {
+interface PrimaryCustomButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   value: string;
-  variant: string;
+  variant: "primary" | "secondary";
   onClick?: (e: any) => void;
 }
 
-function CustomButton({ type, value, variant, onClick }: CustomButtonProps) {
+function PrimaryCustomButton({
+  type,
+  value,
+  variant,
+  onClick,
+}: PrimaryCustomButtonProps) {
   return (
     <Button
       type={type}
       fontSize="1rem"
       fontWeight="bold"
-      bg={variant}
+      bg={variant.includes("primary") ? "customOrange" : "customRed"}
+      minW="full"
       md={{ minW: "300px" }}
       onClick={onClick}
     >
@@ -22,4 +28,4 @@ function CustomButton({ type, value, variant, onClick }: CustomButtonProps) {
   );
 }
 
-export default CustomButton;
+export default PrimaryCustomButton;
