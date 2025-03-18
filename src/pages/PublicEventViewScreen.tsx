@@ -39,19 +39,42 @@ function PublicEventViewScreen({ isCancel }: PublicEventViewScreenProps) {
 
       <Stack gap={4} width="100%" maxW="600px">
         <HStack width="100%" gap={2}>
-          <Input placeholder="Nome" bg="gray.100" flex={2} />
+          <Input
+            placeholder="Nome"
+            bg="#EFEFEF"
+            flex={2}
+            _placeholder={{ color: "#848484" }}
+            color="black"
+          />
           <Input
             placeholder="Data"
-            bg="gray.100"
+            _placeholder={{ color: "#848484" }}
+            bg="#EFEFEF"
+            color="black"
             type="text"
             onFocus={(e) => (e.target.type = "date")} //
             onBlur={(e) => (e.target.type = "text")}
             flex="1"
           />
         </HStack>
-        <Input placeholder="Localização" bg="gray.100" />
-        <Textarea placeholder="Descrição" bg="gray.100" />
-        <Input placeholder="Tags" bg="gray.100" />
+        <Input
+          placeholder="Localização"
+          bg="#EFEFEF"
+          _placeholder={{ color: "#848484" }}
+          color="black"
+        />
+        <Textarea
+          placeholder="Descrição"
+          bg="#EFEFEF"
+          _placeholder={{ color: "#848484" }}
+          color="black"
+        />
+        <Input
+          placeholder="Tags"
+          bg="#EFEFEF"
+          _placeholder={{ color: "#848484" }}
+          color="black"
+        />
         <Button
           bg={isCancel ? "red.500" : "customOrange"}
           color="white"
