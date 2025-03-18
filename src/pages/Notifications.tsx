@@ -2,7 +2,7 @@ import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import Notification from "@/components/events/Notification";
 import { Container, VStack } from "@chakra-ui/react";
 
-function NotificationScreen() {
+function Notifications() {
   return (
     <Container maxWidth="90vw" paddingY="5">
       <FlowButton />
@@ -38,4 +38,4 @@ function NotificationScreen() {
   );
 }
 
-export default NotificationScreen;
+export default Notifications;

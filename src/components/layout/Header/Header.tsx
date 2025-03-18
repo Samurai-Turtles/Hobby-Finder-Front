@@ -7,7 +7,7 @@ import {
   Float,
   Image,
 } from "@chakra-ui/react";
-import logo from "../../assets/images/logoHorizontal.webp";
+import logo from "../../../assets/images/logoHorizontal.webp";
 import { Bell } from "@phosphor-icons/react";
 
 function Header() {

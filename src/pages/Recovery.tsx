@@ -8,7 +8,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import logo from "../assets/images/capivara.webp";
-import Form from "../components/Form/Form";
+import Form from "../components/layout/Form/Form";
 
 function Recovery() {
   return (

@@ -2,7 +2,7 @@ import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import EventRating from "@/components/events/EventRating";
 import { Container, VStack } from "@chakra-ui/react";
 
-function EventeRatingScreen() {
+function EventeRatings() {
   return (
     <Container maxWidth="90vw" paddingY="5">
       <FlowButton />
@@ -36,4 +36,4 @@ function EventeRatingScreen() {
   );
 }
 
-export default EventeRatingScreen;
+export default EventeRatings;

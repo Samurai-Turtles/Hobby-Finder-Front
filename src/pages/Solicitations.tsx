@@ -2,7 +2,7 @@ import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import Solicitation from "@/components/events/Solicitation";
 import { Container, SimpleGrid } from "@chakra-ui/react";
 
-function SolicitationScreen() {
+function Solicitations() {
   return (
     <Container maxWidth="90vw" paddingY="5">
       <FlowButton />
@@ -17,4 +17,4 @@ function SolicitationScreen() {
   );
 }
 
-export default SolicitationScreen;
+export default Solicitations;
