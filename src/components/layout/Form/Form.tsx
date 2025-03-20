@@ -7,9 +7,16 @@ interface FormProps {
   method: "get" | "post";
   btnActionLabel: string;
   children: ReactNode;
+  buttonBgColor?: string;
 }
 
-function Form({ action, method, btnActionLabel, children }: FormProps) {
+function Form({
+  action,
+  method,
+  btnActionLabel,
+  children,
+  buttonBgColor,
+}: FormProps) {
   return (
     <Fieldset.Root>
       <Fieldset.Content>{children}</Fieldset.Content>
@@ -19,7 +26,7 @@ function Form({ action, method, btnActionLabel, children }: FormProps) {
         formAction={action}
         formMethod={method}
         w={"100%"}
-        bg={"orange"}
+        bg={buttonBgColor || "orange"}
         color={"white"}
         fontWeight={"bold"}
       >
