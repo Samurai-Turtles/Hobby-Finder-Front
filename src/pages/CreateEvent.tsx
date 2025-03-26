@@ -1,5 +1,6 @@
 import CustomTag from "@/components/buttons/CustomTag/CustomTag";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import PrivacityButton from "@/components/buttons/PrivacityButton/PrivacityButton";
 import Form from "@/components/layout/Form/Form";
 import {
   Box,
@@ -73,6 +74,7 @@ function CreateEvent() {
             <CustomTag texto="tag" visual="solid" />
             <CustomTag texto="tag" visual="solid" />
           </HStack>
+          <PrivacityButton privacidade="Público" />
         </Form>
       </VStack>
     </Container>
