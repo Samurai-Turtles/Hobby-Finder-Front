@@ -7,6 +7,7 @@ function EventLocationSelection() {
       zoom={13}
       scrollWheelZoom={false}
       className="map-selector"
+      style={{ position: "fixed", width: "100vw", height: "100vh" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
