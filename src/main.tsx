@@ -13,12 +13,13 @@ import Notifications from "./pages/Notifications";
 import Participants from "./pages/Participants";
 import Solicitations from "./pages/Solicitations";
 import EventRatings from "./pages/EventRatings";
+import RatingEventCard from "./components/cards/RatingEventCard";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider>
       <Header />
-      <EventRatings />
+      <RatingEventCard />
     </Provider>
   </StrictMode>,
 );
