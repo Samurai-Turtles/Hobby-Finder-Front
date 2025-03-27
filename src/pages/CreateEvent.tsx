@@ -69,10 +69,10 @@ function CreateEvent() {
             />
           </Field.Root>
           <HStack>
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
+            <CustomTag texto="tag" visual="solid" disabled />
+            <CustomTag texto="tag" visual="solid" disabled />
+            <CustomTag texto="tag" visual="solid" disabled />
+            <CustomTag texto="tag" visual="solid" disabled />
           </HStack>
           <PrivacityButton privacidade="Público" />
         </Form>

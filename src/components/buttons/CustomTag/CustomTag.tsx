@@ -7,9 +7,10 @@ import { useState } from "react";
 interface CustomTagProps {
   texto: string;
   visual: "solid" | "outline";
+  disabled?: boolean;
 }
 
-function CustomTag({ texto, visual }: CustomTagProps) {
+function CustomTag({ texto, visual, disabled = false }: CustomTagProps) {
   const recipe = useRecipe({ recipe: customTagRecipe });
   const styleSolid = recipe({ visual: "solid" });
   const styleOutline = recipe({ visual: "outline" });
@@ -23,7 +24,12 @@ function CustomTag({ texto, visual }: CustomTagProps) {
   };
 
   return (
-    <Button onClick={toggleVisual} size="xs" rounded="full" css={currentStyle}>
+    <Button
+      onClick={disabled ? () => {} : toggleVisual}
+      size="xs"
+      rounded="full"
+      css={currentStyle}
+    >
       {texto}
     </Button>
   );

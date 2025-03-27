@@ -16,12 +16,15 @@ import RatingEventCard from "./components/cards/RatingEventCard";
 import LocationEventView from "./pages/LocationEventView";
 import PublicEventViewScreen from "./pages/PublicEventViewScreen";
 import PrivateEventView from "./pages/PrivateEventView";
+import CreateEvent from "./pages/CreateEvent";
+import EventView from "./pages/EventView";
+import FinishedEventView from "./pages/FinishedEventView";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider defaultTheme="light">
       <Header />
-      <PrivateEventView />
+      <FinishedEventView />
     </Provider>
   </StrictMode>,
 );
