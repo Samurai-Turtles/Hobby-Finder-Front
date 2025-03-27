@@ -16,7 +16,7 @@ import RatingEventCard from "./components/cards/RatingEventCard";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Provider>
+    <Provider defaultTheme="light">
       <Header />
       <RatingEventCard />
     </Provider>
