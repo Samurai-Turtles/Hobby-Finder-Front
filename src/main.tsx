@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "./components/ui/provider";
-import { Box, Container } from "@chakra-ui/react";
 import Header from "./components/layout/Header/Header";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
