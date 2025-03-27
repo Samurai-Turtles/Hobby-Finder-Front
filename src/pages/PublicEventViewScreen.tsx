@@ -19,7 +19,12 @@ function PublicEventViewScreen({ isCancel }: PublicEventViewScreenProps) {
     <Container maxWidth="90vw" py={5}>
       <FlowButton />
       <VStack gap={4} align="center">
-        <Box border="1px solid gray" borderRadius="md" p={4} textAlign="center">
+        <Box
+          border="1px solid gray"
+          borderRadius="md"
+          overflow="hidden"
+          textAlign="center"
+        >
           <ChakraImage
             height="200px"
             src="https://bit.ly/dan-abramov"

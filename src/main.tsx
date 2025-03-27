@@ -15,12 +15,13 @@ import EventRatings from "./pages/EventRatings";
 import RatingEventCard from "./components/cards/RatingEventCard";
 import LocationEventView from "./pages/LocationEventView";
 import PublicEventViewScreen from "./pages/PublicEventViewScreen";
+import PrivateEventView from "./pages/PrivateEventView";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider defaultTheme="light">
       <Header />
-      <PublicEventViewScreen isCancel={true} />
+      <PrivateEventView />
     </Provider>
   </StrictMode>,
 );

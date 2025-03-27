@@ -1,6 +1,4 @@
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
-import Form from "@/components/layout/Form/Form";
-import { CaretLeft } from "@phosphor-icons/react";
 import {
   Box,
   Container,
@@ -11,6 +9,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import defaultImage from "@/assets/images/default-event-image.webp";
+import PrimaryCustomButton from "@/components/buttons/PrimaryCustomButton/PrimaryCustomButton";
 
 function PrivateEventView() {
   const eventData = {
@@ -25,15 +24,11 @@ function PrivateEventView() {
 
   return (
     <Container maxWidth="90vw" py={5}>
-      <FlowButton>
-        <CaretLeft size={24} color="white" />
-        <Text color="white" fontSize={{ base: "sm", sm: "md" }}>
-          Voltar
-        </Text>
-      </FlowButton>
-      <Flex direction="column" alignItems="center" gap={5} mt={5}>
+      <FlowButton />
+      <Flex direction="column" alignItems="center" gap={4} mt={5}>
         <Box>
           <Image
+            maxH="200px"
             src={eventData.image}
             alt="Imagem do evento"
             borderRadius="md"
@@ -43,21 +38,34 @@ function PrivateEventView() {
           />
         </Box>
 
-        <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
-          <Text fontSize="lg" fontWeight="bold">
-            {eventData.name}
-          </Text>
-        </Field.Root>
+        <Flex direction="column" md={{ flexDirection: "row" }} w="100%" gap={4}>
+          <Field.Root
+            backgroundColor="#f4f4f4"
+            borderRadius="md"
+            p={2}
+            w="100%"
+            flex={2}
+          >
+            <Text fontSize="lg" fontWeight="bold">
+              {eventData.name}
+            </Text>
+          </Field.Root>
+          <Field.Root
+            backgroundColor="#f4f4f4"
+            borderRadius="md"
+            p={2}
+            w="100%"
+            flex={1}
+          >
+            <Text fontSize="md" color="gray.600">
+              Data: {new Date(eventData.date).toLocaleDateString("pt-BR")}
+            </Text>
+          </Field.Root>
+        </Flex>
 
         <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
           <Text fontSize="md" color="gray.600">
             {eventData.location}
-          </Text>
-        </Field.Root>
-
-        <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
-          <Text fontSize="md" color="gray.600">
-            Data: {new Date(eventData.date).toLocaleDateString("pt-BR")}
           </Text>
         </Field.Root>
 
@@ -82,12 +90,17 @@ function PrivateEventView() {
           </Text>
         </Field.Root>
 
-        <Form
-          action="/solicitarParticipacaoPrivateEvent"
-          method="post"
-          btnActionLabel="Solicitar Participação"
-          children={undefined}
-        />
+        <Flex
+          direction="column"
+          gap={2}
+          md={{ flexDirection: "row", justifyContent: "center" }}
+        >
+          <PrimaryCustomButton
+            type="submit"
+            value="Solicitar Participação"
+            variant="primary"
+          />
+        </Flex>
       </Flex>
     </Container>
   );
