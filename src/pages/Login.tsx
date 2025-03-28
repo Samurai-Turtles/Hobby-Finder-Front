@@ -10,9 +10,33 @@ import {
 } from "@chakra-ui/react";
 import Form from "../components/layout/Form/Form";
 import logo from "../assets/images/capivara.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import api from "@/api/axiosConfig";
 
 function Login() {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+    try {
+      const response = await api.post("/user/login", {
+        login,
+        password,
+      });
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        navigate("/");
+      } else {
+        throw new Error("Token não encontrado na resposta");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <AbsoluteCenter
       w={"90%"}
@@ -30,12 +54,19 @@ function Login() {
         </Text>
       </Box>
       <VStack w={"100%"} marginBlock={"16px"}>
-        <Form action="/login" method="post" btnActionLabel="Login">
+        <Form
+          action="/login"
+          method="post"
+          btnActionLabel="Login"
+          handleSubmit={handleLogin}
+        >
           <Field.Root required>
             <Input
               placeholder="Nickname ou E-mail"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
               required
             />
           </Field.Root>
@@ -44,6 +75,8 @@ function Login() {
               placeholder="Senha"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </Field.Root>
@@ -55,7 +88,7 @@ function Login() {
       <Text marginTop={"10px"} display="flex" gap={1}>
         Não tem uma conta?{" "}
         <Link to="/signup" style={{ color: "orange", fontWeight: "bold" }}>
-          <Box>Crie uma</Box>
+          Crie uma
         </Link>
       </Text>
       <Link to="/recovery" style={{ color: "orange", fontWeight: "bold" }}>

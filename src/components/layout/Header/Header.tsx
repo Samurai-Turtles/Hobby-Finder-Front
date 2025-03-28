@@ -24,7 +24,7 @@ function Header() {
         py={2}
         alignItems="center"
       >
-        <Link to="/home">
+        <Link to="/">
           <Image alt="Logo" maxH="2.5rem" src={logo} />
         </Link>
         <Flex alignItems="center" gap={2}>

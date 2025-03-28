@@ -7,8 +7,8 @@ import Notifications from "@/pages/Notifications";
 import UserProfile from "@/pages/UserProfile";
 import EditUserProfile from "@/pages/EditUserProfile";
 import { PrivateRoute } from "./PrivateRoute";
-import PrivateLayout from "./PrivateLayout";
 import CreateEvent from "@/pages/CreateEvent";
+import PrivateLayout from "./PrivateLayout";
 
 function AppRoutes() {
   return (
@@ -23,13 +23,13 @@ function AppRoutes() {
         {/* ABAIXO ESTÁ COMENTADO SÓ PARA TESTAR O FLUXO DE TELAS (DESCOMENTAR DEPOIS) */}
         {/* <Route element={<PrivateRoute />}> */}
         <Route element={<PrivateLayout />}>
-          <Route path="home" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="profile/edit" element={<EditUserProfile />} />
           {/* 
-                    A DEFINIR AQUI A RELAÇÃO DAS 9 TELAS DE VISUALIZAÇÃO DE EVENTO
-                */}
+                        A DEFINIR AQUI A RELAÇÃO DAS 9 TELAS DE VISUALIZAÇÃO DE EVENTO
+                    */}
           <Route path="create-event" element={<CreateEvent />} />
         </Route>
         {/* </Route> */}

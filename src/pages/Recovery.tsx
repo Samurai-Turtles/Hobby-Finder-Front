@@ -6,9 +6,11 @@ import {
   VStack,
   Field,
   Input,
+  Separator,
 } from "@chakra-ui/react";
 import logo from "../assets/images/capivara.webp";
 import Form from "../components/layout/Form/Form";
+import { Link } from "react-router-dom";
 
 function Recovery() {
   return (
@@ -49,6 +51,13 @@ function Recovery() {
             />
           </Field.Root>
         </Form>
+        <Separator w={"100%"} />
+        <Text display="flex" gap={1}>
+          Lembrou da senha?
+          <Link to="/login" style={{ color: "orange", fontWeight: "bold" }}>
+            Faça login
+          </Link>
+        </Text>
       </VStack>
     </AbsoluteCenter>
   );

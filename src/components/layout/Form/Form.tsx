@@ -8,6 +8,7 @@ interface FormProps {
   btnActionLabel: string;
   children: ReactNode;
   buttonBgColor?: string;
+  handleSubmit?: (e: any) => Promise<void>;
 }
 
 function Form({
@@ -16,23 +17,26 @@ function Form({
   btnActionLabel,
   children,
   buttonBgColor,
+  handleSubmit,
 }: FormProps) {
   return (
-    <Fieldset.Root>
-      <Fieldset.Content>{children}</Fieldset.Content>
-      <Button
-        type={"submit"}
-        value={"Submit"}
-        formAction={action}
-        formMethod={method}
-        w={"100%"}
-        bg={buttonBgColor || "orange"}
-        color={"white"}
-        fontWeight={"bold"}
-      >
-        {btnActionLabel}
-      </Button>
-    </Fieldset.Root>
+    <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+      <Fieldset.Root>
+        <Fieldset.Content>{children}</Fieldset.Content>
+        <Button
+          type={"submit"}
+          value={"Submit"}
+          formAction={action}
+          formMethod={method}
+          w={"100%"}
+          bg={buttonBgColor || "orange"}
+          color={"white"}
+          fontWeight={"bold"}
+        >
+          {btnActionLabel}
+        </Button>
+      </Fieldset.Root>
+    </form>
   );
 }
 
