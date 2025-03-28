@@ -1,17 +1,29 @@
 import {
   Avatar,
   Box,
+  Button,
   Circle,
   Container,
   Flex,
   Float,
   Image,
+  Popover,
+  Portal,
 } from "@chakra-ui/react";
 import logo from "../../../assets/images/logoHorizontal.webp";
 import { Bell } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Header() {
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <Box
       minW="full"
@@ -50,12 +62,36 @@ function Header() {
               </Float>
             </Box>
           </Link>
-          <Link to="profile">
-            <Avatar.Root shape="rounded">
-              <Avatar.Fallback name="Usuario" />
-              <Avatar.Image alt="Foto de Perfil do Usuário" src="#" />
-            </Avatar.Root>
-          </Link>
+          <Popover.Root open={open} positioning={{ placement: "bottom-end" }}>
+            <Popover.Trigger asChild>
+              <Link to="/profile">
+                <Avatar.Root shape="rounded" onMouseEnter={() => setOpen(true)}>
+                  <Avatar.Fallback name="Usuario" />
+                  <Avatar.Image alt="Foto de Perfil do Usuário" src="#" />
+                </Avatar.Root>
+              </Link>
+            </Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content
+                  maxW="5rem"
+                  onMouseLeave={() => setOpen(false)}
+                >
+                  <Popover.Arrow />
+                  <Button
+                    onClick={handleLogout}
+                    variant="subtle"
+                    bgColor="white"
+                    _hover={{ bgColor: "customLightGrey" }}
+                    width="100%"
+                    outline="none"
+                  >
+                    Sair
+                  </Button>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover.Root>
         </Flex>
       </Container>
     </Box>
