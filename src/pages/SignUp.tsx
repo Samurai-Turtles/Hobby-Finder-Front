@@ -6,10 +6,10 @@ import {
   VStack,
   Input,
   Field,
-  Link,
 } from "@chakra-ui/react";
 import logo from "../assets/images/capivara.webp";
 import Form from "../components/layout/Form/Form";
+import { Link } from "react-router-dom";
 
 function Signup() {
   return (
@@ -75,7 +75,7 @@ function Signup() {
 
       <Text marginTop={"10px"}>
         Já tem uma conta?{" "}
-        <Link href="../login/login" color={"orange"} fontWeight={"bold"}>
+        <Link to="/login" style={{ color: "orange", fontWeight: "bold" }}>
           Login
         </Link>
       </Text>

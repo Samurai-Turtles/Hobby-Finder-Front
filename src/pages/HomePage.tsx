@@ -7,6 +7,7 @@ import { getMockEventos } from "../utils/mockDatas";
 import EventCard from "../components/cards/EventCard";
 import { formatarData } from "../utils/formatData";
 import { Plus } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
 
 interface EventCardInterface {
   evento: Evento;
@@ -19,6 +20,7 @@ interface CustomTagInterface {
 }
 
 function HomePage() {
+  const navigate = useNavigate();
   const [eventos, setEventos] = useState<EventCardInterface[]>([]);
   const [termoBusca, setTermoBusca] = useState("");
   const [tags, setTags] = useState<CustomTagInterface[]>([]);
@@ -69,6 +71,7 @@ function HomePage() {
         right="7vw"
         transform="scale(1.2)"
         zIndex="1"
+        onClick={() => navigate("/create-event")}
       >
         <Plus size={32} />
       </IconButton>

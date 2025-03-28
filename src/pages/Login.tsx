@@ -4,13 +4,13 @@ import {
   Field,
   Image,
   Input,
-  Link,
   Separator,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import Form from "../components/layout/Form/Form";
 import logo from "../assets/images/capivara.webp";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -52,13 +52,13 @@ function Login() {
 
       <Separator w={"100%"} />
 
-      <Text marginTop={"10px"}>
+      <Text marginTop={"10px"} display="flex" gap={1}>
         Não tem uma conta?{" "}
-        <Link href="../signup/signup" color={"orange"} fontWeight={"bold"}>
-          Crie uma
+        <Link to="/signup" style={{ color: "orange", fontWeight: "bold" }}>
+          <Box>Crie uma</Box>
         </Link>
       </Text>
-      <Link href="/register" color={"orange"} fontWeight={"bold"}>
+      <Link to="/recovery" style={{ color: "orange", fontWeight: "bold" }}>
         Esqueci minha senha
       </Link>
     </AbsoluteCenter>

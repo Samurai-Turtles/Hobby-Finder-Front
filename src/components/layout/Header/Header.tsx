@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import logo from "../../../assets/images/logoHorizontal.webp";
 import { Bell } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -23,11 +24,11 @@ function Header() {
         py={2}
         alignItems="center"
       >
-        <button style={{ cursor: "pointer" }}>
+        <Link to="/home">
           <Image alt="Logo" maxH="2.5rem" src={logo} />
-        </button>
+        </Link>
         <Flex alignItems="center" gap={2}>
-          <button style={{ cursor: "pointer" }}>
+          <Link to="/notifications">
             <Box
               display="flex"
               alignItems="center"
@@ -48,13 +49,13 @@ function Header() {
                 </Circle>
               </Float>
             </Box>
-          </button>
-          <button style={{ cursor: "pointer" }}>
+          </Link>
+          <Link to="profile">
             <Avatar.Root shape="rounded">
               <Avatar.Fallback name="Usuario" />
               <Avatar.Image alt="Foto de Perfil do Usuário" src="#" />
             </Avatar.Root>
-          </button>
+          </Link>
         </Flex>
       </Container>
     </Box>

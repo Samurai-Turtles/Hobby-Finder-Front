@@ -29,7 +29,7 @@ function PerfilUsuario() {
     <Container maxWidth="90vw" py={5}>
       <Flex alignItems="center" justifyContent="space-between">
         <FlowButton />
-        <FlowButton>
+        <FlowButton path="/profile/edit">
           <PencilLine size={32} />
           <Text ml={1}>Editar</Text>
         </FlowButton>
