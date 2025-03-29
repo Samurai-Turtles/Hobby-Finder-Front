@@ -14,14 +14,20 @@ import logo from "../../../assets/images/logoHorizontal.webp";
 import { Bell } from "@phosphor-icons/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import api from "@/api/axiosConfig";
 
 function Header() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await api.post("/user/logout");
+      localStorage.removeItem("token");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
