@@ -10,11 +10,21 @@ import {
   SelectValueText,
   Text,
 } from "@chakra-ui/react";
-import { CaretDown, PencilLine } from "@phosphor-icons/react";
+import { CaretDown, PencilLine, User } from "@phosphor-icons/react";
 import FlowButton from "../components/buttons/FlowButton/FlowButton";
 import CustomTag from "@/components/buttons/CustomTag/CustomTag";
 import EventCard from "../components/cards/EventCard";
 import { formatarData } from "@/utils/formatData";
+
+import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
+import api from "@/api/axiosConfig";
+
+type User = {
+  fullName: string;
+  username: string;
+  bio: string;
+};
 
 function PerfilUsuario() {
   const eventsFilter = createListCollection({
@@ -24,6 +34,29 @@ function PerfilUsuario() {
       { label: "Sou participante", value: "SOu participante" },
     ],
   });
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    const fetchUserData = async (userId: any) => {
+      try {
+        const response = await api.get(`/user/${userId}`);
+        setUser({
+          fullName: response.data.fullName,
+          username: response.data.username,
+          bio: response.data.bio,
+        });
+      } catch (error) {
+        console.error("Erro ao buscar usuário", error);
+      }
+    };
+
+    // Exemplo de uso (chamando a função com o ID do usuário)
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      fetchUserData(decoded.sub); // Se "sub" for o ID do usuário
+    }
+  }, []);
 
   return (
     <Container maxWidth="90vw" py={5}>
@@ -40,10 +73,10 @@ function PerfilUsuario() {
           <Avatar.Image src="#" />
         </Avatar.Root>
         <Text fontSize="xl" fontWeight="bold">
-          Username
+          {user?.fullName}
         </Text>
-        <Text>@Nickname</Text>
-        <Text>"bio"</Text>
+        <Text>@{user?.username}</Text>
+        <Text>{user?.bio}</Text>
         <Flex gap={2} justifyContent="center" wrap="wrap">
           <CustomTag texto="tag" visual="solid" />
           <CustomTag texto="tag" visual="solid" />
