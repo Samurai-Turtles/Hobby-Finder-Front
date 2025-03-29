@@ -13,12 +13,14 @@ import {
 import logo from "../../../assets/images/logoHorizontal.webp";
 import { Bell } from "@phosphor-icons/react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "@/api/axiosConfig";
+import { userService } from "@/service/userService";
 
 function Header() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [numNotificacoes, setNumNotificacoes] = useState(0);
 
   const handleLogout = async () => {
     try {
@@ -29,6 +31,15 @@ function Header() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const carregarNumNotificacoes = async () => {
+      const data = await userService.getNumberOfNotifications(20, 1);
+      setNumNotificacoes(data);
+    };
+
+    carregarNumNotificacoes();
+  }, []);
 
   return (
     <Box
@@ -55,7 +66,11 @@ function Header() {
               h="2rem"
             >
               <Bell size={20} />
-              <Float offsetX="3" offsetY="2">
+              <Float
+                offsetX="3"
+                offsetY="2"
+                display={numNotificacoes > 0 ? "flex" : "none"}
+              >
                 <Circle
                   fontSize="0.7rem"
                   fontWeight="bold"
@@ -63,7 +78,7 @@ function Header() {
                   bg="red"
                   color="white"
                 >
-                  3
+                  {numNotificacoes}
                 </Circle>
               </Float>
             </Box>
