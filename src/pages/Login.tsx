@@ -11,13 +11,19 @@ import {
 import Form from "../components/layout/Form/Form";
 import logo from "../assets/images/capivara.webp";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "@/api/axiosConfig";
 
 function Login() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  });
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -33,7 +39,7 @@ function Login() {
         throw new Error("Token não encontrado na resposta");
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
