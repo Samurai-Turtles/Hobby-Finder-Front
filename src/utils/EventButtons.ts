@@ -42,6 +42,22 @@ export const getEventButtons = (status: string): ButtonsConfig => {
         color: "red",
       },
     },
+    cancel_participating: {
+      primary: {
+        action: "/cancelarParticipacao",
+        method: "post" as const,
+        label: "Cancelar Participação",
+        color: "red",
+      },
+    },
+    participar: {
+      primary: {
+        action: "/solicitarParticipacao",
+        method: "post" as const,
+        label: "Participar",
+        color: "orange",
+      },
+    },
   };
 
   return buttons[status as keyof typeof buttons] || {};

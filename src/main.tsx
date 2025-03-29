@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "./components/ui/provider";
 import Header from "./components/layout/Header/Header";
-//import Login from "./pages/Login";
+//gimport Login from "./pages/Login";
 //import SignUp from "./pages/SignUp";
 //import Recovery from "./pages/Recovery";
 //import HomePage from "./pages/HomePage";
@@ -19,7 +19,7 @@ import Header from "./components/layout/Header/Header";
 //import CreateEvent from "./pages/CreateEvent";
 //import EventView from "./pages/EventView";
 //import FinishedEventView from "./pages/FinishedEventView";
-import PrivateEventViewID from "./pages/PrivateEventViewID";
+import PrivateEventViewID from "./pages/EventViewID";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
