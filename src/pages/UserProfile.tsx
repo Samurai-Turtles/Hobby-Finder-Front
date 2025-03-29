@@ -1,4 +1,4 @@
-import CustomTag from "@/components/buttons/CustomTag/CustomTag";
+import Tag from "@/components/buttons/tag/tag";
 import Frame from "@/components/layout/frame";
 import { formatarData } from "@/utils/formatData";
 import {
@@ -45,10 +45,10 @@ function PerfilUsuario() {
         <Text>@Nickname</Text>
         <Text>"bio"</Text>
         <Flex gap={2} justifyContent="center" wrap="wrap">
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
+          <Tag label="tag" visual="solid" />
+          <Tag label="tag" visual="solid" />
+          <Tag label="tag" visual="solid" />
+          <Tag label="tag" visual="solid" />
         </Flex>
         <Flex
           minW="100%"

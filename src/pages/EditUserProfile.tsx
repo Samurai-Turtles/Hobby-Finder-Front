@@ -1,4 +1,4 @@
-import CustomTag from "@/components/buttons/CustomTag/CustomTag";
+import Tag from "@/components/buttons/tag/tag";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import Frame from "@/components/layout/frame";
 import {
@@ -43,10 +43,10 @@ function EditUserProfile() {
           </Float>
         </Box>
         <Flex alignItems="center" gap={2}>
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
           <button style={{ cursor: "pointer" }}>
             <Box border="1px solid" color="customOrange" p={1} rounded="full">
               <Plus size={15} />

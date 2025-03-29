@@ -1,4 +1,4 @@
-import CustomTag from "@/components/buttons/CustomTag/CustomTag";
+import Tag from "@/components/buttons/tag/tag";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import PrivacityButton from "@/components/buttons/PrivacityButton/PrivacityButton";
 import Form from "@/components/layout/Form/Form";
@@ -69,10 +69,10 @@ function EditEvent() {
             />
           </Field.Root>
           <HStack>
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
+            <Tag label="tag" style="solid" />
+            <Tag label="tag" style="solid" />
+            <Tag label="tag" style="solid" />
+            <Tag label="tag" style="solid" />
           </HStack>
           <PrivacityButton privacidade="Público" />
         </Form>
