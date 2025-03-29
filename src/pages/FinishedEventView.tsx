@@ -1,16 +1,16 @@
+import defaultImage from "@/assets/images/default-event-image.webp";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
-import { CaretLeft } from "@phosphor-icons/react";
+import Frame from "@/components/layout/frame";
 import {
   Box,
-  Container,
+  Button,
   Field,
   Flex,
-  Text,
   Image,
+  Text,
   Textarea,
-  Button,
 } from "@chakra-ui/react";
-import defaultImage from "@/assets/images/default-event-image.webp";
+import { CaretLeft } from "@phosphor-icons/react";
 
 function FinishedEventView() {
   const eventData = {
@@ -24,7 +24,7 @@ function FinishedEventView() {
   };
 
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <FlowButton>
         <CaretLeft size={24} color="white" />
         <Text color="white" fontSize={{ base: "sm", sm: "md" }}>
@@ -116,7 +116,7 @@ function FinishedEventView() {
           </Text>
         </Field.Root>
       </Flex>
-    </Container>
+    </Frame>
   );
 }
 

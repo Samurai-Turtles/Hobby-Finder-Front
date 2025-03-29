@@ -2,9 +2,9 @@ import CustomTag from "@/components/buttons/CustomTag/CustomTag";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import PrivacityButton from "@/components/buttons/PrivacityButton/PrivacityButton";
 import Form from "@/components/layout/Form/Form";
+import Frame from "@/components/layout/frame";
 import {
   Box,
-  Container,
   Field,
   HStack,
   IconButton,
@@ -17,7 +17,7 @@ import { Pen } from "@phosphor-icons/react";
 
 function EditEvent() {
   return (
-    <Container maxWidth={"90vw"} py={5}>
+    <Frame>
       <FlowButton />
       <VStack mt={6}>
         <Box position={"relative"}>
@@ -77,7 +77,7 @@ function EditEvent() {
           <PrivacityButton privacidade="Público" />
         </Form>
       </VStack>
-    </Container>
+    </Frame>
   );
 }
 

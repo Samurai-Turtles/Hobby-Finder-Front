@@ -1,14 +1,14 @@
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import Frame from "@/components/layout/frame";
 import {
   Box,
-  VStack,
-  Stack,
-  Input,
-  Textarea,
   Button,
-  Container,
+  Image as ChakraImage,
+  Input,
+  Stack,
+  Textarea,
+  VStack,
 } from "@chakra-ui/react";
-import { Image as ChakraImage } from "@chakra-ui/react";
 
 interface PublicEventViewScreenProps {
   isCancel: boolean;
@@ -16,7 +16,7 @@ interface PublicEventViewScreenProps {
 
 function PublicEventViewScreen({ isCancel }: PublicEventViewScreenProps) {
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <FlowButton />
       <VStack gap={4} align="center">
         <Box
@@ -90,7 +90,7 @@ function PublicEventViewScreen({ isCancel }: PublicEventViewScreenProps) {
           </Button>
         </Stack>
       </VStack>
-    </Container>
+    </Frame>
   );
 }
 

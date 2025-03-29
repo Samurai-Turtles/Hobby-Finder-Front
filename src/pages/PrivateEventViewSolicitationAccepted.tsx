@@ -1,16 +1,9 @@
+import defaultImage from "@/assets/images/default-event-image.webp";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import Form from "@/components/layout/Form/Form";
+import Frame from "@/components/layout/frame";
+import { Box, Field, Flex, Image, Text, Textarea } from "@chakra-ui/react";
 import { CaretLeft } from "@phosphor-icons/react";
-import {
-  Box,
-  Container,
-  Field,
-  Flex,
-  Text,
-  Image,
-  Textarea,
-} from "@chakra-ui/react";
-import defaultImage from "@/assets/images/default-event-image.webp";
 
 function PrivateEventViewSolicitationAccepted() {
   const eventData = {
@@ -24,7 +17,7 @@ function PrivateEventViewSolicitationAccepted() {
   };
 
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <FlowButton>
         <CaretLeft size={24} color="white" />
         <Text color="white" fontSize={{ base: "sm", sm: "md" }}>
@@ -97,7 +90,7 @@ function PrivateEventViewSolicitationAccepted() {
           buttonBgColor="red"
         />
       </Flex>
-    </Container>
+    </Frame>
   );
 }
 

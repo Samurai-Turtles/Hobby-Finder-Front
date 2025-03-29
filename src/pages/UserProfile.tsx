@@ -1,6 +1,8 @@
+import CustomTag from "@/components/buttons/CustomTag/CustomTag";
+import Frame from "@/components/layout/frame";
+import { formatarData } from "@/utils/formatData";
 import {
   Avatar,
-  Container,
   createListCollection,
   Flex,
   SelectContent,
@@ -12,9 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { CaretDown, PencilLine } from "@phosphor-icons/react";
 import FlowButton from "../components/buttons/FlowButton/FlowButton";
-import CustomTag from "@/components/buttons/CustomTag/CustomTag";
 import EventCard from "../components/cards/EventCard";
-import { formatarData } from "@/utils/formatData";
 
 function PerfilUsuario() {
   const eventsFilter = createListCollection({
@@ -26,7 +26,7 @@ function PerfilUsuario() {
   });
 
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <Flex alignItems="center" justifyContent="space-between">
         <FlowButton />
         <FlowButton path="/profile/edit">
@@ -102,7 +102,7 @@ function PerfilUsuario() {
           />
         </Flex>
       </Flex>
-    </Container>
+    </Frame>
   );
 }
 
