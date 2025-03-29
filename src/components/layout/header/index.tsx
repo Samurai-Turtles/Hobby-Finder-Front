@@ -1,20 +1,21 @@
+import api from "@/api/axiosConfig";
 import {
   Avatar,
   Box,
   Button,
   Circle,
-  Container,
   Flex,
   Float,
+  HStack,
   Image,
   Popover,
   Portal,
 } from "@chakra-ui/react";
-import logo from "../../../assets/images/logoHorizontal.webp";
 import { Bell } from "@phosphor-icons/react";
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import api from "@/api/axiosConfig";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../../assets/images/logoHorizontal.webp";
+import Frame from "../frame";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -31,17 +32,8 @@ function Header() {
   };
 
   return (
-    <Box
-      minW="full"
-      md={{ borderBottom: "2px solid", borderColor: "customLightGrey" }}
-    >
-      <Container
-        display="flex"
-        maxW="90vw"
-        justifyContent="space-between"
-        py={2}
-        alignItems="center"
-      >
+    <Frame>
+      <HStack justifyContent="space-between" alignItems="center">
         <Link to="/">
           <Image alt="Logo" maxH="2.5rem" src={logo} />
         </Link>
@@ -99,8 +91,8 @@ function Header() {
             </Portal>
           </Popover.Root>
         </Flex>
-      </Container>
-    </Box>
+      </HStack>
+    </Frame>
   );
 }
 

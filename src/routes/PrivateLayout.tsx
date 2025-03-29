@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Header from "../components/layout/Header/Header"; // Importa o Header global
+import Header from "../components/layout/header"; // Importa o Header global
 
 function PrivateLayout() {
   return (
