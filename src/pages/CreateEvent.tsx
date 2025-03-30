@@ -1,7 +1,7 @@
 import Tag from "@/components/buttons/tag/tag";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import PrivacityButton from "@/components/buttons/PrivacityButton/PrivacityButton";
-import Form from "@/components/layout/Form/Form";
+import Form from "@/components/layout/form";
 import Frame from "@/components/layout/frame";
 import {
   Box,

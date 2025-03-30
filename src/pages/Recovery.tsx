@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/capivara.webp";
-import Form from "../components/layout/Form/Form";
+import Form from "../components/layout/form";
 
 function Recovery() {
   return (

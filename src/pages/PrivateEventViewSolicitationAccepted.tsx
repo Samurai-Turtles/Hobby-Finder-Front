@@ -1,6 +1,6 @@
 import defaultImage from "@/assets/images/default-event-image.webp";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
-import Form from "@/components/layout/Form/Form";
+import Form from "@/components/layout/form";
 import Frame from "@/components/layout/frame";
 import { Box, Field, Flex, Image, Text, Textarea } from "@chakra-ui/react";
 import { CaretLeft } from "@phosphor-icons/react";

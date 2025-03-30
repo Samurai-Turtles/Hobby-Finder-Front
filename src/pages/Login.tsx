@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import Form from "../components/layout/Form/Form";
+import Form from "../components/layout/form";
 import logo from "../assets/images/capivara.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
