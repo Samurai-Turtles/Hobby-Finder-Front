@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Tag from "../components/buttons/tag/tag";
 import EventCard from "../components/cards/EventCard";
-import SearchBar from "../components/layout/SearchBar/SearchBar";
+import SearchBar from "../components/layout/searchbar";
 import { formatarData } from "../utils/formatData";
 import { Evento, getMockEventos, getMockTags } from "../utils/mockDatas";
 
@@ -77,7 +77,7 @@ function HomePage() {
       </IconButton>
 
       <Flex direction="column" gap={5}>
-        <SearchBar placeHolder="Buscar evento" setTermoBusca={setTermoBusca} />
+        <SearchBar placeholder="Buscar evento" setTermoBusca={setTermoBusca} />
         <Flex gap={2} wrap="wrap">
           {tags.map((e, index) => {
             return <Tag key={index} label={`#${e.nome}`} style={e.visual} />;
