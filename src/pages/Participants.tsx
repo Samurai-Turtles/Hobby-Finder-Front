@@ -1,8 +1,9 @@
-import { Container, Grid } from "@chakra-ui/react";
-import ParticipantsList from "../components/events/ParticipantsList";
-import ParticipantProfileCard from "../components/cards/ParticipantProfileCard";
-import { useState } from "react";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import Frame from "@/components/layout/frame";
+import { Grid } from "@chakra-ui/react";
+import { useState } from "react";
+import ParticipantProfileCard from "../components/cards/ParticipantProfileCard";
+import ParticipantsList from "../components/events/ParticipantsList";
 
 export type Participant = {
   srcImgProfile: string;
@@ -61,7 +62,7 @@ function Participants() {
   };
 
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <FlowButton />
       <ParticipantProfileCard
         display={cardDisplay}
@@ -83,7 +84,7 @@ function Participants() {
           onClickBtn={updateParticipantInfo}
         />
       </Grid>
-    </Container>
+    </Frame>
   );
 }
 

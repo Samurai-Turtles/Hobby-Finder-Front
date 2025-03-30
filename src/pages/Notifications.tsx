@@ -1,10 +1,11 @@
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import Notification from "@/components/events/Notification";
-import { Container, VStack } from "@chakra-ui/react";
+import Frame from "@/components/layout/frame";
+import { VStack } from "@chakra-ui/react";
 
 function Notifications() {
   return (
-    <Container maxWidth="90vw" paddingY="5">
+    <Frame>
       <FlowButton />
       <VStack alignItems="left" marginY="5">
         <Notification
@@ -34,7 +35,7 @@ function Notifications() {
           isSolicitation={true}
         />
       </VStack>
-    </Container>
+    </Frame>
   );
 }
 

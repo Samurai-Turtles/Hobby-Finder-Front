@@ -1,6 +1,8 @@
+import Tag from "@/components/buttons/tag/tag";
+import Frame from "@/components/layout/frame";
+import { formatarData } from "@/utils/formatData";
 import {
   Avatar,
-  Container,
   createListCollection,
   Flex,
   SelectContent,
@@ -12,9 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { CaretDown, PencilLine, User } from "@phosphor-icons/react";
 import FlowButton from "../components/buttons/FlowButton/FlowButton";
-import CustomTag from "@/components/buttons/CustomTag/CustomTag";
 import EventCard from "../components/cards/EventCard";
-import { formatarData } from "@/utils/formatData";
 
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
@@ -59,7 +59,7 @@ function PerfilUsuario() {
   }, []);
 
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <Flex alignItems="center" justifyContent="space-between">
         <FlowButton />
         <FlowButton path="/profile/edit">
@@ -78,10 +78,10 @@ function PerfilUsuario() {
         <Text>@{user?.username}</Text>
         <Text>{user?.bio}</Text>
         <Flex gap={2} justifyContent="center" wrap="wrap">
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
+          <Tag label="tag" visual="solid" />
+          <Tag label="tag" visual="solid" />
+          <Tag label="tag" visual="solid" />
+          <Tag label="tag" visual="solid" />
         </Flex>
         <Flex
           minW="100%"
@@ -135,7 +135,7 @@ function PerfilUsuario() {
           />
         </Flex>
       </Flex>
-    </Container>
+    </Frame>
   );
 }
 

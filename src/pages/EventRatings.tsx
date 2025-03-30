@@ -1,10 +1,11 @@
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import EventRating from "@/components/events/EventRating";
-import { Container, VStack } from "@chakra-ui/react";
+import Frame from "@/components/layout/frame";
+import { VStack } from "@chakra-ui/react";
 
 function EventeRatings() {
   return (
-    <Container maxWidth="90vw" paddingY="5">
+    <Frame>
       <FlowButton />
       <VStack alignItems="left" marginY="5" gap={5}>
         <EventRating
@@ -32,7 +33,7 @@ function EventeRatings() {
           imgSrc={"#"}
         />
       </VStack>
-    </Container>
+    </Frame>
   );
 }
 

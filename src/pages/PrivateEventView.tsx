@@ -1,15 +1,8 @@
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
-import {
-  Box,
-  Container,
-  Field,
-  Flex,
-  Text,
-  Image,
-  Textarea,
-} from "@chakra-ui/react";
 import defaultImage from "@/assets/images/default-event-image.webp";
+import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import PrimaryCustomButton from "@/components/buttons/PrimaryCustomButton/PrimaryCustomButton";
+import Frame from "@/components/layout/frame";
+import { Box, Field, Flex, Image, Text, Textarea } from "@chakra-ui/react";
 
 function PrivateEventView() {
   const eventData = {
@@ -23,7 +16,7 @@ function PrivateEventView() {
   };
 
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <FlowButton />
       <Flex direction="column" alignItems="center" gap={4} mt={5}>
         <Box>
@@ -102,7 +95,7 @@ function PrivateEventView() {
           />
         </Flex>
       </Flex>
-    </Container>
+    </Frame>
   );
 }
 

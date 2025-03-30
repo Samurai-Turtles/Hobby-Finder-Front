@@ -1,6 +1,6 @@
 import { defineRecipe } from "@chakra-ui/react";
 
-export const customTagRecipe = defineRecipe({
+export const tagRecipe = defineRecipe({
   variants: {
     visual: {
       solid: {

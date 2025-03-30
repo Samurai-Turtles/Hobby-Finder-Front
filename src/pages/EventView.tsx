@@ -1,19 +1,12 @@
-import CustomTag from "@/components/buttons/CustomTag/CustomTag";
+import Tag from "@/components/buttons/tag/tag";
 import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import PrimaryCustomButton from "@/components/buttons/PrimaryCustomButton/PrimaryCustomButton";
-import {
-  Container,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import Frame from "@/components/layout/frame";
+import { Flex, Heading, HStack, Image, Text, VStack } from "@chakra-ui/react";
 
 function EventView() {
   return (
-    <Container maxWidth={"90vw"} py={6}>
+    <Frame>
       <FlowButton />
       <VStack mt={6}>
         {/* Event image section */}
@@ -34,15 +27,15 @@ function EventView() {
           <Text>Data e horário</Text>
           <Text>Descrição do evento</Text>
           <HStack>
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
-            <CustomTag texto="tag" visual="solid" />
+            <Tag label="tag" style="solid" />
+            <Tag label="tag" style="solid" />
+            <Tag label="tag" style="solid" />
+            <Tag label="tag" style="solid" />
           </HStack>
           <PrimaryCustomButton value="Editar evento" variant="primary" />
         </VStack>
       </VStack>
-    </Container>
+    </Frame>
   );
 }
 

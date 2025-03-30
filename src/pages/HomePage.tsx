@@ -1,13 +1,13 @@
-import { Container, Flex, Heading, IconButton } from "@chakra-ui/react";
-import SearchBar from "../components/layout/SearchBar/SearchBar";
-import CustomTag from "../components/buttons/CustomTag/CustomTag";
-import { useEffect, useState } from "react";
-import { Evento, getMockTags } from "../utils/mockDatas";
-import { getMockEventos } from "../utils/mockDatas";
-import EventCard from "../components/cards/EventCard";
-import { formatarData } from "../utils/formatData";
+import Frame from "@/components/layout/frame";
+import { Flex, Heading, IconButton } from "@chakra-ui/react";
 import { Plus } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Tag from "../components/buttons/tag/tag";
+import EventCard from "../components/cards/EventCard";
+import SearchBar from "../components/layout/SearchBar/SearchBar";
+import { formatarData } from "../utils/formatData";
+import { Evento, getMockEventos, getMockTags } from "../utils/mockDatas";
 
 interface EventCardInterface {
   evento: Evento;
@@ -61,7 +61,7 @@ function HomePage() {
   }, [termoBusca]);
 
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <IconButton
         padding={0}
         rounded="lg"
@@ -80,9 +80,7 @@ function HomePage() {
         <SearchBar placeHolder="Buscar evento" setTermoBusca={setTermoBusca} />
         <Flex gap={2} wrap="wrap">
           {tags.map((e, index) => {
-            return (
-              <CustomTag key={index} texto={`#${e.nome}`} visual={e.visual} />
-            );
+            return <Tag key={index} label={`#${e.nome}`} style={e.visual} />;
           })}
         </Flex>
         <Heading textStyle="2xl">Próximos Eventos</Heading>
@@ -103,7 +101,7 @@ function HomePage() {
           );
         })}
       </Flex>
-    </Container>
+    </Frame>
   );
 }
 

@@ -1,16 +1,16 @@
 import {
   AbsoluteCenter,
   Box,
-  Image,
-  Text,
-  VStack,
   Field,
+  Image,
   Input,
   Separator,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import logo from "../assets/images/capivara.webp";
 import Form from "../components/layout/Form/Form";
-import { Link } from "react-router-dom";
 
 function Recovery() {
   return (

@@ -1,7 +1,9 @@
+import Tag from "@/components/buttons/tag/tag";
+import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import Frame from "@/components/layout/frame";
 import {
   Avatar,
   Box,
-  Container,
   Field,
   Fieldset,
   Flex,
@@ -9,12 +11,10 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Camera, Plus } from "@phosphor-icons/react";
-import PrimaryCustomButton from "../components/buttons/PrimaryCustomButton/PrimaryCustomButton";
-import CustomInput from "../components/inputs/CustomInput";
-import DeleteAccountCard from "../components/cards/DeleteAccountCard";
 import { useState } from "react";
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
-import CustomTag from "@/components/buttons/CustomTag/CustomTag";
+import PrimaryCustomButton from "../components/buttons/PrimaryCustomButton/PrimaryCustomButton";
+import DeleteAccountCard from "../components/cards/DeleteAccountCard";
+import CustomInput from "../components/inputs/CustomInput";
 
 function EditUserProfile() {
   const [cardDisplay, setCardDisplay] = useState("none");
@@ -26,7 +26,7 @@ function EditUserProfile() {
   };
 
   return (
-    <Container maxWidth="90vw" py={5}>
+    <Frame>
       <FlowButton />
       <Flex direction="column" minW="100%" alignItems="center" gap={5}>
         <Box position="relative">
@@ -43,10 +43,10 @@ function EditUserProfile() {
           </Float>
         </Box>
         <Flex alignItems="center" gap={2}>
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
-          <CustomTag texto="tag" visual="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
           <button style={{ cursor: "pointer" }}>
             <Box border="1px solid" color="customOrange" p={1} rounded="full">
               <Plus size={15} />
@@ -104,7 +104,7 @@ function EditUserProfile() {
         </Fieldset.Root>
       </Flex>
       <DeleteAccountCard display={cardDisplay} onClick={showHideCard} />
-    </Container>
+    </Frame>
   );
 }
 
