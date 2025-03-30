@@ -1,6 +1,7 @@
-import Tag from "@/components/buttons/tag/tag";
+import api from "@/api/axiosConfig";
 import NavigationButton from "@/components/buttons/navigation-button";
 import PrivacityButton from "@/components/buttons/privacity-button";
+import Tag from "@/components/buttons/tag/tag";
 import Form from "@/components/layout/form";
 import Frame from "@/components/layout/frame";
 import {
@@ -14,8 +15,67 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { CaretLeft, Pen } from "@phosphor-icons/react";
+import { useState } from "react";
+
+type EventCreationData = {
+  Name: string;
+  begin: string;
+  end: string;
+  Local: {
+    rua: string;
+    district: string;
+    number: string;
+    city: string;
+    state: string;
+    latitude: number;
+    longitude: number;
+  };
+  privacity: string;
+  description: string;
+  maxUserAmount: number;
+  interests: string;
+};
 
 function CreateEvent() {
+  const [eventData, setEventData] = useState<EventCreationData>({
+    Name: "",
+    begin: "",
+    end: "",
+    Local: {
+      rua: "",
+      district: "",
+      number: "",
+      city: "",
+      state: "",
+      latitude: 0,
+      longitude: 0,
+    },
+    privacity: "",
+    description: "",
+    maxUserAmount: 0,
+    interests: "",
+  });
+
+  const handleInputUpdate = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    propertyName: keyof EventCreationData,
+  ) => {
+    setEventData((prevData) => ({
+      ...prevData,
+      [propertyName]: e.target.value,
+    }));
+  };
+
+  const handleCreateEventSubmit = async (e: Event) => {
+    e.preventDefault();
+
+    try {
+      await api.post("/api/event", eventData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Frame>
       <NavigationButton Icon={CaretLeft} label="Voltar" />
@@ -34,12 +94,20 @@ function CreateEvent() {
             <Pen />
           </IconButton>
         </Box>
-        <Form action="" btnActionLabel="Criar evento" method="post">
+        <Form
+          action="/api/event"
+          btnActionLabel="Criar evento"
+          method="post"
+          handleSubmit={handleCreateEventSubmit}
+        >
           <Field.Root required>
             <Input
               placeholder="Título do evento"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputUpdate(event, "Name")
+              }
               required
             />
           </Field.Root>
@@ -48,15 +116,45 @@ function CreateEvent() {
               placeholder="Local do evento"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputUpdate(event, "Local")
+              }
               required
             />
           </Field.Root>
           <Field.Root required>
             <Input
-              placeholder="Data"
+              placeholder="Data inicial"
               type="datetime-local"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputUpdate(event, "begin")
+              }
+              required
+            />
+          </Field.Root>
+          <Field.Root required>
+            <Input
+              placeholder="Data final"
+              type="datetime-local"
+              backgroundColor={"#f4f4f4"}
+              border={"0px"}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputUpdate(event, "end")
+              }
+              required
+            />
+          </Field.Root>
+          <Field.Root required>
+            <Input
+              placeholder="Número de participantes"
+              type="number"
+              backgroundColor={"#f4f4f4"}
+              border={"0px"}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputUpdate(event, "end")
+              }
               required
             />
           </Field.Root>
@@ -66,6 +164,9 @@ function CreateEvent() {
               rows={6}
               backgroundColor={"#f4f4f4"}
               border={"0px"}
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+                handleInputUpdate(event, "description")
+              }
             />
           </Field.Root>
           <HStack>
