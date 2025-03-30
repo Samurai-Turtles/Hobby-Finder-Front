@@ -1,3 +1,4 @@
+import ActionButton from "@/components/buttons/action-button";
 import NavigationButton from "@/components/buttons/navigation-button";
 import Tag from "@/components/buttons/tag/tag";
 import Frame from "@/components/layout/frame";
@@ -12,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { Camera, CaretLeft, Plus } from "@phosphor-icons/react";
 import { useState } from "react";
-import PrimaryCustomButton from "../components/buttons/PrimaryCustomButton/PrimaryCustomButton";
 import DeleteAccountCard from "../components/cards/DeleteAccountCard";
 import CustomInput from "../components/inputs/CustomInput";
 
@@ -89,16 +89,16 @@ function EditUserProfile() {
             gap={2}
             md={{ flexDirection: "row", justifyContent: "center" }}
           >
-            <PrimaryCustomButton
+            <ActionButton
               type="button"
-              value="Excluir Conta"
-              variant="secondary"
-              onClick={showHideCard}
+              label="Excluir Conta"
+              buttonStyle="alert"
+              action={showHideCard}
             />
-            <PrimaryCustomButton
+            <ActionButton
               type="submit"
-              value="Salvar Alterações"
-              variant="primary"
+              label="Salvar Alterações"
+              action={() => {} /* TODO: add save request */}
             />
           </Flex>
         </Fieldset.Root>

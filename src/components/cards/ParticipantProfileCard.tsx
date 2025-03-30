@@ -1,7 +1,7 @@
+import { Participant } from "@/pages/Participants";
 import { Avatar, Box, Card, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { Star } from "@phosphor-icons/react";
-import { Participant } from "@/pages/Participants";
-import PrimaryCustomButton from "../buttons/PrimaryCustomButton/PrimaryCustomButton";
+import ActionButton from "../buttons/action-button";
 
 interface ParticipantProfileCardProps {
   display: string;
@@ -41,25 +41,18 @@ function ParticipantProfileCard({
           </Card.Body>
           <Card.Footer flexDirection="column">
             {participant.tipo.includes("PARTICIPANTE") ? (
-              <PrimaryCustomButton
-                type="button"
-                value="Tornar Organizador"
-                variant="primary"
-                onClick={() => {}}
-              />
+              <ActionButton label="Tornar Organizador" action={() => {}} />
             ) : (
-              <PrimaryCustomButton
-                type="button"
-                value="Remover como Organizador"
-                variant="secondary"
-                onClick={() => {}}
+              <ActionButton
+                label="Remover como Organizador"
+                buttonStyle="alert"
+                action={() => {}}
               />
             )}
-            <PrimaryCustomButton
-              type="button"
-              value="Remover Participante"
-              variant="secondary"
-              onClick={() => {}}
+            <ActionButton
+              label="Remover Participante"
+              buttonStyle="alert"
+              action={() => {}}
             />
           </Card.Footer>
         </Card.Root>

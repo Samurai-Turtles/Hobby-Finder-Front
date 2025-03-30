@@ -7,9 +7,9 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import PrimaryCustomButton from "../buttons/PrimaryCustomButton/PrimaryCustomButton";
 import { Star } from "@phosphor-icons/react";
 import { useState } from "react";
+import ActionButton from "../buttons/action-button";
 
 function RatingEventCard() {
   const [rating, setRating] = useState(0);
@@ -65,11 +65,9 @@ function RatingEventCard() {
             </Flex>
           </Card.Body>
           <Card.Footer flexDirection="column">
-            <PrimaryCustomButton
-              type="button"
-              value="Registrar Avaliação"
-              variant="primary"
-              onClick={() => {}}
+            <ActionButton
+              label="Registrar Avaliação"
+              action={() => {} /* TODO: add register request here */}
             />
           </Card.Footer>
         </Card.Root>

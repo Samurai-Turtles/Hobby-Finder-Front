@@ -1,10 +1,10 @@
 import { Box, Card, Field, Flex, Stack } from "@chakra-ui/react";
-import CustomButton from "../buttons/PrimaryCustomButton/PrimaryCustomButton";
+import ActionButton from "../buttons/action-button";
 import CustomInput from "../inputs/CustomInput";
 
 interface DeleteAccountCardProps {
   display: string;
-  onClick?: (e: any) => void;
+  onClick: (e: any) => void;
 }
 
 function DeleteAccountCard({ display, onClick }: DeleteAccountCardProps) {
@@ -38,16 +38,14 @@ function DeleteAccountCard({ display, onClick }: DeleteAccountCardProps) {
             </Stack>
           </Card.Body>
           <Card.Footer display="flex" flexDirection="column">
-            <CustomButton
-              type="button"
-              value="Confirmar Exclusão"
-              variant="primary"
+            <ActionButton
+              label="Confirmar Exclusão"
+              action={() => {} /* TODO: add confirm request here */}
             />
-            <CustomButton
-              type="button"
-              value="Cancelar Exclusão"
-              variant="secondary"
-              onClick={onClick}
+            <ActionButton
+              label="Cancelar Exclusão"
+              buttonStyle="alert"
+              action={onClick}
             />
           </Card.Footer>
         </Card.Root>

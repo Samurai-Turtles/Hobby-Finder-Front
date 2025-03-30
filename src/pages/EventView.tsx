@@ -1,5 +1,5 @@
+import ActionButton from "@/components/buttons/action-button";
 import NavigationButton from "@/components/buttons/navigation-button";
-import PrimaryCustomButton from "@/components/buttons/PrimaryCustomButton/PrimaryCustomButton";
 import Tag from "@/components/buttons/tag/tag";
 import Frame from "@/components/layout/frame";
 import { Flex, Heading, HStack, Image, Text, VStack } from "@chakra-ui/react";
@@ -17,8 +17,14 @@ function EventView() {
             borderRadius={6}
           />
           <Flex w={"100%"} wrap={"wrap"} gap={2}>
-            <PrimaryCustomButton value="Var solicitações" variant="primary" />
-            <PrimaryCustomButton value="Ver participantes" variant="primary" />
+            <ActionButton
+              label="Var solicitações"
+              action={() => {} /* TODO: add action later */}
+            />
+            <ActionButton
+              label="Ver participantes"
+              action={() => {} /* TODO: add action later */}
+            />
           </Flex>
         </VStack>
         {/* Event data section */}
@@ -33,7 +39,10 @@ function EventView() {
             <Tag label="tag" style="solid" />
             <Tag label="tag" style="solid" />
           </HStack>
-          <PrimaryCustomButton value="Editar evento" variant="primary" />
+          <ActionButton
+            label="Editar evento"
+            action={() => {} /* TODO: add action later */}
+          />
         </VStack>
       </VStack>
     </Frame>

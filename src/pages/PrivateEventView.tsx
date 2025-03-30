@@ -1,6 +1,6 @@
 import defaultImage from "@/assets/images/default-event-image.webp";
+import ActionButton from "@/components/buttons/action-button";
 import NavigationButton from "@/components/buttons/navigation-button";
-import PrimaryCustomButton from "@/components/buttons/PrimaryCustomButton/PrimaryCustomButton";
 import Frame from "@/components/layout/frame";
 import { Box, Field, Flex, Image, Text, Textarea } from "@chakra-ui/react";
 import { CaretLeft } from "@phosphor-icons/react";
@@ -89,10 +89,10 @@ function PrivateEventView() {
           gap={2}
           md={{ flexDirection: "row", justifyContent: "center" }}
         >
-          <PrimaryCustomButton
+          <ActionButton
             type="submit"
-            value="Solicitar Participação"
-            variant="primary"
+            label="Solicitar Participação"
+            action={() => null /* TODO: add solicitation request */}
           />
         </Flex>
       </Flex>
