@@ -12,4 +12,14 @@ export const userService = {
       throw error;
     }
   },
+
+  async updateUser(userData: any) {
+    try {
+      const response = await api.put(`/user`, userData);
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao atualizar usuário", error);
+      throw error;
+    }
+  },
 };

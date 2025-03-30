@@ -12,18 +12,94 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Camera, CaretLeft, Plus } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteAccountCard from "../components/cards/DeleteAccountCard";
 import CustomInput from "../components/inputs/CustomInput";
+import { useNavigate } from "react-router-dom";
+import { userService } from "@/service/userService";
+import api from "@/api/axiosConfig";
+import { jwtDecode } from "jwt-decode";
+
+type UserData = {
+  username?: string;
+  email?: string;
+  password?: string;
+  name: string;
+  bio: string;
+  interests: string[];
+};
 
 function EditUserProfile() {
   const [cardDisplay, setCardDisplay] = useState("none");
+  const [userData, setUserData] = useState<UserData>({
+    name: "",
+    bio: "",
+    interests: [],
+  });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const showHideCard = () => {
     setCardDisplay((cardDisplay) =>
       cardDisplay === "none" ? "block" : "none",
     );
   };
+
+  const handleChange = (e: any) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      console.log(userData);
+
+      const token = localStorage.getItem("token");
+      if (token) {
+        checkUpdatedData();
+        await userService.updateUser(userData);
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar usuário", error);
+    }
+  };
+
+  const checkUpdatedData = () => {
+    if (username.trim().length > 0) {
+      userData.username = username;
+    }
+    if (email.trim().length > 0) {
+      userData.email = email;
+    }
+    if (password.trim().length > 0) {
+      userData.password = password;
+    }
+  };
+
+  useEffect(() => {
+    const fetchUserData = async (userId: any) => {
+      try {
+        const response = await api.get(`/user/${userId}`);
+        setUserData({
+          name: response.data.fullName,
+          bio: response.data.bio,
+          interests: response.data.interests,
+        });
+      } catch (error) {
+        console.error("Erro ao buscar usuário", error);
+      }
+    };
+
+    // Exemplo de uso (chamando a função com o ID do usuário)
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      fetchUserData(decoded.sub); // Se "sub" for o ID do usuário
+    }
+  }, []);
 
   return (
     <Frame>
@@ -55,20 +131,44 @@ function EditUserProfile() {
         </Flex>
         <Fieldset.Root size="lg">
           <Fieldset.Content gap={3}>
-            <Field.Root>
-              <CustomInput name="nickname" placeHolder="Nickname" />
-            </Field.Root>
-
             <Flex direction="column" gap={3} md={{ flexDirection: "row" }}>
               <Field.Root>
-                <CustomInput name="fullName" placeHolder="Nome Completo" />
+                <CustomInput
+                  name="username"
+                  placeHolder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  autoComplete="off"
+                />
               </Field.Root>
+              <Field.Root>
+                <CustomInput
+                  name="name"
+                  placeHolder="Nome Completo"
+                  value={userData.name}
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
+              </Field.Root>
+            </Flex>
+
+            <Flex direction="column" gap={3} md={{ flexDirection: "row" }}>
               <Field.Root>
                 <CustomInput
                   type="email"
                   name="email"
                   placeHolder="Email"
                   autoComplete="on"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Field.Root>
+              <Field.Root>
+                <CustomInput
+                  name="password"
+                  placeHolder="Senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Field.Root>
             </Flex>
@@ -80,6 +180,8 @@ function EditUserProfile() {
                 fontSize="1rem"
                 variant="subtle"
                 outline="none"
+                value={userData.bio || ""}
+                onChange={handleChange}
               />
             </Field.Root>
           </Fieldset.Content>
@@ -98,7 +200,7 @@ function EditUserProfile() {
             <ActionButton
               type="submit"
               label="Salvar Alterações"
-              action={() => {} /* TODO: add save request */}
+              action={handleSubmit}
             />
           </Flex>
         </Fieldset.Root>

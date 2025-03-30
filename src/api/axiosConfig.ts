@@ -17,7 +17,20 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
-    return Promise.reject(error);
+    if (error.response && error.response.status === 401) {
+      // Se o erro for 401 Unauthorized, remova o token do localStorage
+      console.log(
+        "Sessão expirada, removendo token e recarregando a página...",
+      );
+
+      // Remove o token do localStorage
+      localStorage.removeItem("token"); // ou o nome da chave do seu token
+
+      // Recarrega a página
+      window.location.reload(); // Recarrega a página atual
+    } else {
+      return Promise.reject(error);
+    }
   },
 );
 

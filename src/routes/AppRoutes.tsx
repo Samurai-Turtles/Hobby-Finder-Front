@@ -21,18 +21,18 @@ function AppRoutes() {
 
         {/* Rotas Privadas (Apenas para usuários autenticados) */}
         {/* ABAIXO ESTÁ COMENTADO SÓ PARA TESTAR O FLUXO DE TELAS (DESCOMENTAR DEPOIS) */}
-        {/* <Route element={<PrivateRoute />}> */}
-        <Route element={<PrivateLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="notifications" element={<Notifications />} />
-          <Route path="profile" element={<UserProfile />} />
-          <Route path="profile/edit" element={<EditUserProfile />} />
-          {/* 
-                        A DEFINIR AQUI A RELAÇÃO DAS 9 TELAS DE VISUALIZAÇÃO DE EVENTO
-                    */}
-          <Route path="create-event" element={<CreateEvent />} />
+        <Route element={<PrivateRoute />}>
+          <Route element={<PrivateLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="profile" element={<UserProfile />} />
+            <Route path="profile/edit" element={<EditUserProfile />} />
+            {/* 
+                          A DEFINIR AQUI A RELAÇÃO DAS 9 TELAS DE VISUALIZAÇÃO DE EVENTO
+                      */}
+            <Route path="create-event" element={<CreateEvent />} />
+          </Route>
         </Route>
-        {/* </Route> */}
       </Routes>
     </BrowserRouter>
   );
