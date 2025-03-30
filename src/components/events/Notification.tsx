@@ -1,5 +1,5 @@
-import { Avatar, Stack, HStack, Text, Flex } from "@chakra-ui/react";
-import CustomButton from "../buttons/SolicitationDecisionButton/SolicitationDecisionButton";
+import { Avatar, Flex, HStack, Stack, Text } from "@chakra-ui/react";
+import ActionButton from "../buttons/action-button";
 
 interface NotificationProps {
   imgSrc?: string | undefined;
@@ -20,8 +20,13 @@ function Notification({ imgSrc, msg, isSolicitation }: NotificationProps) {
         </Text>
         {isSolicitation && (
           <Flex gap="2">
-            <CustomButton visual="solid">Aceitar</CustomButton>
-            <CustomButton visual="outline">Rejeitar</CustomButton>
+            <ActionButton label="Aceitar" size="xs" action={() => {}} />
+            <ActionButton
+              label="Rejeitar"
+              size="xs"
+              buttonStyle="outline"
+              action={() => {}}
+            />
           </Flex>
         )}
       </Stack>

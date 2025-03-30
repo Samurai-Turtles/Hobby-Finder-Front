@@ -1,5 +1,5 @@
 import { Avatar, Flex, HStack, Stack, Text } from "@chakra-ui/react";
-import CustomButton from "../buttons/SolicitationDecisionButton/SolicitationDecisionButton";
+import ActionButton from "../buttons/action-button";
 
 interface SolicitationProps {
   msg: string;
@@ -17,8 +17,8 @@ function Solicitation({ msg, imgSrc }: SolicitationProps) {
         <Text textStyle="sm">{msg}</Text>
 
         <Flex gap="2">
-          <CustomButton visual="solid">Aceitar</CustomButton>
-          <CustomButton visual="outline">Rejeitar</CustomButton>
+          <ActionButton label="Aceitar" size="xs" action={() => {}} />
+          <ActionButton label="Rejeitar" size="xs" action={() => {}} />
         </Flex>
       </Stack>
     </HStack>
