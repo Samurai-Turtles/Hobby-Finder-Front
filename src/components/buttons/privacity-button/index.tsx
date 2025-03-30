@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Flex, Text, useRecipe } from "@chakra-ui/react";
-import { privacityButtonRecipe } from "./PrivacityButton.recipe";
+import { privacityButtonRecipe } from "./privacity-button.recipe";
 import { LockSimple, LockSimpleOpen } from "@phosphor-icons/react";
 import { capitalizeFirstLetter } from "@/utils/formatData";
 

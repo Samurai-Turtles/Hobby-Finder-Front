@@ -1,6 +1,6 @@
 import Tag from "@/components/buttons/tag/tag";
 import NavigationButton from "@/components/buttons/navigation-button";
-import PrivacityButton from "@/components/buttons/PrivacityButton/PrivacityButton";
+import PrivacityButton from "@/components/buttons/privacity-button";
 import Form from "@/components/layout/form";
 import Frame from "@/components/layout/frame";
 import {

@@ -1,6 +1,6 @@
 import { Card, Flex, Image, Text } from "@chakra-ui/react";
 import { CalendarDots, MapPin } from "@phosphor-icons/react";
-import PrivacityButton from "../buttons/PrivacityButton/PrivacityButton";
+import PrivacityButton from "../buttons/privacity-button";
 
 interface EventCardProps {
   imgSrc: string;
