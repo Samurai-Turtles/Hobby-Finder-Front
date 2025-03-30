@@ -1,5 +1,5 @@
 import defaultImage from "@/assets/images/default-event-image.webp";
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import Form from "@/components/layout/form";
 import Frame from "@/components/layout/frame";
 import { Box, Field, Flex, Image, Text, Textarea } from "@chakra-ui/react";
@@ -18,12 +18,7 @@ function PrivateEventViewSolicitationInvited() {
 
   return (
     <Frame>
-      <FlowButton>
-        <CaretLeft size={24} color="white" />
-        <Text color="white" fontSize={{ base: "sm", sm: "md" }}>
-          Voltar
-        </Text>
-      </FlowButton>
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <Flex direction="column" alignItems="center" gap={5} mt={5}>
         <Box>
           <Image

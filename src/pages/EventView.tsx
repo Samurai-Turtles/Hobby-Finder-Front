@@ -1,13 +1,14 @@
-import Tag from "@/components/buttons/tag/tag";
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import PrimaryCustomButton from "@/components/buttons/PrimaryCustomButton/PrimaryCustomButton";
+import Tag from "@/components/buttons/tag/tag";
 import Frame from "@/components/layout/frame";
 import { Flex, Heading, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { CaretLeft } from "@phosphor-icons/react";
 
 function EventView() {
   return (
     <Frame>
-      <FlowButton />
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <VStack mt={6}>
         {/* Event image section */}
         <VStack gap={4}>

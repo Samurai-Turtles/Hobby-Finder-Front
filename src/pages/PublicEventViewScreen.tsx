@@ -1,4 +1,4 @@
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import Frame from "@/components/layout/frame";
 import {
   Box,
@@ -9,6 +9,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import { CaretLeft } from "@phosphor-icons/react";
 
 interface PublicEventViewScreenProps {
   isCancel: boolean;
@@ -17,7 +18,7 @@ interface PublicEventViewScreenProps {
 function PublicEventViewScreen({ isCancel }: PublicEventViewScreenProps) {
   return (
     <Frame>
-      <FlowButton />
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <VStack gap={4} align="center">
         <Box
           border="1px solid gray"

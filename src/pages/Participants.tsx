@@ -1,6 +1,7 @@
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import Frame from "@/components/layout/frame";
 import { Grid } from "@chakra-ui/react";
+import { CaretLeft } from "@phosphor-icons/react";
 import { useState } from "react";
 import ParticipantProfileCard from "../components/cards/ParticipantProfileCard";
 import ParticipantsList from "../components/events/ParticipantsList";
@@ -63,7 +64,7 @@ function Participants() {
 
   return (
     <Frame>
-      <FlowButton />
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <ParticipantProfileCard
         display={cardDisplay}
         closeClick={showHideCard}

@@ -12,13 +12,13 @@ import {
   SelectValueText,
   Text,
 } from "@chakra-ui/react";
-import { CaretDown, PencilLine, User } from "@phosphor-icons/react";
-import FlowButton from "../components/buttons/FlowButton/FlowButton";
+import { CaretDown, CaretLeft, PencilLine, User } from "@phosphor-icons/react";
+import NavigationButton from "../components/buttons/navigation-button";
 import EventCard from "../components/cards/EventCard";
 
+import api from "@/api/axiosConfig";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
-import api from "@/api/axiosConfig";
 
 type User = {
   fullName: string;
@@ -61,11 +61,12 @@ function PerfilUsuario() {
   return (
     <Frame>
       <Flex alignItems="center" justifyContent="space-between">
-        <FlowButton />
-        <FlowButton path="/profile/edit">
-          <PencilLine size={32} />
-          <Text ml={1}>Editar</Text>
-        </FlowButton>
+        <NavigationButton Icon={CaretLeft} label="Voltar" />
+        <NavigationButton
+          Icon={PencilLine}
+          path="/profile/edit"
+          label="Editar"
+        />
       </Flex>
       <Flex direction="column" alignItems="center" gap={2}>
         <Avatar.Root minW="8rem" minH="8rem">
@@ -78,10 +79,10 @@ function PerfilUsuario() {
         <Text>@{user?.username}</Text>
         <Text>{user?.bio}</Text>
         <Flex gap={2} justifyContent="center" wrap="wrap">
-          <Tag label="tag" visual="solid" />
-          <Tag label="tag" visual="solid" />
-          <Tag label="tag" visual="solid" />
-          <Tag label="tag" visual="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
+          <Tag label="tag" style="solid" />
         </Flex>
         <Flex
           minW="100%"

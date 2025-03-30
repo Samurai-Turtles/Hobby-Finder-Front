@@ -1,12 +1,13 @@
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import Notification from "@/components/events/Notification";
 import Frame from "@/components/layout/frame";
 import { VStack } from "@chakra-ui/react";
+import { CaretLeft } from "@phosphor-icons/react";
 
 function Notifications() {
   return (
     <Frame>
-      <FlowButton />
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <VStack alignItems="left" marginY="5">
         <Notification
           imgSrc="https://github.com/Hildon27.png"

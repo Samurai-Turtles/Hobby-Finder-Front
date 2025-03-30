@@ -1,5 +1,5 @@
 import defaultImage from "@/assets/images/default-event-image.webp";
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import Frame from "@/components/layout/frame";
 import {
   Box,
@@ -25,12 +25,7 @@ function FinishedEventView() {
 
   return (
     <Frame>
-      <FlowButton>
-        <CaretLeft size={24} color="white" />
-        <Text color="white" fontSize={{ base: "sm", sm: "md" }}>
-          Voltar
-        </Text>
-      </FlowButton>
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <Flex direction="column" alignItems="center" gap={5} mt={5}>
         <Box>
           <Flex

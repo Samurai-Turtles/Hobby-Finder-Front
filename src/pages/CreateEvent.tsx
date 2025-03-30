@@ -1,5 +1,5 @@
 import Tag from "@/components/buttons/tag/tag";
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import PrivacityButton from "@/components/buttons/PrivacityButton/PrivacityButton";
 import Form from "@/components/layout/form";
 import Frame from "@/components/layout/frame";
@@ -13,12 +13,12 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { Pen } from "@phosphor-icons/react";
+import { CaretLeft, Pen } from "@phosphor-icons/react";
 
 function CreateEvent() {
   return (
     <Frame>
-      <FlowButton />
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <VStack mt={6}>
         <Box position={"relative"}>
           <Image

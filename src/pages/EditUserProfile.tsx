@@ -1,5 +1,5 @@
+import NavigationButton from "@/components/buttons/navigation-button";
 import Tag from "@/components/buttons/tag/tag";
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import Frame from "@/components/layout/frame";
 import {
   Avatar,
@@ -10,7 +10,7 @@ import {
   Float,
   Textarea,
 } from "@chakra-ui/react";
-import { Camera, Plus } from "@phosphor-icons/react";
+import { Camera, CaretLeft, Plus } from "@phosphor-icons/react";
 import { useState } from "react";
 import PrimaryCustomButton from "../components/buttons/PrimaryCustomButton/PrimaryCustomButton";
 import DeleteAccountCard from "../components/cards/DeleteAccountCard";
@@ -27,7 +27,7 @@ function EditUserProfile() {
 
   return (
     <Frame>
-      <FlowButton />
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <Flex direction="column" minW="100%" alignItems="center" gap={5}>
         <Box position="relative">
           <Avatar.Root minW="8rem" minH="8rem">

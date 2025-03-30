@@ -1,8 +1,9 @@
 import defaultImage from "@/assets/images/default-event-image.webp";
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import PrimaryCustomButton from "@/components/buttons/PrimaryCustomButton/PrimaryCustomButton";
 import Frame from "@/components/layout/frame";
 import { Box, Field, Flex, Image, Text, Textarea } from "@chakra-ui/react";
+import { CaretLeft } from "@phosphor-icons/react";
 
 function PrivateEventView() {
   const eventData = {
@@ -17,7 +18,7 @@ function PrivateEventView() {
 
   return (
     <Frame>
-      <FlowButton />
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <Flex direction="column" alignItems="center" gap={4} mt={5}>
         <Box>
           <Image

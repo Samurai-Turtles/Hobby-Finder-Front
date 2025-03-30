@@ -1,12 +1,13 @@
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "@/components/buttons/navigation-button";
 import EventRating from "@/components/events/EventRating";
 import Frame from "@/components/layout/frame";
 import { VStack } from "@chakra-ui/react";
+import { CaretLeft } from "@phosphor-icons/react";
 
 function EventeRatings() {
   return (
     <Frame>
-      <FlowButton />
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <VStack alignItems="left" marginY="5" gap={5}>
         <EventRating
           username="Fulano_da_silva_peixoto"
