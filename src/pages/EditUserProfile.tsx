@@ -9,6 +9,7 @@ import {
   Fieldset,
   Flex,
   Float,
+  NativeSelect,
   Textarea,
 } from "@chakra-ui/react";
 import { Camera, CaretLeft, Plus } from "@phosphor-icons/react";
@@ -19,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { userService } from "@/service/userService";
 import api from "@/api/axiosConfig";
 import { jwtDecode } from "jwt-decode";
+import { eventService } from "@/service/eventService";
 
 type UserData = {
   username?: string;
@@ -39,6 +41,7 @@ function EditUserProfile() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [possibleTags, setPossibleTags] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const showHideCard = () => {
@@ -88,6 +91,10 @@ function EditUserProfile() {
           bio: response.data.bio,
           interests: response.data.interests,
         });
+        const filteredTags = possibleTags.filter(
+          (tag) => !tag.includes(response.data.interests),
+        );
+        setPossibleTags(filteredTags);
       } catch (error) {
         console.error("Erro ao buscar usuário", error);
       }
@@ -99,6 +106,8 @@ function EditUserProfile() {
       const decoded = jwtDecode(token);
       fetchUserData(decoded.sub); // Se "sub" for o ID do usuário
     }
+
+    eventService.getPossibleTags().then((e) => setPossibleTags(e));
   }, []);
 
   return (
@@ -119,10 +128,9 @@ function EditUserProfile() {
           </Float>
         </Box>
         <Flex alignItems="center" gap={2}>
-          <Tag label="tag" style="solid" />
-          <Tag label="tag" style="solid" />
-          <Tag label="tag" style="solid" />
-          <Tag label="tag" style="solid" />
+          {userData.interests.map((e, index) => {
+            return <Tag key={index} label={`#${e}`} style="solid" />;
+          })}
           <button style={{ cursor: "pointer" }}>
             <Box border="1px solid" color="customOrange" p={1} rounded="full">
               <Plus size={15} />

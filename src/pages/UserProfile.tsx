@@ -19,11 +19,13 @@ import EventCard from "../components/cards/EventCard";
 import api from "@/api/axiosConfig";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
+import { eventService } from "@/service/eventService";
 
 type User = {
   fullName: string;
   username: string;
   bio: string;
+  interests: string[];
 };
 
 function PerfilUsuario() {
@@ -35,6 +37,7 @@ function PerfilUsuario() {
     ],
   });
   const [user, setUser] = useState<User>();
+  const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchUserData = async (userId: any) => {
@@ -44,7 +47,12 @@ function PerfilUsuario() {
           fullName: response.data.fullName,
           username: response.data.username,
           bio: response.data.bio,
+          interests: response.data.interests,
         });
+        const filteredTags = tags.filter(
+          (tag) => !tag.includes(response.data.interests),
+        );
+        setTags(filteredTags);
       } catch (error) {
         console.error("Erro ao buscar usuário", error);
       }
@@ -56,6 +64,8 @@ function PerfilUsuario() {
       const decoded = jwtDecode(token);
       fetchUserData(decoded.sub); // Se "sub" for o ID do usuário
     }
+
+    eventService.getPossibleTags().then((e) => setTags(e));
   }, []);
 
   return (
@@ -79,10 +89,9 @@ function PerfilUsuario() {
         <Text>@{user?.username}</Text>
         <Text>{user?.bio}</Text>
         <Flex gap={2} justifyContent="center" wrap="wrap">
-          <Tag label="tag" style="solid" />
-          <Tag label="tag" style="solid" />
-          <Tag label="tag" style="solid" />
-          <Tag label="tag" style="solid" />
+          {user?.interests.map((e, index) => {
+            return <Tag key={index} label={`#${e}`} style="solid" disabled />;
+          })}
         </Flex>
         <Flex
           minW="100%"
@@ -128,11 +137,10 @@ function PerfilUsuario() {
             nomeEvento="Nome evento"
             descricao="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo."
             localizacao="LOCAL"
-            distancia={100}
+            distancia={"100"}
             dataInicial={formatarData("2022-10-31T09:00:00.594Z")}
             dataFinal={formatarData("2022-10-31T09:00:00.594Z")}
             privacidade="PUBLICO"
-            display="flex"
           />
         </Flex>
       </Flex>
