@@ -8,11 +8,28 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import api from "@/api/axiosConfig";
 import logo from "../assets/images/capivara.webp";
 import Form from "../components/layout/form";
 
 function Recovery() {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const handleRecovery = async (e: any) => {
+    e.preventDefault();
+    try {
+      await api.post("/user/recover-password", { email });
+      alert("Verifique seu e-mail para o token de acesso provisório.");
+      navigate("/login");
+    } catch (error) {
+      console.error("Erro na recuperação de senha:", error);
+      alert("Erro ao recuperar a senha. Tente novamente.");
+    }
+  };
+
   return (
     <AbsoluteCenter
       w={"90%"}
@@ -42,12 +59,20 @@ function Recovery() {
         em seu usuário.
       </span>
       <VStack w={"100%"} marginBlock={"16px"}>
-        <Form action="/recovery" method="post" btnActionLabel="Recuperar Senha">
+        <Form
+          action="/recovery"
+          method="post"
+          btnActionLabel="Recuperar Senha"
+          handleSubmit={handleRecovery}
+        >
           <Field.Root required>
             <Input
               backgroundColor={"#f4f4f4"}
               border={"0px"}
               placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </Field.Root>
         </Form>
@@ -62,4 +87,5 @@ function Recovery() {
     </AbsoluteCenter>
   );
 }
+
 export default Recovery;
