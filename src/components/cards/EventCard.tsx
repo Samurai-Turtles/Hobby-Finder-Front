@@ -7,11 +7,10 @@ interface EventCardProps {
   nomeEvento: string;
   descricao: string;
   localizacao: string;
-  distancia: number;
+  distancia: string;
   dataInicial: string;
   dataFinal: string;
   privacidade: string;
-  display: "flex" | "none";
 }
 
 function EventCard({
@@ -23,11 +22,9 @@ function EventCard({
   dataInicial,
   dataFinal,
   privacidade,
-  display,
 }: EventCardProps) {
   return (
     <Card.Root
-      style={{ display }}
       minW="3xs"
       md={{ flexDirection: "row", alignItems: "top" }}
       border="none"
@@ -53,8 +50,15 @@ function EventCard({
           <Card.Description>{descricao}</Card.Description>
           <Flex align="center" gap={1}>
             <MapPin size={16} />
-            <Text fontSize="sm" fontWeight="medium" letterSpacing="tight">
-              {privacidade.includes("PUBLICO") ? localizacao : ""} ({distancia}{" "}
+            <Text
+              fontSize="sm"
+              fontWeight="medium"
+              letterSpacing="tight"
+              wordBreak="break-word"
+              overflowWrap="break-word"
+              whiteSpace="normal"
+            >
+              {privacidade.includes("PUBLIC") ? localizacao : ""} ({distancia}
               km)
             </Text>
           </Flex>

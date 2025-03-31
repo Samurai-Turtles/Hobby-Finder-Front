@@ -29,12 +29,6 @@ function Signup() {
       return;
     }
     try {
-      //const response =
-      console.log(email);
-      console.log(username);
-      console.log(password);
-      console.log(nomeCompleto);
-
       await api.post("/user", {
         email,
         username,

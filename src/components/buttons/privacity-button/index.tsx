@@ -10,7 +10,7 @@ interface PrivacityButtonProps {
 }
 
 function PrivacityButton({ privacidade }: PrivacityButtonProps) {
-  const visual = privacidade.includes("PRIVADO") ? "outline" : "solid";
+  const visual = privacidade.includes("PRIVATE") ? "outline" : "solid";
   const recipe = useRecipe({ recipe: privacityButtonRecipe });
   const styles = recipe({ visual });
 
@@ -23,7 +23,7 @@ function PrivacityButton({ privacidade }: PrivacityButtonProps) {
       alignItems="center"
       css={styles}
     >
-      {privacidade.includes("PUBLICO") ? (
+      {privacidade.includes("PUBLIC") ? (
         <Box p={1} bgColor="customWhite" rounded="full" color="customOrange">
           <LockSimpleOpen size={16} />
         </Box>
@@ -33,7 +33,9 @@ function PrivacityButton({ privacidade }: PrivacityButtonProps) {
         </Box>
       )}
       <Text px={1} fontWeight="bold">
-        {capitalizeFirstLetter(privacidade)}
+        {capitalizeFirstLetter(
+          privacidade.includes("PUBLIC") ? "PÚBLICO" : "PRIVADO",
+        )}
       </Text>
     </Flex>
   );

@@ -7,11 +7,26 @@ import Tag from "../components/buttons/tag/tag";
 import EventCard from "../components/cards/EventCard";
 import SearchBar from "../components/layout/searchbar";
 import { formatarData } from "../utils/formatData";
-import { Evento, getMockEventos, getMockTags } from "../utils/mockDatas";
+import { getMockTags } from "../utils/mockDatas";
+import { eventService } from "@/service/eventService";
+import leafLet from "leaflet";
 
 interface EventCardInterface {
-  evento: Evento;
-  display: "none" | "flex";
+  id: string;
+  name: string;
+  begin: string;
+  end: string;
+  local: {
+    street: string;
+    district: string;
+    number: string;
+    city: string;
+    state: string;
+    latitude: number;
+    longitude: number;
+  };
+  privacy: string;
+  description: string;
 }
 
 interface CustomTagInterface {
@@ -22,8 +37,31 @@ interface CustomTagInterface {
 function HomePage() {
   const navigate = useNavigate();
   const [eventos, setEventos] = useState<EventCardInterface[]>([]);
-  const [termoBusca, setTermoBusca] = useState("");
   const [tags, setTags] = useState<CustomTagInterface[]>([]);
+  const [coordenadaAtual, setCoordenadaAtual] = useState<{
+    origemLat: number | null;
+    origemLon: number | null;
+  }>({
+    origemLat: null,
+    origemLon: null,
+  });
+
+  // Calcula a distância (em quilômetros) da localização atual até a localização do evento
+  const calcularDistancia = (destinoLat: number, destinoLon: number) => {
+    if (
+      coordenadaAtual.origemLat === null ||
+      coordenadaAtual.origemLon === null
+    ) {
+      return "Calculando...";
+    }
+    const minhaLocalizacao = leafLet.latLng(
+      coordenadaAtual.origemLat,
+      coordenadaAtual.origemLon,
+    );
+    const destino = leafLet.latLng(destinoLat, destinoLon);
+    const distancia = minhaLocalizacao.distanceTo(destino);
+    return (distancia / 1000).toFixed(2);
+  };
 
   useEffect(() => {
     const carregarTags = async () => {
@@ -36,29 +74,46 @@ function HomePage() {
     };
 
     const carregarEventos = async () => {
-      const data = await getMockEventos();
-      const events: EventCardInterface[] = data.map((e) => ({
-        evento: e,
-        display: "flex",
-      }));
-      setEventos(events);
+      const data = await eventService.getEvents({ latitude: 0, longitude: 0 });
+      const eventosMapeados: EventCardInterface[] = data.content.map(
+        (evento: any) => ({
+          id: evento.id,
+          name: evento.Name,
+          begin: evento.begin,
+          end: evento.end,
+          local: {
+            street: evento.local.street,
+            district: evento.local.district,
+            number: evento.local.number,
+            city: evento.local.city,
+            state: evento.local.state,
+            longitude: evento.local.longitude,
+            latitude: evento.local.latitude,
+          },
+          privacy: evento.privacy,
+          description: evento.description,
+        }),
+      );
+      setEventos(eventosMapeados);
     };
+
+    // Obtém a localização do usuário
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCoordenadaAtual({
+          origemLat: latitude,
+          origemLon: longitude,
+        });
+      },
+      (error) => {
+        console.error("Erro ao obter localização:", error);
+      },
+    );
 
     carregarTags();
     carregarEventos();
   }, []);
-
-  // Atualiza o display dos eventos conforme o termo de busca
-  useEffect(() => {
-    setEventos((prevEventos) =>
-      prevEventos.map((e) => ({
-        ...e,
-        display: e.evento.nome.toLowerCase().includes(termoBusca.toLowerCase())
-          ? "flex"
-          : "none",
-      })),
-    );
-  }, [termoBusca]);
 
   return (
     <Frame>
@@ -77,29 +132,30 @@ function HomePage() {
       </IconButton>
 
       <Flex direction="column" gap={5}>
-        <SearchBar placeholder="Buscar evento" setTermoBusca={setTermoBusca} />
-        <Flex gap={2} wrap="wrap">
+        <SearchBar placeholder="Buscar evento" />
+        {/* <Flex gap={2} wrap="wrap">
           {tags.map((e, index) => {
             return <Tag key={index} label={`#${e.nome}`} style={e.visual} />;
           })}
-        </Flex>
+        </Flex> */}
         <Heading textStyle="2xl">Próximos Eventos</Heading>
-        {eventos.map((e: EventCardInterface, index: number) => {
-          return (
-            <EventCard
-              key={index}
-              imgSrc="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-              nomeEvento={e.evento.nome}
-              descricao={e.evento.descricao}
-              localizacao="LOCAL"
-              distancia={100}
-              dataInicial={formatarData(e.evento.dataInicio)}
-              dataFinal={formatarData(e.evento.dataFim)}
-              privacidade={e.evento.privacidade}
-              display={e.display}
-            />
-          );
-        })}
+        <Flex maxW="90vw" direction="column" gap={5}>
+          {eventos.map((e: EventCardInterface) => {
+            return (
+              <EventCard
+                key={e.id}
+                imgSrc="https://images.unsplash.com/photo-1454908027598-28c44b1716c1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                nomeEvento={e.name}
+                descricao={e.description}
+                localizacao={`${e.local.street}, ${e.local.district}, ${e.local.city} - ${e.local.state}`}
+                distancia={`${calcularDistancia(e.local.latitude, e.local.longitude)}`}
+                dataInicial={formatarData(e.begin)}
+                dataFinal={formatarData(e.end)}
+                privacidade={e.privacy}
+              />
+            );
+          })}
+        </Flex>
       </Flex>
     </Frame>
   );
