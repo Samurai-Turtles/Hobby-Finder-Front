@@ -18,7 +18,12 @@ function Solicitation({ msg, imgSrc }: SolicitationProps) {
 
         <Flex gap="2">
           <ActionButton label="Aceitar" size="xs" action={() => {}} />
-          <ActionButton label="Rejeitar" size="xs" action={() => {}} />
+          <ActionButton
+            label="Rejeitar"
+            size="xs"
+            buttonStyle="outline"
+            action={() => {}}
+          />
         </Flex>
       </Stack>
     </HStack>

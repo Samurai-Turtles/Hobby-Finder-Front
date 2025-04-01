@@ -9,6 +9,7 @@ import EditUserProfile from "@/pages/EditUserProfile";
 import { PrivateRoute } from "./PrivateRoute";
 import CreateEvent from "@/pages/CreateEvent";
 import PrivateLayout from "./PrivateLayout";
+import Solicitations from "@/pages/Solicitations";
 
 function AppRoutes() {
   return (
@@ -31,6 +32,7 @@ function AppRoutes() {
                           A DEFINIR AQUI A RELAÇÃO DAS 9 TELAS DE VISUALIZAÇÃO DE EVENTO
                       */}
             <Route path="create-event" element={<CreateEvent />} />
+            <Route path="solicitations/:eventId" element={<Solicitations />} />
           </Route>
         </Route>
       </Routes>
