@@ -9,7 +9,6 @@ import {
   Fieldset,
   Flex,
   Float,
-  NativeSelect,
   Textarea,
 } from "@chakra-ui/react";
 import { Camera, CaretLeft, Plus } from "@phosphor-icons/react";
@@ -21,6 +20,7 @@ import { userService } from "@/service/userService";
 import api from "@/api/axiosConfig";
 import { jwtDecode } from "jwt-decode";
 import { eventService } from "@/service/eventService";
+import AddNewTagCard from "@/components/cards/AddNewTagCard";
 
 type UserData = {
   username?: string;
@@ -42,6 +42,7 @@ function EditUserProfile() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [possibleTags, setPossibleTags] = useState<string[]>([]);
+  const [addTagCardDisplay, setAddTagCardDisplay] = useState("none");
   const navigate = useNavigate();
 
   const showHideCard = () => {
@@ -57,8 +58,6 @@ function EditUserProfile() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      console.log(userData);
-
       const token = localStorage.getItem("token");
       if (token) {
         checkUpdatedData();
@@ -91,12 +90,17 @@ function EditUserProfile() {
           bio: response.data.bio,
           interests: response.data.interests,
         });
-        const filteredTags = possibleTags.filter(
-          (tag) => !tag.includes(response.data.interests),
-        );
-        setPossibleTags(filteredTags);
       } catch (error) {
         console.error("Erro ao buscar usuário", error);
+      }
+    };
+
+    const fetchPossibleTags = async () => {
+      try {
+        const response = await eventService.getPossibleTags();
+        setPossibleTags(response || []);
+      } catch (error) {
+        console.error("Erro ao buscar possibleTags", error);
       }
     };
 
@@ -107,11 +111,48 @@ function EditUserProfile() {
       fetchUserData(decoded.sub); // Se "sub" for o ID do usuário
     }
 
-    eventService.getPossibleTags().then((e) => setPossibleTags(e));
+    fetchPossibleTags();
   }, []);
+
+  const addInterest = (newInterest: string) => {
+    handleTagCardDisplay();
+    setUserData((prev) => ({
+      ...prev,
+      interests: [...prev.interests, newInterest],
+    }));
+  };
+
+  const removeInterest = (interestToRemove: string) => {
+    setUserData((prev) => ({
+      ...prev,
+      interests: prev.interests.filter(
+        (interest) => interest !== interestToRemove,
+      ),
+    }));
+    setPossibleTags((prev) => [...prev, interestToRemove]);
+  };
+
+  useEffect(() => {
+    if (possibleTags.length > 0 && userData.interests.length > 0) {
+      const tags = possibleTags.filter(
+        (tag) => !userData.interests.includes(tag),
+      );
+      setPossibleTags(tags);
+    }
+  }, [userData.interests]);
+
+  const handleTagCardDisplay = () => {
+    setAddTagCardDisplay((e) => (e.includes("fixed") ? "none" : "fixed"));
+  };
 
   return (
     <Frame>
+      <AddNewTagCard
+        possibleTags={possibleTags}
+        display={addTagCardDisplay}
+        closeClick={handleTagCardDisplay}
+        action={addInterest}
+      />
       <NavigationButton Icon={CaretLeft} label="Voltar" />
       <Flex direction="column" minW="100%" alignItems="center" gap={5}>
         <Box position="relative">
@@ -121,17 +162,37 @@ function EditUserProfile() {
           </Avatar.Root>
           <Float placement="bottom-end" offset={4}>
             <button style={{ cursor: "pointer" }}>
-              <Box bg="customOrange" color="customWhite" p={1} rounded="md">
+              <Box
+                cursor="pointer"
+                bg="customOrange"
+                color="customWhite"
+                p={1}
+                rounded="md"
+              >
                 <Camera size={25} />
               </Box>
             </button>
           </Float>
         </Box>
-        <Flex alignItems="center" gap={2}>
+        <Flex alignItems="center" gap={2} wrap="wrap" maxW="1200px">
           {userData.interests.map((e, index) => {
-            return <Tag key={index} label={`#${e}`} style="solid" />;
+            return (
+              <Tag
+                key={index}
+                label={e}
+                style="solid"
+                editClick={removeInterest}
+              />
+            );
           })}
-          <button style={{ cursor: "pointer" }}>
+          <button
+            style={{
+              cursor: "pointer",
+              display: `${possibleTags.length == 0 ? "none" : "block"}`,
+            }}
+            onClick={handleTagCardDisplay}
+            disabled={possibleTags.length == 0}
+          >
             <Box border="1px solid" color="customOrange" p={1} rounded="full">
               <Plus size={15} />
             </Box>

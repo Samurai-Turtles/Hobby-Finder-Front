@@ -90,7 +90,7 @@ function PerfilUsuario() {
         <Text>{user?.bio}</Text>
         <Flex gap={2} justifyContent="center" wrap="wrap">
           {user?.interests.map((e, index) => {
-            return <Tag key={index} label={`#${e}`} style="solid" disabled />;
+            return <Tag key={index} label={e} style="solid" disabled />;
           })}
         </Flex>
         <Flex
@@ -133,13 +133,13 @@ function PerfilUsuario() {
         </Flex>
         <Flex direction="column" gap={5}>
           <EventCard
-            imgSrc="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            nomeEvento="Nome evento"
-            descricao="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore aspernatur molestias quae consequuntur excepturi in, dolor dolores deleniti quibusdam, beatae, nostrum accusantium! Rerum saepe enim modi asperiores sit quibusdam quo."
-            localizacao="LOCAL"
-            distancia={"100"}
-            dataInicial={formatarData("2022-10-31T09:00:00.594Z")}
-            dataFinal={formatarData("2022-10-31T09:00:00.594Z")}
+            imgSrc="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            nomeEvento="Alok no Parque do Povo"
+            descricao="O Alok no Parque do Povo foi um evento de grande destaque realizado em Campina Grande, onde o DJ e produtor musical Alok se apresentou ao vivo. Conhecido por seus hits internacionais e estilo de música eletrônica, Alok atraiu milhares de fãs para o Parque do Povo, um dos principais pontos turísticos da cidade. O evento proporcionou uma experiência única, com performances energéticas e a presença de um público diverso, celebrando a música e a cultura em uma grande festa ao ar livre."
+            localizacao="Parque do Povo, Campina Grande, Paraíba"
+            distancia={"4.2"}
+            dataInicial={formatarData("2022-10-31T01:00:00.594Z")}
+            dataFinal={formatarData("2022-10-31T02:00:00.594Z")}
             privacidade="PUBLICO"
           />
         </Flex>
