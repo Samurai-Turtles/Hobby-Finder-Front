@@ -6,10 +6,11 @@ import {
   Circle,
   Flex,
   Float,
+  HoverCard,
   HStack,
   Image,
-  Popover,
   Portal,
+  Stack,
 } from "@chakra-ui/react";
 import { Bell } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
@@ -19,7 +20,6 @@ import logo from "../../../assets/images/logoHorizontal.webp";
 import Frame from "../frame";
 
 function Header() {
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [numNotificacoes, setNumNotificacoes] = useState(0);
 
@@ -75,36 +75,40 @@ function Header() {
               </Float>
             </Box>
           </Link>
-          <Popover.Root open={open} positioning={{ placement: "bottom-end" }}>
-            <Popover.Trigger asChild>
+          <HoverCard.Root
+            size="sm"
+            openDelay={200}
+            closeDelay={500}
+            positioning={{ placement: "bottom-end" }}
+          >
+            <HoverCard.Trigger asChild>
               <Link to="/profile">
-                <Avatar.Root shape="rounded" onMouseEnter={() => setOpen(true)}>
+                <Avatar.Root shape="rounded">
                   <Avatar.Fallback name="Usuario" />
                   <Avatar.Image alt="Foto de Perfil do Usuário" src="#" />
                 </Avatar.Root>
               </Link>
-            </Popover.Trigger>
+            </HoverCard.Trigger>
             <Portal>
-              <Popover.Positioner>
-                <Popover.Content
-                  maxW="5rem"
-                  onMouseLeave={() => setOpen(false)}
-                >
-                  <Popover.Arrow />
-                  <Button
-                    onClick={handleLogout}
-                    variant="subtle"
-                    bgColor="white"
-                    _hover={{ bgColor: "customLightGrey" }}
-                    width="100%"
-                    outline="none"
-                  >
-                    Sair
-                  </Button>
-                </Popover.Content>
-              </Popover.Positioner>
+              <HoverCard.Positioner>
+                <HoverCard.Content p={0}>
+                  <HoverCard.Arrow />
+                  <Stack direction="row">
+                    <Button
+                      onClick={handleLogout}
+                      variant="subtle"
+                      bgColor="white"
+                      _hover={{ bgColor: "customLightGrey" }}
+                      width="100%"
+                      outline="none"
+                    >
+                      Sair
+                    </Button>
+                  </Stack>
+                </HoverCard.Content>
+              </HoverCard.Positioner>
             </Portal>
-          </Popover.Root>
+          </HoverCard.Root>
         </Flex>
       </HStack>
     </Frame>
