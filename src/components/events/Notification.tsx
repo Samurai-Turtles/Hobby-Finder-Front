@@ -5,9 +5,17 @@ interface NotificationProps {
   imgSrc?: string | undefined;
   msg: string;
   isSolicitation?: boolean;
+  eventId: string;
+  participationId: string;
 }
 
-function Notification({ imgSrc, msg, isSolicitation }: NotificationProps) {
+function Notification({
+  imgSrc,
+  msg,
+  isSolicitation,
+  eventId,
+  participationId,
+}: NotificationProps) {
   return (
     <HStack gap="4" alignItems="center">
       <Avatar.Root size="xl">
@@ -20,12 +28,20 @@ function Notification({ imgSrc, msg, isSolicitation }: NotificationProps) {
         </Text>
         {isSolicitation && (
           <Flex gap="2">
-            <ActionButton label="Aceitar" size="xs" action={() => {}} />
+            <ActionButton
+              label="Aceitar"
+              size="xs"
+              eventId={eventId}
+              participationId={participationId}
+              status="CONFIRMED_PRESENCE"
+            />
             <ActionButton
               label="Rejeitar"
               size="xs"
               buttonStyle="outline"
-              action={() => {}}
+              eventId={eventId}
+              participationId={participationId}
+              status="UNCONFIRMED_PRESENCE"
             />
           </Flex>
         )}

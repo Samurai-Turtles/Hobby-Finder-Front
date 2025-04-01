@@ -1,40 +1,80 @@
+import { useEffect, useState } from "react";
 import NavigationButton from "@/components/buttons/navigation-button";
 import Notification from "@/components/events/Notification";
 import Frame from "@/components/layout/frame";
 import { VStack } from "@chakra-ui/react";
 import { CaretLeft } from "@phosphor-icons/react";
+import api from "@/api/axiosConfig";
+
+export interface Photo {
+  id: string;
+  extension: string;
+  isSaved: boolean;
+}
+
+export interface UserDto {
+  id: string;
+  username: string;
+  fullName: string;
+  bio: string;
+  interests: string[];
+  photoDto?: Photo;
+  stars: number;
+}
+
+export interface NotificationDto {
+  id: string;
+  message: string;
+  photo?: Photo;
+  userDto: UserDto;
+  date: string;
+}
 
 function Notifications() {
+  const [notifications, setNotifications] = useState<NotificationDto[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    api
+      .get<{ content: NotificationDto[] }>("/notifications")
+      .then((response) => {
+        console.log(response.data);
+        setNotifications(response.data.content || []);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar notificações:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <Frame>
       <NavigationButton Icon={CaretLeft} label="Voltar" />
       <VStack alignItems="left" marginY="5">
-        <Notification
-          imgSrc="https://github.com/Hildon27.png"
-          msg="Hildon deseja participar do evento Domino em Seu Helio"
-          isSolicitation={true}
-        />
-
-        <Notification
-          imgSrc="https://github.com/Hildon27.png"
-          msg="Tomara que dê certo"
-        />
-
-        <Notification
-          imgSrc="https://github.com/johndoe.png"
-          msg="Maria comentou no evento Futebol de Sábado"
-        />
-
-        <Notification
-          imgSrc="https://github.com/janedoe.png"
-          msg="Carlos confirmou presença no evento Churrasco do Fim de Semana"
-        />
-
-        <Notification
-          imgSrc="https://github.com/randomuser.png"
-          msg="Ana enviou um convite para o evento Corrida no Parque"
-          isSolicitation={true}
-        />
+        {loading ? (
+          <p>Carregando notificações...</p>
+        ) : notifications.length > 0 ? (
+          notifications.map((notification) => (
+            <Notification
+              key={notification.id}
+              imgSrc={
+                notification.userDto?.photoDto?.id
+                  ? `/api/photos/${notification.userDto.photoDto.id}`
+                  : "https://via.placeholder.com/50"
+              }
+              msg={notification.message}
+              isSolicitation={notification.message
+                .toLowerCase()
+                .includes("quer participar")}
+              eventId={notification.id}
+              participationId={notification.userDto.id}
+            />
+          ))
+        ) : (
+          <p>Sem notificações no momento.</p>
+        )}
       </VStack>
     </Frame>
   );
