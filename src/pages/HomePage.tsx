@@ -1,15 +1,16 @@
 import Frame from "@/components/layout/frame";
-import { Flex, Heading, IconButton } from "@chakra-ui/react";
+import { Flex, Heading, IconButton, Text } from "@chakra-ui/react";
 import { Plus } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Tag from "../components/buttons/tag/tag";
 import EventCard from "../components/cards/EventCard";
 import SearchBar from "../components/layout/searchbar";
 import { formatarData } from "../utils/formatData";
-import { getMockTags } from "../utils/mockDatas";
 import { eventService } from "@/service/eventService";
 import leafLet from "leaflet";
+import { jwtDecode } from "jwt-decode";
+import api from "@/api/axiosConfig";
+import Tag from "@/components/buttons/tag/tag";
 
 interface EventCardInterface {
   id: string;
@@ -29,29 +30,19 @@ interface EventCardInterface {
   description: string;
 }
 
-interface CustomTagInterface {
-  nome: string;
-  visual: "solid" | "outline";
-}
-
 function HomePage() {
   const navigate = useNavigate();
-  const [eventos, setEventos] = useState<EventCardInterface[]>([]);
-  const [tags, setTags] = useState<CustomTagInterface[]>([]);
-  const [coordenadaAtual, setCoordenadaAtual] = useState<{
-    origemLat: number | null;
-    origemLon: number | null;
-  }>({
-    origemLat: null,
-    origemLon: null,
+  const [coordenadaAtual, setCoordenadaAtual] = useState({
+    origemLat: 0,
+    origemLon: 0,
   });
+  const [searchValue, setSearchValue] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [eventos, setEventos] = useState<EventCardInterface[]>([]);
 
   // Calcula a distância (em quilômetros) da localização atual até a localização do evento
   const calcularDistancia = (destinoLat: number, destinoLon: number) => {
-    if (
-      coordenadaAtual.origemLat === null ||
-      coordenadaAtual.origemLon === null
-    ) {
+    if (coordenadaAtual.origemLat === 0 || coordenadaAtual.origemLon === 0) {
       return "Calculando...";
     }
     const minhaLocalizacao = leafLet.latLng(
@@ -63,38 +54,42 @@ function HomePage() {
     return (distancia / 1000).toFixed(2);
   };
 
-  useEffect(() => {
-    const carregarTags = async () => {
-      const data = await getMockTags();
-      const tagList: CustomTagInterface[] = data.map((e) => ({
-        nome: e.toString(),
-        visual: "outline",
-      }));
-      setTags(tagList);
-    };
+  const carregarEventos = async () => {
+    const data = await eventService.getEvents({
+      latitude: coordenadaAtual.origemLat,
+      longitude: coordenadaAtual.origemLon,
+      name: searchValue,
+    });
+    const eventosMapeados: EventCardInterface[] = data.content.map(
+      (evento: any) => ({
+        id: evento.id,
+        name: evento.Name,
+        begin: evento.begin,
+        end: evento.end,
+        local: {
+          street: evento.local.street,
+          district: evento.local.district,
+          number: evento.local.number,
+          city: evento.local.city,
+          state: evento.local.state,
+          longitude: evento.local.longitude,
+          latitude: evento.local.latitude,
+        },
+        privacy: evento.privacy,
+        description: evento.description,
+      }),
+    );
+    setEventos(eventosMapeados);
+  };
 
-    const carregarEventos = async () => {
-      const data = await eventService.getEvents({ latitude: 0, longitude: 0 });
-      const eventosMapeados: EventCardInterface[] = data.content.map(
-        (evento: any) => ({
-          id: evento.id,
-          name: evento.Name,
-          begin: evento.begin,
-          end: evento.end,
-          local: {
-            street: evento.local.street,
-            district: evento.local.district,
-            number: evento.local.number,
-            city: evento.local.city,
-            state: evento.local.state,
-            longitude: evento.local.longitude,
-            latitude: evento.local.latitude,
-          },
-          privacy: evento.privacy,
-          description: evento.description,
-        }),
-      );
-      setEventos(eventosMapeados);
+  useEffect(() => {
+    const carregarTags = async (userId: string) => {
+      try {
+        const response = await api.get(`/user/${userId}`);
+        setTags(response.data.interests);
+      } catch (error) {
+        console.error("Erro ao buscar tags do usuário", error);
+      }
     };
 
     // Obtém a localização do usuário
@@ -111,7 +106,14 @@ function HomePage() {
       },
     );
 
-    carregarTags();
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      if (decoded.sub) {
+        carregarTags(decoded.sub);
+      }
+    }
+
     carregarEventos();
   }, []);
 
@@ -132,12 +134,20 @@ function HomePage() {
       </IconButton>
 
       <Flex direction="column" gap={5}>
-        <SearchBar placeholder="Buscar evento" />
-        {/* <Flex gap={2} wrap="wrap">
-          {tags.map((e, index) => {
-            return <Tag key={index} label={`#${e.nome}`} style={e.visual} />;
-          })}
-        </Flex> */}
+        <SearchBar
+          placeholder="Buscar evento"
+          value={searchValue}
+          setValue={setSearchValue}
+          action={carregarEventos}
+        />
+        <Flex gap={2} direction="column">
+          <Text>Tags de seu interesse:</Text>
+          <Flex alignItems="center" gap={2} wrap="wrap" maxW="1200px">
+            {tags.map((e, index) => {
+              return <Tag key={index} label={e} style="solid" disabled />;
+            })}
+          </Flex>
+        </Flex>
         <Heading textStyle="2xl">Próximos Eventos</Heading>
         <Flex maxW="90vw" direction="column" gap={5}>
           {eventos.map((e: EventCardInterface) => {

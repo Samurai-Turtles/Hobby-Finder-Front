@@ -5,7 +5,7 @@ interface getEventParams {
   longitude: number;
   eventPerPage?: number;
   page?: number;
-  eventName?: number;
+  name?: string;
 }
 
 export const eventService = {
@@ -14,12 +14,12 @@ export const eventService = {
     longitude,
     eventPerPage,
     page,
-    eventName,
+    name,
   }: getEventParams) {
     try {
       const params: any = { latitude, longitude };
-      if (eventName) {
-        params.eventName = eventName;
+      if (name) {
+        params.name = name;
       }
       if (eventPerPage) {
         params.eventPerPage = eventPerPage;
