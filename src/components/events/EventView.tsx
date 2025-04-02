@@ -1,4 +1,3 @@
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
 import { CaretLeft } from "@phosphor-icons/react";
 import {
   Box,
@@ -10,7 +9,8 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { getEventButtons } from "@/utils/EventButtons";
-import Form from "@/components/layout/Form/Form";
+import Form from "@/components/layout/form";
+import NavigationButton from "../buttons/navigation-button";
 
 interface EventData {
   image: string;
@@ -34,12 +34,7 @@ export function PrivateEventView({
 
   return (
     <Container maxWidth="90vw" py={5}>
-      <FlowButton>
-        <CaretLeft size={24} color="white" />
-        <Text color="white" fontSize={{ base: "sm", sm: "md" }}>
-          Voltar
-        </Text>
-      </FlowButton>
+      <NavigationButton label="Voltar" Icon={CaretLeft} />
 
       <Flex direction="column" alignItems="center" gap={5} mt={5}>
         <Box>
