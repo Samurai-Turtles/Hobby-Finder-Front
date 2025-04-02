@@ -44,7 +44,9 @@ function Solicitations() {
           <Solicitation
             key={solicitation.id}
             msg={`Solicitação de ${solicitation.usuario.usuario}`}
-            imgSrc={`https://www.example.com/avatar/${solicitation.usuario.id}`} // Altere o link para a URL real do avatar
+            imgSrc={`https://www.example.com/avatar/${solicitation.usuario.id}`}
+            eventId={eventId || ""}
+            requestId={solicitation.id}
           />
         ))}
       </SimpleGrid>
