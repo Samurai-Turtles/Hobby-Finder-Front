@@ -1,14 +1,14 @@
 import { Flex, VStack, Text, HStack, Avatar } from "@chakra-ui/react";
 import { Star } from "@phosphor-icons/react";
 
-interface EventeRatingProps {
+interface EventRatingProps {
   username: string;
   rating: number;
   comment: string;
   imgSrc: string;
 }
 
-function EventRating({ username, rating, comment, imgSrc }: EventeRatingProps) {
+function EventRating({ username, rating, comment, imgSrc }: EventRatingProps) {
   return (
     <Flex gap={3} align="start">
       {/* Foto de perfil */}
@@ -24,13 +24,11 @@ function EventRating({ username, rating, comment, imgSrc }: EventeRatingProps) {
 
         {/* Estrelas de avaliação */}
         <HStack>
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              weight={i < rating ? "fill" : "regular"}
-              color={i < rating ? "orange" : "gray"}
-              size={20} // Define um tamanho para o ícone
-            />
+          {[...Array(rating)].map((_, i) => (
+            <Star key={i} weight="fill" color="orange" size={20} />
+          ))}
+          {[...Array(5 - rating)].map((_, i) => (
+            <Star key={i + rating} weight="regular" color="gray" size={20} />
           ))}
         </HStack>
 
