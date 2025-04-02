@@ -28,6 +28,9 @@ export interface NotificationDto {
   photo?: Photo;
   userDto: UserDto;
   date: string;
+  idEVento: string;
+  idSolicitacao: string;
+  notificationEnum: string;
 }
 
 function Notifications() {
@@ -65,11 +68,9 @@ function Notifications() {
                   : "https://via.placeholder.com/50"
               }
               msg={notification.message}
-              isSolicitation={notification.message
-                .toLowerCase()
-                .includes("quer participar")}
-              eventId={notification.id}
-              participationId={notification.userDto.id}
+              notificationType={notification.notificationEnum}
+              eventId={notification.idEVento}
+              solicitationId={notification.idSolicitacao}
             />
           ))
         ) : (
