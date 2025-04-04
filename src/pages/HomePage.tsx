@@ -1,8 +1,8 @@
 import Frame from "@/components/layout/frame";
-import { Flex, Heading, IconButton, Text } from "@chakra-ui/react";
+import { Flex, Heading, IconButton } from "@chakra-ui/react";
 import { Plus } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EventCard from "../components/cards/EventCard";
 import SearchBar from "../components/layout/searchbar";
 import { formatarData } from "../utils/formatData";
@@ -141,7 +141,6 @@ function HomePage() {
           action={carregarEventos}
         />
         <Flex gap={2} direction="column">
-          <Text>Tags de seu interesse:</Text>
           <Flex alignItems="center" gap={2} wrap="wrap" maxW="1200px">
             {tags.map((e, index) => {
               return <Tag key={index} label={e} style="solid" disabled />;
@@ -152,17 +151,19 @@ function HomePage() {
         <Flex maxW="90vw" direction="column" gap={5}>
           {eventos.map((e: EventCardInterface) => {
             return (
-              <EventCard
-                key={e.id}
-                imgSrc="https://images.unsplash.com/photo-1454908027598-28c44b1716c1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                nomeEvento={e.name}
-                descricao={e.description}
-                localizacao={`${e.local.street}, ${e.local.district}, ${e.local.city} - ${e.local.state}`}
-                distancia={`${calcularDistancia(e.local.latitude, e.local.longitude)}`}
-                dataInicial={formatarData(e.begin)}
-                dataFinal={formatarData(e.end)}
-                privacidade={e.privacy}
-              />
+              <Link to={`/event/${e.id}`}>
+                <EventCard
+                  key={e.id}
+                  imgSrc="https://images.unsplash.com/photo-1454908027598-28c44b1716c1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  nomeEvento={e.name}
+                  descricao={e.description}
+                  localizacao={`${e.local.street}, ${e.local.district}, ${e.local.city} - ${e.local.state}`}
+                  distancia={`${calcularDistancia(e.local.latitude, e.local.longitude)}`}
+                  dataInicial={formatarData(e.begin)}
+                  dataFinal={formatarData(e.end)}
+                  privacidade={e.privacy}
+                />
+              </Link>
             );
           })}
         </Flex>

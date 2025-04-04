@@ -68,6 +68,7 @@ function Login() {
         >
           <Field.Root required>
             <Input
+              type="email"
               placeholder="Nickname ou E-mail"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
@@ -78,6 +79,7 @@ function Login() {
           </Field.Root>
           <Field.Root required>
             <Input
+              type="password"
               placeholder="Senha"
               backgroundColor={"#f4f4f4"}
               border={"0px"}

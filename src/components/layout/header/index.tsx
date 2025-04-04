@@ -78,7 +78,7 @@ function Header() {
           <HoverCard.Root
             size="sm"
             openDelay={200}
-            closeDelay={500}
+            closeDelay={300}
             positioning={{ placement: "bottom-end" }}
           >
             <HoverCard.Trigger asChild>
