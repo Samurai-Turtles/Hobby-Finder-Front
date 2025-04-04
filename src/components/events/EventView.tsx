@@ -26,10 +26,7 @@ interface PrivateEventViewProps {
   eventData: EventData;
 }
 
-export function PrivateEventView({
-  userStatus,
-  eventData,
-}: PrivateEventViewProps) {
+export function EventView({ userStatus, eventData }: PrivateEventViewProps) {
   const buttons = getEventButtons(userStatus);
 
   return (

@@ -58,6 +58,14 @@ export const getEventButtons = (status: string): ButtonsConfig => {
         color: "orange",
       },
     },
+    avaliacao: {
+      primary: {
+        action: "/avaliar",
+        method: "post" as const,
+        label: "Avaliar",
+        color: "orange",
+      },
+    },
   };
 
   return buttons[status as keyof typeof buttons] || {};

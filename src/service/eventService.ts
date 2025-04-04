@@ -1,5 +1,21 @@
 import api from "@/api/axiosConfig";
 
+type Event = {
+  id: string;
+  name: string;
+  description: string;
+  dateInicio: string;
+  dateFim: string;
+  location: string;
+  tags: string;
+  imageUrl: string;
+  privacy: string;
+};
+
+type UserSituation = {
+  situation: string;
+};
+
 interface getEventParams {
   latitude: number;
   longitude: number;
@@ -9,6 +25,38 @@ interface getEventParams {
 }
 
 export const eventService = {
+  async getUserEventStatus(id: string) {
+    try {
+      const response = await api.get(`/event/${id}/situation`);
+      return response.data as UserSituation;
+    } catch (error) {
+      console.error("Erro ao buscar situação do usuário", error);
+      throw error;
+    }
+  },
+
+  async eventGetData(id: string) {
+    try {
+      const response = await api.get(`/event/${id}`);
+      const event = response.data;
+
+      return {
+        id: event.id,
+        name: event.Name,
+        description: event.description,
+        dateInicio: event.begin,
+        dateFim: event.end,
+        location: `${event.local.street}, ${event.local.number}, ${event.local.district}, ${event.local.city} - ${event.local.state}`,
+        tags: event.interestEnum,
+        imageUrl: event.photoDto?.id ? `/api/photo/${event.photoDto.id}` : "",
+        privacy: event.privacy,
+      } as Event;
+    } catch (error) {
+      console.error(`Erro ao buscar evento (ID: ${id}):`, error);
+      throw error;
+    }
+  },
+
   async getEvents({
     latitude,
     longitude,
