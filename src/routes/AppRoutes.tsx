@@ -27,6 +27,7 @@ function AppRoutes() {
             <Route path="notifications" element={<Notifications />} />
             <Route path="profile" element={<UserProfile />} />
             <Route path="profile/edit" element={<EditUserProfile />} />
+
             {/* 
                           A DEFINIR AQUI A RELAÇÃO DAS 9 TELAS DE VISUALIZAÇÃO DE EVENTO
                       */}

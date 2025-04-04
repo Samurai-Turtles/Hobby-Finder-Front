@@ -1,13 +1,42 @@
 import { Avatar, Flex, HStack, Stack, Text } from "@chakra-ui/react";
 import ActionButton from "../buttons/action-button";
+import api from "@/api/axiosConfig";
 
 interface NotificationProps {
   imgSrc?: string | undefined;
   msg: string;
-  isSolicitation?: boolean;
+  notificationType: string;
+  eventId: string;
+  solicitationId: string;
 }
 
-function Notification({ imgSrc, msg, isSolicitation }: NotificationProps) {
+function Notification({
+  imgSrc,
+  msg,
+  notificationType,
+  eventId,
+  solicitationId,
+}: NotificationProps) {
+  const acceptSolicitation = async () => {
+    try {
+      api.put(`/event/${eventId}/request/${solicitationId}`, null);
+      console.log("Solicitação aceita com sucesso.");
+    } catch (error) {
+      console.error("Erro ao aceitar solicitação:", error);
+    }
+  };
+
+  const rejectSolicitation = async () => {
+    try {
+      await api.delete(`/event/${eventId}/request/${solicitationId}`);
+      console.log("Solicitação rejeitada com sucesso.");
+    } catch (error) {
+      console.error("Erro ao rejeitar solicitação:", error);
+    }
+  };
+
+  const showButtons = msg.includes("quer participar do seu evento");
+
   return (
     <HStack gap="4" alignItems="center">
       <Avatar.Root size="xl">
@@ -18,14 +47,18 @@ function Notification({ imgSrc, msg, isSolicitation }: NotificationProps) {
         <Text color="fg.muted" textStyle="sm">
           {msg}
         </Text>
-        {isSolicitation && (
+        {showButtons && (
           <Flex gap="2">
-            <ActionButton label="Aceitar" size="xs" action={() => {}} />
+            <ActionButton
+              label="Aceitar"
+              size="xs"
+              action={acceptSolicitation}
+            />
             <ActionButton
               label="Rejeitar"
               size="xs"
               buttonStyle="outline"
-              action={() => {}}
+              action={rejectSolicitation}
             />
           </Flex>
         )}
