@@ -127,21 +127,11 @@ export const eventService = {
     }
   },
 
-  async participarEventoPublico(eventId: string) {
+  async avaliarEvento(idEvent: string, body: any) {
     try {
-      await api.post(`/event/${eventId}/request`);
+      await api.post(`/event/${idEvent}/evaluation`, body);
     } catch (error) {
-      console.error(`Erro ao participar do evento):`, error);
-      throw error;
-    }
-  },
-
-  async cancelarParticipacao(eventId: string) {
-    try {
-      await api.post(`/event/${eventId}/request`);
-    } catch (error) {
-      console.error(`Erro ao participar do evento):`, error);
-      throw error;
+      console.error(`Erro ao avaliar evento):`, error);
     }
   },
 };

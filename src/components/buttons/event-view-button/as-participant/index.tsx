@@ -50,7 +50,7 @@ function EventViewButtonAsParticipant({
   const agora = new Date();
   const inicio = new Date(begin);
   const fim = new Date(end);
-  const isEvaluated = false;
+  const isEvaluated = false; // TORNAR ISSO DINÂMICO QUANDO A ROTA ESTIVER PRONTA
 
   let status: EventStatus;
 

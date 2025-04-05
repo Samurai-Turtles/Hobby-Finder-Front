@@ -10,6 +10,7 @@ import {
 import { Star } from "@phosphor-icons/react";
 import { useState } from "react";
 import ActionButton from "../buttons/action-button";
+import { eventService } from "@/service/eventService";
 
 interface RatingEventCardProps {
   eventId: string;
@@ -22,8 +23,17 @@ function RatingEventCard({
   display,
   closeClick,
 }: RatingEventCardProps) {
-  const [rating, setRating] = useState(0);
+  const [stars, setStars] = useState(0);
   const [comment, setComment] = useState("");
+
+  const handleEvaluate = async (e: any) => {
+    e.preventDefault();
+    console.log(stars);
+    console.log(comment);
+    eventService.avaliarEvento(eventId, { stars, comment });
+    closeClick();
+    window.location.reload();
+  };
 
   return (
     <Box
@@ -54,12 +64,12 @@ function RatingEventCard({
                   <IconButton
                     key={star}
                     variant="ghost"
-                    color={star <= rating ? "customOrange" : "customDarkGrey"}
-                    onClick={() => setRating(star)}
+                    color={star <= stars ? "customOrange" : "customDarkGrey"}
+                    onClick={() => setStars(star)}
                     aria-label={`Nota ${star}`}
                     size="md"
                   >
-                    <Star weight={star <= rating ? "fill" : "bold"} size={32} />
+                    <Star weight={star <= stars ? "fill" : "bold"} size={32} />
                   </IconButton>
                 ))}
               </Flex>
@@ -70,15 +80,14 @@ function RatingEventCard({
                 value={comment}
                 variant="subtle"
                 outline="none"
+                rows={4}
+                resize="none"
                 onChange={(e) => setComment(e.target.value)}
               />
             </Flex>
           </Card.Body>
           <Card.Footer flexDirection="column">
-            <ActionButton
-              label="Registrar Avaliação"
-              action={() => {} /* TODO: add register request here */}
-            />
+            <ActionButton label="Registrar Avaliação" action={handleEvaluate} />
           </Card.Footer>
         </Card.Root>
       </Flex>

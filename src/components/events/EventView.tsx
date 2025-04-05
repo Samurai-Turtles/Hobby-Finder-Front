@@ -44,11 +44,6 @@ interface UserSituation {
 
 interface EventViewProps {
   eventId: string;
-  // userStatus:
-  //   | "NAO_PARTICIPANTE"
-  //   | "PARTICIPANTE_CONFIRMADO"
-  //   | "SOLICITANTE"
-  //   | "PARTICIPANTE_NAO_CONFIRMADO";
   eventData: EventData;
 }
 export function EventView({ eventId, eventData }: EventViewProps) {
