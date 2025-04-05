@@ -15,6 +15,8 @@ type Event = {
   dateInicio: string;
   dateFim: string;
   location: string;
+  lat: number;
+  lon: number;
   tags: string;
   imageUrl: string;
   privacy: "PUBLIC" | "PRIVATE";
@@ -33,6 +35,8 @@ export const eventService = {
         dateInicio: event.begin,
         dateFim: event.end,
         location: `${event.local.street}, ${event.local.number}, ${event.local.district}, ${event.local.city} - ${event.local.state}`,
+        lat: event.local.latitude,
+        lon: event.local.longitude,
         tags: event.interestEnum,
         imageUrl: event.photoDto?.id ? `/api/photo/${event.photoDto.id}` : "",
         privacy: event.privacy,

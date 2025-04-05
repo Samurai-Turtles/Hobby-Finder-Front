@@ -1,5 +1,5 @@
 import NavigationButton from "../buttons/navigation-button";
-import { CaretLeft } from "@phosphor-icons/react";
+import { CaretLeft, MapPin } from "@phosphor-icons/react";
 import {
   Box,
   Container,
@@ -8,6 +8,7 @@ import {
   Text,
   Image,
   Textarea,
+  IconButton,
 } from "@chakra-ui/react";
 import { formatarData } from "@/utils/formatData";
 import EventViewButtonAsCreator from "../buttons/event-view-button/as-creator";
@@ -16,6 +17,7 @@ import Tag from "../buttons/tag/tag";
 import EventViewButtonAsParticipant from "../buttons/event-view-button/as-participant";
 import { useEffect, useState } from "react";
 import { eventService } from "@/service/eventService";
+import EventLocationMapCard from "../cards/EventLocationMapCard";
 
 export interface EventData {
   image: string;
@@ -23,6 +25,8 @@ export interface EventData {
   begin: string;
   end: string;
   local: string;
+  lat: number;
+  lon: number;
   description: string;
   privacity: "PUBLIC" | "PRIVATE";
   tags: string;
@@ -52,6 +56,12 @@ export function EventView({ eventId, eventData }: EventViewProps) {
     idParticipation: "",
     idParticipationRequest: "",
   });
+  const [localizationCardDisplay, setLocalizationCardDisplay] = useState<
+    "block" | "none"
+  >("none");
+  const toggleLocalizationCard = () => {
+    setLocalizationCardDisplay((e) => (e.includes("block") ? "none" : "block"));
+  };
 
   useEffect(() => {
     const loadUserSituation = async () => {
@@ -73,6 +83,12 @@ export function EventView({ eventId, eventData }: EventViewProps) {
 
   return (
     <Container maxWidth="90vw" py={5}>
+      <EventLocationMapCard
+        display={localizationCardDisplay}
+        onClick={toggleLocalizationCard}
+        lat={eventData.lat}
+        lon={eventData.lon}
+      />
       <NavigationButton Icon={CaretLeft} label="Voltar" />
       <Flex direction="column" alignItems="center" gap={3} mt={5}>
         <Box>
@@ -92,10 +108,19 @@ export function EventView({ eventId, eventData }: EventViewProps) {
           </Text>
         </Field.Root>
 
-        <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
-          <Text fontSize="md" color="gray.600">
-            {eventData.local}
-          </Text>
+        <Field.Root backgroundColor="#f4f4f4" borderRadius="md" w="100%">
+          <Flex width="full" justifyContent="space-between" alignItems="center">
+            <Text fontSize="md" color="gray.600" p={2}>
+              {eventData.local}
+            </Text>
+            <IconButton
+              aria-label="Search database"
+              bg="gray.300"
+              onClick={toggleLocalizationCard}
+            >
+              <MapPin size={25} />
+            </IconButton>
+          </Flex>
         </Field.Root>
 
         <Flex w="full" gap={3} direction="column" md={{ flexDirection: "row" }}>

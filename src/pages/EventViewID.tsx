@@ -10,6 +10,8 @@ export default function EventoPage() {
     image: defaultImage,
     Name: "Miniteste de ES",
     local: "CAA 201",
+    lat: 0,
+    lon: 0,
     begin: "2025-01-03T01:00:00.594Z",
     end: "2025-01-04T01:00:00.594Z",
     description:
@@ -26,6 +28,8 @@ export default function EventoPage() {
           image: response.imageUrl || defaultImage,
           Name: response.name,
           local: response.location,
+          lat: response.lat,
+          lon: response.lon,
           begin: response.dateInicio,
           end: response.dateFim,
           description: response.description,

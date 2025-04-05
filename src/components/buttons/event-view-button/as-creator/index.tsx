@@ -29,10 +29,6 @@ function EventViewButtonAsCreator({
   const inicio = new Date(begin);
   const fim = new Date(end);
 
-  console.log(agora);
-  console.log(inicio);
-  console.log(fim);
-
   let status: EventStatus;
 
   if (agora < inicio) {
