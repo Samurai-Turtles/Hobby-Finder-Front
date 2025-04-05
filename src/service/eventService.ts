@@ -116,6 +116,17 @@ export const eventService = {
 
   // ROTAS PARA TELAS DE VISUALIZAÇÃO DE EVENTO
 
+  async getUserSituation(id: string) {
+    try {
+      const response = await api.get(`/event/${id}/situation`, {
+        params: { idEvent: id },
+      });
+      return response;
+    } catch (error) {
+      console.error(`Erro ao buscar o id da participação):`, error);
+    }
+  },
+
   async participarEventoPublico(eventId: string) {
     try {
       await api.post(`/event/${eventId}/request`);

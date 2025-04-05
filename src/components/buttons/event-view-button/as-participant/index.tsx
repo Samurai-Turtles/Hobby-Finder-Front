@@ -6,6 +6,8 @@ import RatingEventCard from "@/components/cards/RatingEventCard";
 type EventStatus = "nao_iniciado" | "em_andamento" | "finalizado";
 type EventPrivacity = "PUBLIC" | "PRIVATE";
 type UserStatus =
+  | "CRIADOR"
+  | "ADM"
   | "NAO_PARTICIPANTE"
   | "PARTICIPANTE_CONFIRMADO"
   | "SOLICITANTE"

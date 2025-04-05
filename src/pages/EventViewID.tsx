@@ -1,4 +1,4 @@
-import { EventData, PrivateEventView } from "@/components/events/EventView";
+import { EventData, EventView } from "@/components/events/EventView";
 import { useEffect, useState } from "react";
 import defaultImage from "@/assets/images/default-event-image.webp";
 import { useParams } from "react-router";
@@ -22,8 +22,6 @@ export default function EventoPage() {
     const loadEventData = async () => {
       if (eventId) {
         const response = await eventService.eventGetData(eventId);
-        console.log(response);
-
         setEventData({
           image: response.imageUrl || defaultImage,
           Name: response.name,
@@ -36,14 +34,8 @@ export default function EventoPage() {
         });
       }
     };
-    // loadEventData();
+    loadEventData();
   }, []);
 
-  return (
-    <PrivateEventView
-      eventId={eventId || ""}
-      userStatus={"NAO_PARTICIPANTE"}
-      eventData={eventData}
-    />
-  );
+  return <EventView eventId={eventId || ""} eventData={eventData} />;
 }

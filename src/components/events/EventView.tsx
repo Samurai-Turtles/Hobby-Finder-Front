@@ -9,12 +9,13 @@ import {
   Image,
   Textarea,
 } from "@chakra-ui/react";
-import { getEventButtons } from "@/utils/EventButtons";
 import { formatarData } from "@/utils/formatData";
 import EventViewButtonAsCreator from "../buttons/event-view-button/as-creator";
 import EventViewButtonAsAdm from "../buttons/event-view-button/as-adm";
 import Tag from "../buttons/tag/tag";
 import EventViewButtonAsParticipant from "../buttons/event-view-button/as-participant";
+import { useEffect, useState } from "react";
+import { eventService } from "@/service/eventService";
 
 export interface EventData {
   image: string;
@@ -27,25 +28,58 @@ export interface EventData {
   tags: string;
 }
 
-interface PrivateEventViewProps {
-  eventId: string;
-  userStatus:
-    | "NAO_PARTICIPANTE"
-    | "PARTICIPANTE_CONFIRMADO"
-    | "SOLICITANTE"
-    | "PARTICIPANTE_NAO_CONFIRMADO";
-  eventData: EventData;
+type UserStatus =
+  | "CRIADOR"
+  | "ADM"
+  | "NAO_PARTICIPANTE"
+  | "PARTICIPANTE_CONFIRMADO"
+  | "SOLICITANTE"
+  | "PARTICIPANTE_NAO_CONFIRMADO";
+
+interface UserSituation {
+  userStatus: UserStatus;
+  idParticipation: string;
+  idParticipationRequest: string;
 }
 
-export function PrivateEventView({
-  eventId,
-  userStatus,
-  eventData,
-}: PrivateEventViewProps) {
+interface EventViewProps {
+  eventId: string;
+  // userStatus:
+  //   | "NAO_PARTICIPANTE"
+  //   | "PARTICIPANTE_CONFIRMADO"
+  //   | "SOLICITANTE"
+  //   | "PARTICIPANTE_NAO_CONFIRMADO";
+  eventData: EventData;
+}
+export function EventView({ eventId, eventData }: EventViewProps) {
+  const [userSituation, setUserSituation] = useState<UserSituation>({
+    userStatus: "NAO_PARTICIPANTE",
+    idParticipation: "",
+    idParticipationRequest: "",
+  });
+
+  useEffect(() => {
+    const loadUserSituation = async () => {
+      try {
+        const response = await eventService.getUserSituation(eventId);
+        if (response) {
+          setUserSituation({
+            userStatus: response.data.situation,
+            idParticipation: response.data.idParticipation,
+            idParticipationRequest: response.data.idParticipationRequest,
+          });
+        }
+      } catch (error) {
+        console.error("Erro ao carregar situação do usuário no evento", error);
+      }
+    };
+    loadUserSituation();
+  }, []);
+
   return (
     <Container maxWidth="90vw" py={5}>
       <NavigationButton Icon={CaretLeft} label="Voltar" />
-      <Flex direction="column" alignItems="center" gap={5} mt={5}>
+      <Flex direction="column" alignItems="center" gap={3} mt={5}>
         <Box>
           <Image
             src={eventData.image}
@@ -95,17 +129,17 @@ export function PrivateEventView({
           />
         </Field.Root>
 
-        <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
+        <Field.Root borderRadius="md" p={2} w="100%">
           <Tag label={eventData.tags} style={"solid"} disabled />
         </Field.Root>
 
-        {userStatus.includes("CRIADOR") ? (
+        {userSituation.userStatus.includes("CRIADOR") ? (
           <EventViewButtonAsCreator
             eventId={eventId}
             begin={eventData.begin}
             end={eventData.end}
           />
-        ) : userStatus.includes("ADM") ? (
+        ) : userSituation.userStatus.includes("ADM") ? (
           <EventViewButtonAsAdm eventId={eventId} begin={eventData.begin} />
         ) : (
           <EventViewButtonAsParticipant
@@ -113,7 +147,7 @@ export function PrivateEventView({
             begin={eventData.begin}
             end={eventData.end}
             privacity={eventData.privacity}
-            userStatus={userStatus}
+            userStatus={userSituation.userStatus}
           />
         )}
       </Flex>
