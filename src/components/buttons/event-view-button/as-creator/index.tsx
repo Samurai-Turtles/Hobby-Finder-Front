@@ -71,6 +71,8 @@ function EventViewButtonAsCreator({
           label={label}
           action={action}
           buttonStyle={buttonStyle}
+          minW="full"
+          sm={{ minW: "280px" }}
         />
       )}
     </>

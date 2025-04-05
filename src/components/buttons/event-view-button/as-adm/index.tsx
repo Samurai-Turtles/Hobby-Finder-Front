@@ -17,6 +17,8 @@ function EventViewButtonAsAdm({ eventId, begin }: EventViewButtonAsAdmProps) {
           label={"Cancelar Participação"}
           action={() => console.log("CANCELAR PARTICIPAÇÃO")}
           buttonStyle={"default"}
+          minW="full"
+          sm={{ minW: "280px" }}
         />
       )}
     </>

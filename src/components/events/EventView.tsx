@@ -103,22 +103,35 @@ export function EventView({ eventId, eventData }: EventViewProps) {
           </Text>
         </Field.Root>
 
-        <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
-          <Text fontSize="md" color="gray.600">
-            Data de Início: {formatarData(eventData.begin)}
-          </Text>
-        </Field.Root>
+        <Flex w="full" gap={3} direction="column" md={{ flexDirection: "row" }}>
+          <Field.Root
+            backgroundColor="#f4f4f4"
+            borderRadius="md"
+            p={2}
+            w="100%"
+          >
+            <Text fontSize="md" color="gray.600">
+              Data de Início: {formatarData(eventData.begin)}
+            </Text>
+          </Field.Root>
 
-        <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
-          <Text fontSize="md" color="gray.600">
-            Data de Fim: {formatarData(eventData.end)}
-          </Text>
-        </Field.Root>
+          <Field.Root
+            backgroundColor="#f4f4f4"
+            borderRadius="md"
+            p={2}
+            w="100%"
+          >
+            <Text fontSize="md" color="gray.600">
+              Data de Fim: {formatarData(eventData.end)}
+            </Text>
+          </Field.Root>
+        </Flex>
 
         <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
           <Textarea
             readOnly
             value={eventData.description}
+            p={0}
             resize="none"
             backgroundColor="#f4f4f4"
             border="none"

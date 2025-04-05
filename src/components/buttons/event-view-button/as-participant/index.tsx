@@ -112,6 +112,8 @@ function EventViewButtonAsParticipant({
             label={"Avaliar Evento"}
             action={() => setRatingCardDisplay("fixed")}
             buttonStyle={"default"}
+            minW="full"
+            sm={{ minW: "280px" }}
           />
         </>
       )}
@@ -121,6 +123,8 @@ function EventViewButtonAsParticipant({
           label={config.label}
           action={config.action}
           buttonStyle={config.buttonStyle}
+          minW="full"
+          sm={{ minW: "280px" }}
         />
       )}
       {userStatus.includes("PARTICIPANTE_NAO_CONFIRMADO") && (
@@ -129,6 +133,8 @@ function EventViewButtonAsParticipant({
           label={"Cancelar Presença"}
           action={() => console.log("CANCELAR PRESENÇA")}
           buttonStyle={"alert"}
+          minW="full"
+          sm={{ minW: "280px" }}
         />
       )}
     </>
@@ -136,33 +142,3 @@ function EventViewButtonAsParticipant({
 }
 
 export default EventViewButtonAsParticipant;
-
-// <>
-//   {status.includes("finalizado") && !isEvaluated && (
-//     <>
-//       <RatingEventCard eventId={eventId} display={ratingCardDisplay} closeClick={() => setRatingCardDisplay("none")}/>
-//       <ActionButton
-//         type="button"
-//         label={"Avaliar Evento"}
-//         action={() => setRatingCardDisplay("fixed")}
-//         buttonStyle={"default"}
-//       />
-//     </>
-//   )}
-//   {config && (
-//     <ActionButton
-//       type="button"
-//       label={config.label}
-//       action={config.action}
-//       buttonStyle={config.buttonStyle}
-//     />
-//   )}
-//   {userStatus.includes("PARTICIPANTE_NAO_CONFIRMADO") && (
-//       <ActionButton
-//       type="button"
-//       label={"Cancelar Presença"}
-//       action={() => console.log("CANCELAR PRESENÇA")}
-//       buttonStyle={"alert"}
-//     />
-//     )}
-// </>
