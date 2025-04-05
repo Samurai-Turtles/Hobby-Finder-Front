@@ -1,4 +1,4 @@
-import FlowButton from "@/components/buttons/FlowButton/FlowButton";
+import NavigationButton from "../buttons/navigation-button";
 import { CaretLeft } from "@phosphor-icons/react";
 import {
   Box,
@@ -10,37 +10,41 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { getEventButtons } from "@/utils/EventButtons";
-import Form from "@/components/layout/Form/Form";
+import { formatarData } from "@/utils/formatData";
+import EventViewButtonAsCreator from "../buttons/event-view-button/as-creator";
+import EventViewButtonAsAdm from "../buttons/event-view-button/as-adm";
+import Tag from "../buttons/tag/tag";
+import EventViewButtonAsParticipant from "../buttons/event-view-button/as-participant";
 
-interface EventData {
+export interface EventData {
   image: string;
-  name: string;
-  location: string;
-  date: string;
+  Name: string;
+  begin: string;
+  end: string;
+  local: string;
   description: string;
+  privacity: "PUBLIC" | "PRIVATE";
   tags: string;
 }
 
 interface PrivateEventViewProps {
-  userStatus: string;
+  eventId: string;
+  userStatus:
+    | "NAO_PARTICIPANTE"
+    | "PARTICIPANTE_CONFIRMADO"
+    | "SOLICITANTE"
+    | "PARTICIPANTE_NAO_CONFIRMADO";
   eventData: EventData;
 }
 
 export function PrivateEventView({
+  eventId,
   userStatus,
   eventData,
 }: PrivateEventViewProps) {
-  const buttons = getEventButtons(userStatus);
-
   return (
     <Container maxWidth="90vw" py={5}>
-      <FlowButton>
-        <CaretLeft size={24} color="white" />
-        <Text color="white" fontSize={{ base: "sm", sm: "md" }}>
-          Voltar
-        </Text>
-      </FlowButton>
-
+      <NavigationButton Icon={CaretLeft} label="Voltar" />
       <Flex direction="column" alignItems="center" gap={5} mt={5}>
         <Box>
           <Image
@@ -55,19 +59,25 @@ export function PrivateEventView({
 
         <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
           <Text fontSize="lg" fontWeight="bold">
-            {eventData.name}
+            {eventData.Name}
           </Text>
         </Field.Root>
 
         <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
           <Text fontSize="md" color="gray.600">
-            {eventData.location}
+            {eventData.local}
           </Text>
         </Field.Root>
 
         <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
           <Text fontSize="md" color="gray.600">
-            Data: {new Date(eventData.date).toLocaleDateString("pt-BR")}
+            Data de Início: {formatarData(eventData.begin)}
+          </Text>
+        </Field.Root>
+
+        <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
+          <Text fontSize="md" color="gray.600">
+            Data de Fim: {formatarData(eventData.end)}
           </Text>
         </Field.Root>
 
@@ -86,29 +96,24 @@ export function PrivateEventView({
         </Field.Root>
 
         <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
-          <Text fontSize="md" color="blue.500">
-            {eventData.tags}
-          </Text>
+          <Tag label={eventData.tags} style={"solid"} disabled />
         </Field.Root>
 
-        {/* Renderização dos botões */}
-        {buttons.primary && (
-          <Form
-            action={buttons.primary.action}
-            method={buttons.primary.method}
-            btnActionLabel={buttons.primary.label}
-            buttonBgColor={buttons.primary.color}
-            children={undefined}
+        {userStatus.includes("CRIADOR") ? (
+          <EventViewButtonAsCreator
+            eventId={eventId}
+            begin={eventData.begin}
+            end={eventData.end}
           />
-        )}
-
-        {buttons.secondary && (
-          <Form
-            action={buttons.secondary.action}
-            method={buttons.secondary.method}
-            btnActionLabel={buttons.secondary.label}
-            buttonBgColor={buttons.secondary.color}
-            children={undefined}
+        ) : userStatus.includes("ADM") ? (
+          <EventViewButtonAsAdm eventId={eventId} begin={eventData.begin} />
+        ) : (
+          <EventViewButtonAsParticipant
+            eventId={eventId}
+            begin={eventData.begin}
+            end={eventData.end}
+            privacity={eventData.privacity}
+            userStatus={userStatus}
           />
         )}
       </Flex>

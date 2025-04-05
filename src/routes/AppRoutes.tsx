@@ -11,6 +11,7 @@ import CreateEvent from "@/pages/CreateEvent";
 import PrivateLayout from "./PrivateLayout";
 import EventRatings from "@/pages/EventRatings";
 import Solicitations from "@/pages/Solicitations";
+import EventViewID from "@/pages/EventViewID";
 
 function AppRoutes() {
   return (
@@ -34,6 +35,7 @@ function AppRoutes() {
                           A DEFINIR AQUI A RELAÇÃO DAS 9 TELAS DE VISUALIZAÇÃO DE EVENTO
                       */}
             <Route path="create-event" element={<CreateEvent />} />
+            <Route path="event/:eventId" element={<EventViewID />} />
             <Route path="event/:eventId/ratings" element={<EventRatings />} />
             <Route
               path="event/:eventId/solicitations"

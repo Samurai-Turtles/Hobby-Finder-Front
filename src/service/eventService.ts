@@ -8,7 +8,41 @@ interface getEventParams {
   name?: string;
 }
 
+type Event = {
+  id: string;
+  name: string;
+  description: string;
+  dateInicio: string;
+  dateFim: string;
+  location: string;
+  tags: string;
+  imageUrl: string;
+  privacy: "PUBLIC" | "PRIVATE";
+};
+
 export const eventService = {
+  async eventGetData(id: string) {
+    try {
+      const response = await api.get(`/event/${id}`);
+      const event = response.data;
+
+      return {
+        id: event.id,
+        name: event.Name,
+        description: event.description,
+        dateInicio: event.begin,
+        dateFim: event.end,
+        location: `${event.local.street}, ${event.local.number}, ${event.local.district}, ${event.local.city} - ${event.local.state}`,
+        tags: event.interestEnum,
+        imageUrl: event.photoDto?.id ? `/api/photo/${event.photoDto.id}` : "",
+        privacy: event.privacy,
+      } as Event;
+    } catch (error) {
+      console.error(`Erro ao buscar evento (ID: ${id}):`, error);
+      throw error;
+    }
+  },
+
   async getEvents({
     latitude,
     longitude,
@@ -78,5 +112,25 @@ export const eventService = {
       "EsportesRadicais",
       "YogaAoArLivre",
     ];
+  },
+
+  // ROTAS PARA TELAS DE VISUALIZAÇÃO DE EVENTO
+
+  async participarEventoPublico(eventId: string) {
+    try {
+      await api.post(`/event/${eventId}/request`);
+    } catch (error) {
+      console.error(`Erro ao participar do evento):`, error);
+      throw error;
+    }
+  },
+
+  async cancelarParticipacao(eventId: string) {
+    try {
+      await api.post(`/event/${eventId}/request`);
+    } catch (error) {
+      console.error(`Erro ao participar do evento):`, error);
+      throw error;
+    }
   },
 };

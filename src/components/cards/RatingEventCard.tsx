@@ -11,21 +11,31 @@ import { Star } from "@phosphor-icons/react";
 import { useState } from "react";
 import ActionButton from "../buttons/action-button";
 
-function RatingEventCard() {
+interface RatingEventCardProps {
+  eventId: string;
+  display: "fixed" | "none";
+  closeClick: () => void;
+}
+
+function RatingEventCard({
+  eventId,
+  display,
+  closeClick,
+}: RatingEventCardProps) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
   return (
     <Box
-      // display={display}
+      display={display}
       position="fixed"
       inset={0}
       zIndex="1000"
       backgroundColor="rgba(0, 0, 0, 0.1)"
     >
-      <Flex justifyContent="center" alignItems="center" minH="full">
+      <Flex justifyContent="center" alignItems="center" minH="full" minW="full">
         <Card.Root minW="300px" maxW="350px">
-          <CloseButton position="absolute" right={0} />
+          <CloseButton position="absolute" right={0} onClick={closeClick} />
           <Card.Body paddingBottom="1.2rem">
             <Flex direction="column" alignItems="center" gap={3}>
               <Card.Title
