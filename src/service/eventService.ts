@@ -127,7 +127,26 @@ export const eventService = {
       });
       return response;
     } catch (error) {
-      console.error(`Erro ao buscar o id da participação):`, error);
+      console.error(`Erro ao buscar o status do usuário):`, error);
+    }
+  },
+
+  async eventoJaAvaliado(id: string) {
+    try {
+      const response = await this.getUserSituation(id);
+      if (response) {
+        const idParticipation = response.data.idParticipation;
+        if (idParticipation) {
+          const response2 = await api.get(
+            `/user/${idParticipation}/evaluation`,
+          );
+          return response2.data.rateSituationEnum.includes("ALREADY_RATED");
+        }
+        return undefined;
+      }
+      return undefined;
+    } catch (error) {
+      console.error(`Erro ao buscar o status do usuário):`, error);
     }
   },
 

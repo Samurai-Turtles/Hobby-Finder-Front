@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
 import ActionButton from "../../action-button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RatingEventCard from "@/components/cards/RatingEventCard";
+import { eventService } from "@/service/eventService";
 
 type EventStatus = "nao_iniciado" | "em_andamento" | "finalizado";
 type EventPrivacity = "PUBLIC" | "PRIVATE";
@@ -46,12 +47,11 @@ function EventViewButtonAsParticipant({
   const [ratingCardDisplay, setRatingCardDisplay] = useState<"fixed" | "none">(
     "none",
   );
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const agora = new Date();
   const inicio = new Date(begin);
   const fim = new Date(end);
-  const isEvaluated = false; // TORNAR ISSO DINÂMICO QUANDO A ROTA ESTIVER PRONTA
-
+  const [isEvaluated, setIsEvaluated] = useState<boolean>(false);
   let status: EventStatus;
 
   if (agora < inicio) {
@@ -97,6 +97,20 @@ function EventViewButtonAsParticipant({
   };
 
   const config = buttonInfo[status]?.[privacity]?.[userStatus];
+
+  useEffect(() => {
+    const loadEvaluationStatus = async () => {
+      try {
+        const response = await eventService.eventoJaAvaliado(eventId);
+        if (response) {
+          setIsEvaluated(response);
+        }
+      } catch (error) {
+        console.error("Erro ao consultar status da avaliação", error);
+      }
+    };
+    loadEvaluationStatus();
+  }, [eventId]);
 
   return (
     <>

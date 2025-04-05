@@ -28,9 +28,7 @@ function RatingEventCard({
 
   const handleEvaluate = async (e: any) => {
     e.preventDefault();
-    console.log(stars);
-    console.log(comment);
-    eventService.avaliarEvento(eventId, { stars, comment });
+    await eventService.avaliarEvento(eventId, { stars, comment });
     closeClick();
     window.location.reload();
   };
