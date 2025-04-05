@@ -151,7 +151,7 @@ function HomePage() {
         <Flex maxW="90vw" direction="column" gap={5}>
           {eventos.map((e: EventCardInterface) => {
             return (
-              <Link to={`/event/${e.id}`}>
+              <Link key={e.id} to={`/event/${e.id}`}>
                 <EventCard
                   key={e.id}
                   imgSrc="https://images.unsplash.com/photo-1454908027598-28c44b1716c1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
