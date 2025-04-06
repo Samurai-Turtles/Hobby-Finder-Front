@@ -18,6 +18,8 @@ import EventViewButtonAsParticipant from "../buttons/event-view-button/as-partic
 import { useEffect, useState } from "react";
 import { eventService } from "@/service/eventService";
 import EventLocationMapCard from "../cards/EventLocationMapCard";
+import ActionButton from "../buttons/action-button";
+import { Link } from "react-router-dom";
 
 export interface EventData {
   image: string;
@@ -59,6 +61,9 @@ export function EventView({ eventId, eventData }: EventViewProps) {
   const [localizationCardDisplay, setLocalizationCardDisplay] = useState<
     "block" | "none"
   >("none");
+  const agora = new Date();
+  const fim = new Date(eventData.end);
+
   const toggleLocalizationCard = () => {
     setLocalizationCardDisplay((e) => (e.includes("block") ? "none" : "block"));
   };
@@ -91,16 +96,57 @@ export function EventView({ eventId, eventData }: EventViewProps) {
       />
       <NavigationButton Icon={CaretLeft} label="Voltar" />
       <Flex direction="column" alignItems="center" gap={3} mt={5}>
-        <Box>
-          <Image
-            src={eventData.image}
-            alt="Imagem do evento"
-            borderRadius="md"
-            objectFit="cover"
-            w="100%"
-            h="auto"
-          />
-        </Box>
+        <Flex gap={5} direction="column">
+          <Box>
+            <Image
+              src={eventData.image}
+              alt="Imagem do evento"
+              borderRadius="md"
+              objectFit="cover"
+              w="100%"
+              h="auto"
+              maxH="40vh"
+            />
+          </Box>
+          <Flex
+            h="full"
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            gap={2}
+            wrap="wrap"
+          >
+            {agora < fim ? (
+              <>
+                <Link to={`participants`}>
+                  <ActionButton
+                    w="10rem"
+                    label="Participantes"
+                    buttonStyle="outline"
+                    action={() => {}}
+                  />
+                </Link>
+                <Link to={`solicitations`}>
+                  <ActionButton
+                    w="10rem"
+                    label="Solicitações"
+                    buttonStyle="outline"
+                    action={() => {}}
+                  />
+                </Link>
+              </>
+            ) : (
+              <Link to={`ratings`}>
+                <ActionButton
+                  w="10rem"
+                  label="Avaliações"
+                  buttonStyle="outline"
+                  action={() => {}}
+                />
+              </Link>
+            )}
+          </Flex>
+        </Flex>
 
         <Field.Root backgroundColor="#f4f4f4" borderRadius="md" p={2} w="100%">
           <Text fontSize="lg" fontWeight="bold">
