@@ -68,6 +68,7 @@ function EventViewButtonAsParticipant({
     try {
       await api.post(`/event/${eventId}/request`, null);
       console.log("Confirmação feita com sucesso.");
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao realizar a confirmação:", error);
     }
@@ -88,6 +89,7 @@ function EventViewButtonAsParticipant({
         `/event/${eventId}/participation/${participationId}/user-auth`,
       );
       console.log("Participação cancelada com sucesso.");
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao cancelar participação:", error);
     }
