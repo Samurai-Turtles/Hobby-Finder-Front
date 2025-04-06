@@ -73,6 +73,16 @@ export const eventService = {
     }
   },
 
+  async getEventsByUserId(userId: string) {
+    try {
+      const response = await api.get(`/eventUser/${userId}`);
+      return response.data.content;
+    } catch (error) {
+      console.error(`Erro ao buscar eventos o usuário (ID: ${userId}):`, error);
+      throw error;
+    }
+  },
+
   async getPossibleTags() {
     return [
       "FestivalDeMusica",
