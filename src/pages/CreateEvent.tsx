@@ -1,7 +1,9 @@
 import api from "@/api/axiosConfig";
+import ActionButton from "@/components/buttons/action-button";
 import NavigationButton from "@/components/buttons/navigation-button";
 import PrivacityButton from "@/components/buttons/privacity-button";
 import Tag from "@/components/buttons/tag/tag";
+import EventLocationMapCard from "@/components/cards/EventLocationMapCard";
 import Form from "@/components/layout/form";
 import Frame from "@/components/layout/frame";
 import {
@@ -16,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { CaretLeft, Pen } from "@phosphor-icons/react";
 import { useState } from "react";
+import EventLocationSelection from "./EventLocationSelection";
 
 type EventCreationData = {
   Name: string;
@@ -37,6 +40,9 @@ type EventCreationData = {
 };
 
 function CreateEvent() {
+  const [localizationCardDisplay, setLocalizationCardDisplay] = useState<
+    "block" | "none"
+  >("none");
   const [eventData, setEventData] = useState<EventCreationData>({
     Name: "",
     begin: "",
@@ -64,6 +70,21 @@ function CreateEvent() {
       ...prevData,
       [propertyName]: e.target.value,
     }));
+  };
+
+  const handleLocationUpdate = (lat: number, lng: number) => {
+    const newLocation = eventData.Local;
+    newLocation.latitude = lat;
+    newLocation.longitude = lng;
+
+    setEventData((prevData) => ({
+      ...prevData,
+      Local: newLocation,
+    }));
+  };
+
+  const handleLocalizationCardToggle = () => {
+    setLocalizationCardDisplay((e) => (e.includes("block") ? "none" : "block"));
   };
 
   const handleCreateEventSubmit = async (e: Event) => {
@@ -112,14 +133,15 @@ function CreateEvent() {
             />
           </Field.Root>
           <Field.Root required>
-            <Input
-              placeholder="Local do evento"
-              backgroundColor={"#f4f4f4"}
-              border={"0px"}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputUpdate(event, "Local")
-              }
-              required
+            <ActionButton
+              label="Localização"
+              action={handleLocalizationCardToggle}
+            />
+            <EventLocationSelection
+              display={localizationCardDisplay}
+              handleDisplayToggle={handleLocalizationCardToggle}
+              handleCoordinateUpdate={handleLocationUpdate}
+              location={eventData.Local}
             />
           </Field.Root>
           <Field.Root required>
