@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: "https://hobby-finder-back-1-0.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },
