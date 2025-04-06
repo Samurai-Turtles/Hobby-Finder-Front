@@ -7,7 +7,6 @@ import ParticipantProfileCard from "../components/cards/ParticipantProfileCard";
 import ParticipantsList from "../components/events/ParticipantsList";
 import { useParams } from "react-router";
 import api from "@/api/axiosConfig";
-import { eventService } from "@/service/eventService";
 
 export type Participant = {
   srcImgProfile: string;

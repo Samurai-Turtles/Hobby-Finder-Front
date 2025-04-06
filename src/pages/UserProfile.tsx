@@ -16,13 +16,13 @@ import { CaretDown, CaretLeft, PencilLine, User } from "@phosphor-icons/react";
 import NavigationButton from "../components/buttons/navigation-button";
 import EventCard from "../components/cards/EventCard";
 import leafLet from "leaflet";
-
 import api from "@/api/axiosConfig";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { eventService } from "@/service/eventService";
 import { EventCardInterface } from "./HomePage";
 import { Link } from "react-router-dom";
+import imageDeafult from "../assets/images/default-event-image.webp";
 
 type User = {
   fullName: string;
@@ -220,7 +220,7 @@ function PerfilUsuario() {
               <Link key={e.id} to={`/event/${e.id}`}>
                 <EventCard
                   key={e.id}
-                  imgSrc="https://images.unsplash.com/photo-1454908027598-28c44b1716c1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  imgSrc={imageDeafult}
                   nomeEvento={e.name}
                   descricao={e.description}
                   localizacao={`${e.local.street}, ${e.local.district}, ${e.local.city} - ${e.local.state}`}
