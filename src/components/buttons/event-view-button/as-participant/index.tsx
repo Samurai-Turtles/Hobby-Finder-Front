@@ -79,7 +79,6 @@ function EventViewButtonAsParticipant({
         `/event/{id}/situation?idEvent=${eventId}`,
       );
       const participationId = response.data?.idParticipation;
-      console.log(participationId);
       if (!participationId) {
         console.error("ID de participação não encontrado.");
         return;
