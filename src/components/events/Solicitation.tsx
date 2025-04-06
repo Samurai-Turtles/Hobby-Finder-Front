@@ -13,6 +13,7 @@ function Solicitation({ msg, imgSrc, eventId, requestId }: SolicitationProps) {
   const acceptSolicitation = async () => {
     try {
       api.put(`/event/${eventId}/request/${requestId}`, null);
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao aceitar solicitações:", error);
     }
@@ -21,6 +22,7 @@ function Solicitation({ msg, imgSrc, eventId, requestId }: SolicitationProps) {
   const rejectSolicitation = async () => {
     try {
       api.delete(`/event/${eventId}/request/${requestId}`);
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao rejeitar solicitações:", error);
     }

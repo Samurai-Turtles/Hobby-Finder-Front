@@ -3,6 +3,8 @@ import ActionButton from "../../action-button";
 import { useEffect, useState } from "react";
 import RatingEventCard from "@/components/cards/RatingEventCard";
 import { eventService } from "@/service/eventService";
+import api from "@/api/axiosConfig";
+import { jwtDecode } from "jwt-decode";
 
 type EventStatus = "nao_iniciado" | "em_andamento" | "finalizado";
 type EventPrivacity = "PUBLIC" | "PRIVATE";
@@ -62,34 +64,65 @@ function EventViewButtonAsParticipant({
     status = "finalizado";
   }
 
+  const publicConfirmarParticipacao = async () => {
+    try {
+      await api.post(`/event/${eventId}/request`, null);
+      console.log("Confirmação feita com sucesso.");
+      window.location.reload();
+    } catch (error) {
+      console.error("Erro ao realizar a confirmação:", error);
+    }
+  };
+
+  const publicCancelarParticipacao = async () => {
+    try {
+      const response = await api.get(
+        `/event/{id}/situation?idEvent=${eventId}`,
+      );
+      const participationId = response.data?.idParticipation;
+      if (!participationId) {
+        console.error("ID de participação não encontrado.");
+        return;
+      }
+
+      await api.delete(
+        `/event/${eventId}/participation/${participationId}/user-auth`,
+      );
+      console.log("Participação cancelada com sucesso.");
+      window.location.reload();
+    } catch (error) {
+      console.error("Erro ao cancelar participação:", error);
+    }
+  };
+
   const buttonInfo: PartialStatusActionsMap = {
     nao_iniciado: {
       PUBLIC: {
         NAO_PARTICIPANTE: {
           label: "Participar",
-          action: () => console.log("PARTICIPAR"),
+          action: () => publicConfirmarParticipacao(),
           buttonStyle: "default",
         },
         PARTICIPANTE_CONFIRMADO: {
           label: "Cancelar Participação",
-          action: () => console.log("CANCELAR PARTICIPAÇÃO"),
+          action: () => publicCancelarParticipacao(),
           buttonStyle: "alert",
         },
       },
       PRIVATE: {
         NAO_PARTICIPANTE: {
           label: "Solicitar Participação",
-          action: () => console.log("SOLICITAR PARTICIPAÇÃO"),
+          action: () => eventService.solicitarParticipacao(eventId),
           buttonStyle: "default",
         },
         SOLICITANTE: {
           label: "Cancelar Solicitação",
-          action: () => console.log("CANCELAR SOLICITAÇÃO"),
+          action: () => eventService.cancelarSolicitacao(eventId),
           buttonStyle: "alert",
         },
         PARTICIPANTE_NAO_CONFIRMADO: {
           label: "Confirmar Presença",
-          action: () => console.log("CONFIRMAR PRESENÇA"),
+          action: () => eventService.confirmarPresenca(eventId),
           buttonStyle: "default",
         },
       },
@@ -145,7 +178,7 @@ function EventViewButtonAsParticipant({
         <ActionButton
           type="button"
           label={"Cancelar Presença"}
-          action={() => console.log("CANCELAR PRESENÇA")}
+          action={() => eventService.cancelarPresenca(eventId)}
           buttonStyle={"alert"}
           minW="full"
           sm={{ minW: "280px" }}
