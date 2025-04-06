@@ -12,7 +12,7 @@ import { jwtDecode } from "jwt-decode";
 import api from "@/api/axiosConfig";
 import Tag from "@/components/buttons/tag/tag";
 
-interface EventCardInterface {
+export interface EventCardInterface {
   id: string;
   name: string;
   begin: string;
@@ -26,7 +26,7 @@ interface EventCardInterface {
     latitude: number;
     longitude: number;
   };
-  privacy: string;
+  privacy: "PUBLIC" | "PRIVATE";
   description: string;
 }
 

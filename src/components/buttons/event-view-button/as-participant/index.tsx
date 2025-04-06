@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router";
 import ActionButton from "../../action-button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RatingEventCard from "@/components/cards/RatingEventCard";
 import { eventService } from "@/service/eventService";
+import api from "@/api/axiosConfig";
+import { jwtDecode } from "jwt-decode";
 
 type EventStatus = "nao_iniciado" | "em_andamento" | "finalizado";
 type EventPrivacity = "PUBLIC" | "PRIVATE";
@@ -47,12 +49,11 @@ function EventViewButtonAsParticipant({
   const [ratingCardDisplay, setRatingCardDisplay] = useState<"fixed" | "none">(
     "none",
   );
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const agora = new Date();
   const inicio = new Date(begin);
   const fim = new Date(end);
-  const isEvaluated = false; // TORNAR ISSO DINÂMICO QUANDO A ROTA ESTIVER PRONTA
-
+  const [isEvaluated, setIsEvaluated] = useState<boolean>(false);
   let status: EventStatus;
 
   if (agora < inicio) {
@@ -63,17 +64,48 @@ function EventViewButtonAsParticipant({
     status = "finalizado";
   }
 
+  const publicConfirmarParticipacao = async () => {
+    try {
+      await api.post(`/event/${eventId}/request`, null);
+      console.log("Confirmação feita com sucesso.");
+      window.location.reload();
+    } catch (error) {
+      console.error("Erro ao realizar a confirmação:", error);
+    }
+  };
+
+  const publicCancelarParticipacao = async () => {
+    try {
+      const response = await api.get(
+        `/event/{id}/situation?idEvent=${eventId}`,
+      );
+      const participationId = response.data?.idParticipation;
+      if (!participationId) {
+        console.error("ID de participação não encontrado.");
+        return;
+      }
+
+      await api.delete(
+        `/event/${eventId}/participation/${participationId}/user-auth`,
+      );
+      console.log("Participação cancelada com sucesso.");
+      window.location.reload();
+    } catch (error) {
+      console.error("Erro ao cancelar participação:", error);
+    }
+  };
+
   const buttonInfo: PartialStatusActionsMap = {
     nao_iniciado: {
       PUBLIC: {
         NAO_PARTICIPANTE: {
           label: "Participar",
-          action: () => console.log("PARTICIPAR"),
+          action: () => publicConfirmarParticipacao(),
           buttonStyle: "default",
         },
         PARTICIPANTE_CONFIRMADO: {
           label: "Cancelar Participação",
-          action: () => console.log("CANCELAR PARTICIPAÇÃO"),
+          action: () => publicCancelarParticipacao(),
           buttonStyle: "alert",
         },
       },
@@ -98,6 +130,20 @@ function EventViewButtonAsParticipant({
   };
 
   const config = buttonInfo[status]?.[privacity]?.[userStatus];
+
+  useEffect(() => {
+    const loadEvaluationStatus = async () => {
+      try {
+        const response = await eventService.eventoJaAvaliado(eventId);
+        if (response) {
+          setIsEvaluated(response);
+        }
+      } catch (error) {
+        console.error("Erro ao consultar status da avaliação", error);
+      }
+    };
+    loadEvaluationStatus();
+  }, [eventId]);
 
   return (
     <>

@@ -147,6 +147,7 @@ function EditUserProfile() {
 
   return (
     <Frame>
+      <DeleteAccountCard display={cardDisplay} onClick={showHideCard} />
       <AddNewTagCard
         possibleTags={possibleTags}
         display={addTagCardDisplay}
@@ -274,7 +275,6 @@ function EditUserProfile() {
           </Flex>
         </Fieldset.Root>
       </Flex>
-      <DeleteAccountCard display={cardDisplay} onClick={showHideCard} />
     </Frame>
   );
 }
