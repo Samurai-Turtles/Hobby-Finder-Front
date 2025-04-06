@@ -12,6 +12,7 @@ import PrivateLayout from "./PrivateLayout";
 import EventRatings from "@/pages/EventRatings";
 import Solicitations from "@/pages/Solicitations";
 import EventViewID from "@/pages/EventViewID";
+import Participants from "@/pages/Participants";
 
 function AppRoutes() {
   return (
@@ -40,6 +41,10 @@ function AppRoutes() {
             <Route
               path="event/:eventId/solicitations"
               element={<Solicitations />}
+            />
+            <Route
+              path="event/:eventId/participants"
+              element={<Participants />}
             />
           </Route>
         </Route>
