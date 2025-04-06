@@ -112,17 +112,17 @@ function EventViewButtonAsParticipant({
       PRIVATE: {
         NAO_PARTICIPANTE: {
           label: "Solicitar Participação",
-          action: () => console.log("SOLICITAR PARTICIPAÇÃO"),
+          action: () => eventService.solicitarParticipacao(eventId),
           buttonStyle: "default",
         },
         SOLICITANTE: {
           label: "Cancelar Solicitação",
-          action: () => console.log("CANCELAR SOLICITAÇÃO"),
+          action: () => eventService.cancelarSolicitacao(eventId),
           buttonStyle: "alert",
         },
         PARTICIPANTE_NAO_CONFIRMADO: {
           label: "Confirmar Presença",
-          action: () => console.log("CONFIRMAR PRESENÇA"),
+          action: () => eventService.confirmarPresenca(eventId),
           buttonStyle: "default",
         },
       },
@@ -178,7 +178,7 @@ function EventViewButtonAsParticipant({
         <ActionButton
           type="button"
           label={"Cancelar Presença"}
-          action={() => console.log("CANCELAR PRESENÇA")}
+          action={() => eventService.cancelarPresenca(eventId)}
           buttonStyle={"alert"}
           minW="full"
           sm={{ minW: "280px" }}
