@@ -19,11 +19,11 @@ function ParticipantItem({ participant, onClick }: ParticipantItemProps) {
     >
       <AvatarGroup>
         <Avatar.Root size="xl">
-          <Avatar.Fallback name={participant.nickname} />
+          <Avatar.Fallback name={participant.participantData.username} />
           <Avatar.Image src={participant.srcImgProfile} />
         </Avatar.Root>
       </AvatarGroup>
-      {participant.nickname}
+      {participant.participantData.username}
     </Box>
   );
 }
