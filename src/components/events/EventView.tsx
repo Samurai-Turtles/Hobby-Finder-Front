@@ -116,35 +116,38 @@ export function EventView({ eventId, eventData }: EventViewProps) {
             gap={2}
             wrap="wrap"
           >
-            {agora < fim ? (
-              <>
-                <Link to={`participants`}>
-                  <ActionButton
-                    w="10rem"
-                    label="Participantes"
-                    buttonStyle="outline"
-                    action={() => {}}
-                  />
-                </Link>
-                <Link to={`solicitations`}>
-                  <ActionButton
-                    w="10rem"
-                    label="Solicitações"
-                    buttonStyle="outline"
-                    action={() => {}}
-                  />
-                </Link>
-              </>
-            ) : (
-              <Link to={`ratings`}>
-                <ActionButton
-                  w="10rem"
-                  label="Avaliações"
-                  buttonStyle="outline"
-                  action={() => {}}
-                />
-              </Link>
-            )}
+            {agora < fim
+              ? (userSituation.userStatus.includes("CRIADOR") ||
+                  userSituation.userStatus.includes("ADM")) && (
+                  <>
+                    <Link to={`participants`}>
+                      <ActionButton
+                        w="10rem"
+                        label="Participantes"
+                        buttonStyle="outline"
+                        action={() => {}}
+                      />
+                    </Link>
+                    <Link to={`solicitations`}>
+                      <ActionButton
+                        w="10rem"
+                        label="Solicitações"
+                        buttonStyle="outline"
+                        action={() => {}}
+                      />
+                    </Link>
+                  </>
+                )
+              : userSituation.userStatus.includes("CRIADOR") && (
+                  <Link to={`ratings`}>
+                    <ActionButton
+                      w="10rem"
+                      label="Avaliações"
+                      buttonStyle="outline"
+                      action={() => {}}
+                    />
+                  </Link>
+                )}
           </Flex>
         </Flex>
 
