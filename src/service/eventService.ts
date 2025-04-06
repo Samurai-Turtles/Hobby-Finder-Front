@@ -1,4 +1,5 @@
 import api from "@/api/axiosConfig";
+import ParticipantItem from "@/components/events/ParticipantItem";
 
 interface getEventParams {
   latitude: number;
@@ -147,6 +148,7 @@ export const eventService = {
       console.log(
         `Solicitação de participação enviada para o evento ${idEvent}`,
       );
+      window.location.reload();
     } catch (error) {
       console.error(
         `Erro ao solicitar participação no evento ${idEvent}:`,
@@ -159,23 +161,71 @@ export const eventService = {
   async cancelarSolicitacao(idEvent: string) {
     try {
       // Primeiro busca o ID da solicitação ativa
-      const response = await api.get(`/event/${idEvent}/request`);
-      const requestId = response.data.content?.[0]?.id;
-
-      if (!requestId) {
+      const response = await api.get(`/user/request`);
+      const request = response.data.content.find(
+        (item: any) => item.event.id === idEvent,
+      );
+      if (!request) {
         throw new Error("ID da solicitação não encontrado.");
       }
 
-      await api.delete(`/event/${idEvent}/request/${requestId}`);
+      await api.delete(`/user/request/${request.id}`);
+
       console.log(
         `Solicitação de participação cancelada para o evento ${idEvent}`,
       );
+      window.location.reload();
     } catch (error) {
       console.error(
         `Erro ao cancelar solicitação no evento ${idEvent}:`,
         error,
       );
       throw error;
+    }
+  },
+
+  async confirmarPresenca(idEvent: string) {
+    try {
+      const response = await api.get(
+        `/event/{id}/situation?idEvent=${idEvent}`,
+      );
+      const participationId = response.data?.idParticipation;
+      console.log(participationId);
+      if (!participationId) {
+        console.error("ID de participação não encontrado.");
+      }
+
+      await api.put(
+        `/event/${idEvent}/participation/${participationId}?userParticipation=CONFIRMED_PRESENCE`,
+      );
+      console.log(`Presença confirmada para o evento ${idEvent}`);
+      window.location.reload();
+    } catch (error) {
+      console.error(`Erro ao confirmar presença no evento ${idEvent}:`, error);
+      window.location.reload();
+      throw error;
+    }
+  },
+
+  async cancelarPresenca(idEvent: string) {
+    try {
+      const response = await api.get(
+        `/event/{id}/situation?idEvent=${idEvent}`,
+      );
+      const participationId = response.data?.idParticipation;
+      console.log(participationId);
+      if (!participationId) {
+        console.error("ID de participação não encontrado.");
+        return;
+      }
+
+      await api.delete(
+        `/event/${idEvent}/participation/${participationId}/user-auth`,
+      );
+      console.log("Participação cancelada com sucesso.");
+      window.location.reload();
+    } catch (error) {
+      console.error("Erro ao cancelar participação:", error);
     }
   },
 };

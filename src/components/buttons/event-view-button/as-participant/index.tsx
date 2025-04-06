@@ -90,7 +90,7 @@ function EventViewButtonAsParticipant({
         },
         PARTICIPANTE_NAO_CONFIRMADO: {
           label: "Confirmar Presença",
-          action: () => console.log("CONFIRMAR PRESENÇA"),
+          action: () => eventService.confirmarPresenca(eventId),
           buttonStyle: "default",
         },
       },
@@ -132,7 +132,7 @@ function EventViewButtonAsParticipant({
         <ActionButton
           type="button"
           label={"Cancelar Presença"}
-          action={() => console.log("CANCELAR PRESENÇA")}
+          action={() => eventService.cancelarPresenca(eventId)}
           buttonStyle={"alert"}
           minW="full"
           sm={{ minW: "280px" }}
