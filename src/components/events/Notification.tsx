@@ -13,7 +13,6 @@ interface NotificationProps {
 function Notification({
   imgSrc,
   msg,
-  notificationType,
   eventId,
   solicitationId,
 }: NotificationProps) {
@@ -21,6 +20,7 @@ function Notification({
     try {
       api.put(`/event/${eventId}/request/${solicitationId}`, null);
       console.log("Solicitação aceita com sucesso.");
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao aceitar solicitação:", error);
     }
@@ -30,12 +30,13 @@ function Notification({
     try {
       await api.delete(`/event/${eventId}/request/${solicitationId}`);
       console.log("Solicitação rejeitada com sucesso.");
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao rejeitar solicitação:", error);
     }
   };
 
-  const showButtons = msg.includes("quer participar do seu evento");
+  const showButtons = msg.includes("deseja participar no evento");
 
   return (
     <HStack gap="4" alignItems="center">
