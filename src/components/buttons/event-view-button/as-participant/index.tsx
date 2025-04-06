@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import ActionButton from "../../action-button";
 import { useState } from "react";
 import RatingEventCard from "@/components/cards/RatingEventCard";
+import { eventService } from "@/service/eventService";
 
 type EventStatus = "nao_iniciado" | "em_andamento" | "finalizado";
 type EventPrivacity = "PUBLIC" | "PRIVATE";
@@ -79,12 +80,12 @@ function EventViewButtonAsParticipant({
       PRIVATE: {
         NAO_PARTICIPANTE: {
           label: "Solicitar Participação",
-          action: () => console.log("SOLICITAR PARTICIPAÇÃO"),
+          action: () => eventService.solicitarParticipacao(eventId),
           buttonStyle: "default",
         },
         SOLICITANTE: {
           label: "Cancelar Solicitação",
-          action: () => console.log("CANCELAR SOLICITAÇÃO"),
+          action: () => eventService.cancelarSolicitacao(eventId),
           buttonStyle: "alert",
         },
         PARTICIPANTE_NAO_CONFIRMADO: {

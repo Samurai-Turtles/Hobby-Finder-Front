@@ -28,7 +28,7 @@ export interface EventData {
   lat: number;
   lon: number;
   description: string;
-  privacity: "PUBLIC" | "PRIVATE";
+  privacity: "PRIVATE" | "PUBLIC";
   tags: string;
 }
 
