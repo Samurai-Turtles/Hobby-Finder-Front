@@ -1,20 +1,14 @@
+import { privacityButtonRecipe } from "@/components/buttons/privacity-button/privacity-button.recipe";
 import { capitalizeFirstLetter } from "@/utils/formatData";
 import { Box, Flex, Text, useRecipe } from "@chakra-ui/react";
 import { LockSimple, LockSimpleOpen } from "@phosphor-icons/react";
-import { privacityButtonRecipe } from "./privacity-button.recipe";
 
-export type PrivacityStatus = "PRIVATE" | "PUBLIC";
-
-interface PrivacityButtonProps {
-  status: PrivacityStatus;
-  handlePrivacyToggle: () => void;
+interface PrivacyIndicatorProps {
+  privacy: "PUBLIC" | "PRIVATE";
 }
 
-function PrivacityButton({
-  status,
-  handlePrivacyToggle,
-}: PrivacityButtonProps) {
-  const visual = status == "PRIVATE" ? "outline" : "solid";
+function PrivacyIndicator({ privacy }: PrivacyIndicatorProps) {
+  const visual = privacy == "PRIVATE" ? "outline" : "solid";
   const recipe = useRecipe({ recipe: privacityButtonRecipe });
   const styles = recipe({ visual });
 
@@ -27,9 +21,8 @@ function PrivacityButton({
       justifyContent={"center"}
       alignItems={"center"}
       css={styles}
-      onClick={handlePrivacyToggle}
     >
-      {status == "PUBLIC" ? (
+      {privacy == "PUBLIC" ? (
         <Box p={1} bgColor="customWhite" rounded="full" color="customOrange">
           <LockSimpleOpen size={16} />
         </Box>
@@ -39,10 +32,10 @@ function PrivacityButton({
         </Box>
       )}
       <Text px={1} fontWeight="bold" userSelect={"none"}>
-        {capitalizeFirstLetter(status == "PUBLIC" ? "PÚBLICO" : "PRIVADO")}
+        {capitalizeFirstLetter(privacy == "PUBLIC" ? "PÚBLICO" : "PRIVADO")}
       </Text>
     </Flex>
   );
 }
 
-export default PrivacityButton;
+export default PrivacyIndicator;

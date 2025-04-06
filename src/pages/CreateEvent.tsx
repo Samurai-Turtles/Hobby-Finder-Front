@@ -1,6 +1,9 @@
 import api from "@/api/axiosConfig";
+import ActionButton from "@/components/buttons/action-button";
 import NavigationButton from "@/components/buttons/navigation-button";
-import PrivacityButton from "@/components/buttons/privacity-button";
+import PrivacityButton, {
+  PrivacityStatus,
+} from "@/components/buttons/privacity-button";
 import Tag from "@/components/buttons/tag/tag";
 import Form from "@/components/layout/form";
 import Frame from "@/components/layout/frame";
@@ -16,13 +19,15 @@ import {
 } from "@chakra-ui/react";
 import { CaretLeft, Pen } from "@phosphor-icons/react";
 import { useState } from "react";
+import EventLocationSelection from "./EventLocationSelection";
+import { useNavigate } from "react-router";
 
 type EventCreationData = {
   Name: string;
   begin: string;
   end: string;
-  Local: {
-    rua: string;
+  local: {
+    street: string;
     district: string;
     number: string;
     city: string;
@@ -30,30 +35,34 @@ type EventCreationData = {
     latitude: number;
     longitude: number;
   };
-  privacity: string;
+  privacy: PrivacityStatus;
   description: string;
   maxUserAmount: number;
-  interests: string;
+  interestEnum: string;
 };
 
 function CreateEvent() {
+  const navigate = useNavigate();
+  const [localizationCardDisplay, setLocalizationCardDisplay] = useState<
+    "block" | "none"
+  >("none");
   const [eventData, setEventData] = useState<EventCreationData>({
     Name: "",
     begin: "",
     end: "",
-    Local: {
-      rua: "",
-      district: "",
-      number: "",
-      city: "",
-      state: "",
-      latitude: 0,
+    local: {
+      street: "Rua Fulano de Tal",
+      district: "Centro",
+      number: "123",
+      city: "Bakersfield",
+      state: "Nicarágua",
       longitude: 0,
+      latitude: 0,
     },
-    privacity: "",
+    privacy: "PUBLIC",
     description: "",
     maxUserAmount: 0,
-    interests: "",
+    interestEnum: "FestivalDeMusica",
   });
 
   const handleInputUpdate = (
@@ -66,11 +75,59 @@ function CreateEvent() {
     }));
   };
 
+  const handleLocationUpdate = (lat: number, lng: number) => {
+    const newLocation = eventData.local;
+    newLocation.latitude = lat;
+    newLocation.longitude = lng;
+
+    setEventData((prevData) => ({
+      ...prevData,
+      Local: newLocation,
+    }));
+  };
+
+  const handleLocalizationCardToggle = () => {
+    setLocalizationCardDisplay((e) => (e.includes("block") ? "none" : "block"));
+  };
+
+  const handleDatetimeStartUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const date = new Date(event.target.value);
+    const gmtMinus3 = new Date(date.getTime() - 3 * 60 * 60 * 1000);
+
+    setEventData((prevData) => ({
+      ...prevData,
+      begin: gmtMinus3.toISOString(),
+    }));
+  };
+
+  const handleDatetimeEndUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const date = new Date(event.target.value);
+    const gmtMinus3 = new Date(date.getTime() - 3 * 60 * 60 * 1000);
+    console.log(gmtMinus3.toISOString());
+
+    setEventData((prevData) => ({
+      ...prevData,
+      end: gmtMinus3.toISOString(),
+    }));
+  };
+
+  const handlePrivacyToggle = () => {
+    setEventData((prevData) => ({
+      ...prevData,
+      privacy: eventData.privacy == "PUBLIC" ? "PRIVATE" : "PUBLIC",
+    }));
+  };
+
   const handleCreateEventSubmit = async (e: Event) => {
     e.preventDefault();
 
     try {
-      await api.post("/api/event", eventData);
+      await api.post("/event", eventData);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -112,14 +169,15 @@ function CreateEvent() {
             />
           </Field.Root>
           <Field.Root required>
-            <Input
-              placeholder="Local do evento"
-              backgroundColor={"#f4f4f4"}
-              border={"0px"}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputUpdate(event, "Local")
-              }
-              required
+            <ActionButton
+              label="Localização"
+              action={handleLocalizationCardToggle}
+            />
+            <EventLocationSelection
+              display={localizationCardDisplay}
+              handleDisplayToggle={handleLocalizationCardToggle}
+              handleCoordinateUpdate={handleLocationUpdate}
+              location={eventData.local}
             />
           </Field.Root>
           <Field.Root required>
@@ -128,9 +186,7 @@ function CreateEvent() {
               type="datetime-local"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputUpdate(event, "begin")
-              }
+              onChange={handleDatetimeStartUpdate}
               required
             />
           </Field.Root>
@@ -140,22 +196,19 @@ function CreateEvent() {
               type="datetime-local"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputUpdate(event, "end")
-              }
+              onChange={handleDatetimeEndUpdate}
               required
             />
           </Field.Root>
-          <Field.Root required>
+          <Field.Root>
             <Input
               placeholder="Número de participantes"
               type="number"
               backgroundColor={"#f4f4f4"}
               border={"0px"}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputUpdate(event, "end")
+                handleInputUpdate(event, "maxUserAmount")
               }
-              required
             />
           </Field.Root>
           <Field.Root>
@@ -175,7 +228,10 @@ function CreateEvent() {
             <Tag label="tag" style="solid" disabled />
             <Tag label="tag" style="solid" disabled />
           </HStack>
-          <PrivacityButton privacidade="Público" />
+          <PrivacityButton
+            status={eventData.privacy}
+            handlePrivacyToggle={handlePrivacyToggle}
+          />
         </Form>
       </VStack>
     </Frame>
