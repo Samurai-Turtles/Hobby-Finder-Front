@@ -15,11 +15,14 @@ import {
 import { CaretDown, CaretLeft, PencilLine, User } from "@phosphor-icons/react";
 import NavigationButton from "../components/buttons/navigation-button";
 import EventCard from "../components/cards/EventCard";
+import leafLet from "leaflet";
 
 import api from "@/api/axiosConfig";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { eventService } from "@/service/eventService";
+import { EventCardInterface } from "./HomePage";
+import { Link } from "react-router-dom";
 
 type User = {
   fullName: string;
@@ -28,18 +31,56 @@ type User = {
   interests: string[];
 };
 
+interface UserEvents extends EventCardInterface {
+  userSituation: string;
+}
+
 function PerfilUsuario() {
   const eventsFilter = createListCollection({
     items: [
-      { label: "Criados por mim", value: "Criados por mim" },
-      { label: "Sou organizador", value: "Sou organizador" },
-      { label: "Sou participante", value: "SOu participante" },
+      { label: "Criados por mim", value: "CRIADOR" },
+      { label: "Sou organizador", value: "ADM" },
+      { label: "Sou participante", value: "PARTICIPANTE_CONFIRMADO" },
     ],
   });
   const [user, setUser] = useState<User>();
   const [tags, setTags] = useState<string[]>([]);
+  const [eventos, setEventos] = useState<UserEvents[]>([]);
+  const [coordenadaAtual, setCoordenadaAtual] = useState({
+    origemLat: 0,
+    origemLon: 0,
+  });
+  const [statusSelecionado, setStatusSelecionado] = useState("CRIADOR");
+
+  // Calcula a distância (em quilômetros) da localização atual até a localização do evento
+  const calcularDistancia = (destinoLat: number, destinoLon: number) => {
+    if (coordenadaAtual.origemLat === 0 || coordenadaAtual.origemLon === 0) {
+      return "Calculando...";
+    }
+    const minhaLocalizacao = leafLet.latLng(
+      coordenadaAtual.origemLat,
+      coordenadaAtual.origemLon,
+    );
+    const destino = leafLet.latLng(destinoLat, destinoLon);
+    const distancia = minhaLocalizacao.distanceTo(destino);
+    return (distancia / 1000).toFixed(2);
+  };
 
   useEffect(() => {
+    // Obtém a localização do usuário
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCoordenadaAtual({
+          origemLat: latitude,
+          origemLon: longitude,
+        });
+      },
+      (error) => {
+        console.error("Erro ao obter localização:", error);
+      },
+    );
+
     const fetchUserData = async (userId: any) => {
       try {
         const response = await api.get(`/user/${userId}`);
@@ -58,11 +99,47 @@ function PerfilUsuario() {
       }
     };
 
+    const getUserSituation = async (eventId: string) => {
+      const response = await eventService.getUserSituation(eventId);
+      return response?.data.situation;
+    };
+
+    const carregarEventos = async () => {
+      const data = await eventService.getEvents({
+        latitude: coordenadaAtual.origemLat,
+        longitude: coordenadaAtual.origemLon,
+      });
+
+      const eventosMapeados: UserEvents[] = await Promise.all(
+        data.content.map(async (evento: any) => ({
+          userSituation: await getUserSituation(evento.id),
+          id: evento.id,
+          name: evento.Name,
+          begin: evento.begin,
+          end: evento.end,
+          local: {
+            street: evento.local.street,
+            district: evento.local.district,
+            number: evento.local.number,
+            city: evento.local.city,
+            state: evento.local.state,
+            longitude: evento.local.longitude,
+            latitude: evento.local.latitude,
+          },
+          privacy: evento.privacy,
+          description: evento.description,
+        })),
+      );
+
+      setEventos(eventosMapeados);
+    };
+
     // Exemplo de uso (chamando a função com o ID do usuário)
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
       fetchUserData(decoded.sub); // Se "sub" for o ID do usuário
+      carregarEventos();
     }
 
     eventService.getPossibleTags().then((e) => setTags(e));
@@ -98,6 +175,8 @@ function PerfilUsuario() {
           alignItems="center"
           justifyContent="space-between"
           gap={2}
+          mb={2}
+          md={{ mb: 0 }}
         >
           <Text fontSize="lg" fontWeight="bold">
             Meus Eventos
@@ -109,6 +188,9 @@ function PerfilUsuario() {
             width="150px"
             minH="100%"
             alignItems="center"
+            onValueChange={(selected) =>
+              setStatusSelecionado(selected.value[0])
+            }
           >
             <SelectTrigger
               fontSize="0.8rem"
@@ -131,17 +213,24 @@ function PerfilUsuario() {
             </SelectContent>
           </SelectRoot>
         </Flex>
-        <Flex direction="column" gap={5}>
-          <EventCard
-            imgSrc="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            nomeEvento="Alok no Parque do Povo"
-            descricao="O Alok no Parque do Povo foi um evento de grande destaque realizado em Campina Grande, onde o DJ e produtor musical Alok se apresentou ao vivo. Conhecido por seus hits internacionais e estilo de música eletrônica, Alok atraiu milhares de fãs para o Parque do Povo, um dos principais pontos turísticos da cidade. O evento proporcionou uma experiência única, com performances energéticas e a presença de um público diverso, celebrando a música e a cultura em uma grande festa ao ar livre."
-            localizacao="Parque do Povo, Campina Grande, Paraíba"
-            distancia={"4.2"}
-            dataInicial={formatarData("2022-10-31T01:00:00.594Z")}
-            dataFinal={formatarData("2022-10-31T02:00:00.594Z")}
-            privacidade={"PUBLIC"}
-          />
+        <Flex width="full" direction="column" gap={5}>
+          {eventos
+            .filter((e) => e.userSituation.includes(statusSelecionado))
+            .map((e: EventCardInterface) => (
+              <Link key={e.id} to={`/event/${e.id}`}>
+                <EventCard
+                  key={e.id}
+                  imgSrc="https://images.unsplash.com/photo-1454908027598-28c44b1716c1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  nomeEvento={e.name}
+                  descricao={e.description}
+                  localizacao={`${e.local.street}, ${e.local.district}, ${e.local.city} - ${e.local.state}`}
+                  distancia={`${calcularDistancia(e.local.latitude, e.local.longitude)}`}
+                  dataInicial={formatarData(e.begin)}
+                  dataFinal={formatarData(e.end)}
+                  privacidade={e.privacy}
+                />
+              </Link>
+            ))}
         </Flex>
       </Flex>
     </Frame>

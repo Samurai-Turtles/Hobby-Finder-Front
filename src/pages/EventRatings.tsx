@@ -7,9 +7,14 @@ import { useEffect, useState } from "react";
 import api from "@/api/axiosConfig";
 import { useParams } from "react-router-dom";
 
+interface UserDTO {
+  username: string;
+}
+
 interface Rating {
   star: number;
   comment: string;
+  userDTO: UserDTO;
 }
 
 function EventRatings() {
@@ -39,7 +44,7 @@ function EventRatings() {
         {ratings.map((rating, index) => (
           <EventRating
             key={index}
-            username="Usuário Desconhecido"
+            username={rating.userDTO.username}
             rating={rating.star}
             comment={rating.comment}
             imgSrc={"#"}
