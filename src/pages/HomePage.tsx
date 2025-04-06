@@ -26,7 +26,7 @@ interface EventCardInterface {
     latitude: number;
     longitude: number;
   };
-  privacy: string;
+  privacy: "PUBLIC" | "PRIVATE";
   description: string;
 }
 

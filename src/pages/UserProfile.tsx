@@ -140,7 +140,7 @@ function PerfilUsuario() {
             distancia={"4.2"}
             dataInicial={formatarData("2022-10-31T01:00:00.594Z")}
             dataFinal={formatarData("2022-10-31T02:00:00.594Z")}
-            privacidade="PUBLICO"
+            privacidade={"PUBLIC"}
           />
         </Flex>
       </Flex>
