@@ -1,7 +1,6 @@
-import { Button, SystemStyleObject, useRecipe } from "@chakra-ui/react";
-import { useState } from "react";
-import { tagRecipe } from "./tag.recipe";
+import { Button, useRecipe } from "@chakra-ui/react";
 import { X } from "@phosphor-icons/react";
+import { tagRecipe } from "./tag.recipe";
 
 interface TagProps {
   label: string;
@@ -12,28 +11,10 @@ interface TagProps {
 
 function Tag({ label, style, disabled = false, editClick }: TagProps) {
   const recipe = useRecipe({ recipe: tagRecipe });
-  const styleSolid = recipe({ visual: "solid" });
-  const styleOutline = recipe({ visual: "outline" });
-
-  const [currentStyle, setCurrentStyle] = useState<SystemStyleObject>(
-    style === "solid" ? styleSolid : styleOutline,
-  );
-
-  // const handleVisualToggle = () => {
-  //   if (!disabled) {
-  //     setCurrentStyle((prevStyle) =>
-  //       prevStyle === styleSolid ? styleOutline : styleSolid,
-  //     );
-  //   }
-  // };
+  const styleSolid = recipe({ visual: style });
 
   return (
-    <Button
-      // onClick={handleVisualToggle}
-      size="xs"
-      rounded="full"
-      css={currentStyle}
-    >
+    <Button size="xs" rounded="full" css={styleSolid}>
       #{label}
       {disabled || <X size={32} onClick={() => editClick?.(label)} />}
     </Button>

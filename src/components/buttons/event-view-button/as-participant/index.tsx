@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router";
-import ActionButton from "../../action-button";
-import { useEffect, useState } from "react";
+import api from "@/api/axiosConfig";
 import RatingEventCard from "@/components/cards/RatingEventCard";
 import { eventService } from "@/service/eventService";
-import api from "@/api/axiosConfig";
-import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
+import ActionButton from "../../action-button";
 
 type EventStatus = "nao_iniciado" | "em_andamento" | "finalizado";
 type EventPrivacity = "PUBLIC" | "PRIVATE";

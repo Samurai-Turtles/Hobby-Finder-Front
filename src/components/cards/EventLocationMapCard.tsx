@@ -1,6 +1,5 @@
 import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { X } from "@phosphor-icons/react";
-import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import ResizeMapOnShow from "../layout/resizemap";
 
@@ -17,10 +16,6 @@ function EventLocationMapCard({
   lat,
   lon,
 }: EventLocationMapCardProps) {
-  const [address, setAddress] = useState(
-    "AVENIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-  );
-
   return (
     <Box
       display={display}
@@ -37,7 +32,7 @@ function EventLocationMapCard({
             </IconButton>
           </Flex>
           <MapContainer
-            center={[51.505, -0.09]}
+            center={[lat, lon]}
             zoom={13}
             scrollWheelZoom={true}
             style={{ width: "100%", height: "80vh" }}
@@ -48,7 +43,7 @@ function EventLocationMapCard({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <Marker position={[51.505, -0.09]}>
-              <Popup>{address}</Popup>
+              <Popup>{"Rua Fulano de Sal"}</Popup>
             </Marker>
           </MapContainer>
         </Box>

@@ -1,11 +1,10 @@
 import ActionButton from "../../action-button";
 
 interface EventViewButtonAsAdmProps {
-  eventId: string;
   begin: string;
 }
 
-function EventViewButtonAsAdm({ eventId, begin }: EventViewButtonAsAdmProps) {
+function EventViewButtonAsAdm({ begin }: EventViewButtonAsAdmProps) {
   const agora = new Date();
   const inicio = new Date(begin);
 

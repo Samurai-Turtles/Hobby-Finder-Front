@@ -1,5 +1,4 @@
 import api from "@/api/axiosConfig";
-import ParticipantItem from "@/components/events/ParticipantItem";
 
 interface getEventParams {
   latitude: number;

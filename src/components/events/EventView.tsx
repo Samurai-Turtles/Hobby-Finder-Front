@@ -217,12 +217,11 @@ export function EventView({ eventId, eventData }: EventViewProps) {
 
         {userSituation.userStatus.includes("CRIADOR") ? (
           <EventViewButtonAsCreator
-            eventId={eventId}
             begin={eventData.begin}
             end={eventData.end}
           />
         ) : userSituation.userStatus.includes("ADM") ? (
-          <EventViewButtonAsAdm eventId={eventId} begin={eventData.begin} />
+          <EventViewButtonAsAdm begin={eventData.begin} />
         ) : (
           <EventViewButtonAsParticipant
             eventId={eventId}

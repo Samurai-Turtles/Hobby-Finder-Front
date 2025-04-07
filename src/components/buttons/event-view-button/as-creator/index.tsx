@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router";
 import ActionButton from "../../action-button";
 
 type EventStatus = "nao_iniciado" | "em_andamento" | "finalizado";
@@ -14,17 +13,14 @@ type StatusActionsMap = {
 };
 
 interface EventViewButtonAsCreatorProps {
-  eventId: string;
   begin: string;
   end: string;
 }
 
 function EventViewButtonAsCreator({
-  eventId,
   begin,
   end,
 }: EventViewButtonAsCreatorProps) {
-  const navigate = useNavigate();
   const agora = new Date();
   const inicio = new Date(begin);
   const fim = new Date(end);
