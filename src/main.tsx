@@ -1,9 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/main.scss";
+import { Provider } from "./components/ui/provider";
+import AppRoutes from "./routes/AppRoutes";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <h1>I'm a teapot!</h1>
+    <Provider defaultTheme="light">
+      <AppRoutes />
+    </Provider>
   </StrictMode>,
 );
